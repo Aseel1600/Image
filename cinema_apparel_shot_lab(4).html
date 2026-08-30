@@ -1,0 +1,343 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CINEMA // APPAREL SHOT LAB</title>
+<style>
+:root{--bg:#07080b;--panel:#101218;--panel2:#151821;--line:#282d38;--text:#f4f5f7;--muted:#969dab;--gold:#d5b36a;--green:#7cf0c2}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 20% 0,#171923 0,#07080b 38%,#050609 100%);color:var(--text);font-family:Inter,system-ui,sans-serif}header{padding:34px 5vw 22px;border-bottom:1px solid var(--line);position:sticky;top:0;background:#08090cef;backdrop-filter:blur(18px);z-index:5}h1{margin:0;font-size:clamp(25px,4vw,48px);letter-spacing:.12em;font-weight:800}header p{margin:8px 0 0;color:var(--muted);max-width:900px}.wrap{width:min(1400px,92vw);margin:28px auto 70px}.controls{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;background:var(--panel);border:1px solid var(--line);padding:16px;border-radius:18px;margin-bottom:22px}label{font-size:12px;color:var(--muted);display:block;margin-bottom:7px}select,input,button{width:100%;border:1px solid var(--line);background:#0b0d12;color:var(--text);padding:11px 12px;border-radius:10px}button{cursor:pointer;font-weight:700}button:hover{border-color:var(--gold);color:var(--gold)}.tabs{display:flex;gap:8px;overflow:auto;margin:12px 0;scrollbar-width:thin}.tab{white-space:nowrap;padding:10px 15px;min-width:max-content;border:1px solid var(--line);border-radius:999px;background:var(--panel)}.tab.active{border-color:var(--gold);color:var(--gold)}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.card{background:linear-gradient(145deg,#11141b,#0b0d12);border:1px solid var(--line);border-radius:16px;padding:16px}.meta{display:flex;justify-content:space-between;gap:10px;color:var(--gold);font-size:11px;letter-spacing:.08em}.title{font-size:17px;font-weight:800;margin:8px 0}.desc{color:#c7cad1;line-height:1.6;font-size:13px;margin-bottom:12px}.prompt{white-space:pre-wrap;background:#07080b;border:1px solid #20242d;border-radius:10px;padding:13px;color:#dfe2e8;font:12px/1.65 ui-monospace,SFMono-Regular,Menlo,monospace;max-height:250px;overflow:auto}.copy{margin-top:10px}.note{padding:14px 16px;border-left:3px solid var(--green);background:#0c1413;color:#bfeee0;border-radius:8px;margin-bottom:20px;font-size:13px}.count{color:var(--muted);font-size:12px;margin:10px 0}.hidden{display:none}
+.utility-box{background:linear-gradient(145deg,#11141b,#090b10);border:1px solid var(--line);border-radius:18px;padding:20px;margin:14px 0 22px}
+.utility-title{font-size:20px;font-weight:850;margin-bottom:7px}
+.utility-sub{color:var(--muted);font-size:13px;line-height:1.6;margin-bottom:16px}
+.ref-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:14px}
+.ref-slot{border:1px dashed #3b414d;border-radius:12px;padding:14px;background:#0a0c11}
+.ref-slot strong{display:block;margin-bottom:5px}
+.ref-slot span{color:var(--muted);font-size:12px;line-height:1.5}
+.guide-controls{display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:10px}
+.guide-result{margin-top:16px;background:#07080b;border:1px solid #20242d;border-radius:12px;padding:16px;color:#dfe2e8;line-height:1.75}
+.guide-result h3{margin:0 0 8px;color:var(--gold)}
+.guide-result .label{color:var(--green);font-size:11px;letter-spacing:.08em}
+.campaign-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:14px}
+.campaign-card{background:#0a0c11;border:1px solid var(--line);border-radius:12px;padding:14px}
+.campaign-card .mini{font-size:11px;color:var(--gold);letter-spacing:.08em}
+.campaign-card p{font-size:13px;color:#c7cad1;line-height:1.65}
+@media(max-width:850px){.ref-grid,.campaign-grid{grid-template-columns:1fr 1fr}.guide-controls{grid-template-columns:1fr 1fr}}
+@media(max-width:520px){.ref-grid,.campaign-grid,.guide-controls{grid-template-columns:1fr}}
+@media(max-width:850px){.controls{grid-template-columns:1fr 1fr}.grid{grid-template-columns:1fr}}@media(max-width:520px){.controls{grid-template-columns:1fr}header{position:static}}
+</style>
+</head>
+<body>
+<header>
+<h1>CINEMA // APPAREL SHOT LAB</h1>
+<p>200 cinematic production prompts for premium T-shirt campaigns — 100 Left Chest + 100 Large Back. Upload your shirt and artwork as the two absolute visual references, then use the generated English prompt with your image model.</p>
+</header>
+<div class="wrap">
+<div class="controls">
+<div><label>CAMERA / OUTPUT MODEL</label><select id="model"><option>Gemini Nano Banana Pro</option><option>ChatGPT Image</option><option>Both</option></select></div>
+<div><label>IMAGE FORMAT</label><select id="ratio"><option>4:5</option><option>3:2</option><option>2:3</option><option>16:9</option><option>9:16</option><option>1:1</option><option>Custom</option></select></div>
+<div><label>RESOLUTION</label><select id="res"><option>High resolution</option><option>4K</option><option>6K</option><option>8K</option></select></div>
+<div><label>SHOT NUMBER</label><input id="shot" type="number" min="1" max="100" value="50"></div>
+</div>
+<div class="note">Reference protocol: Reference Image 1 = the exact T-shirt/product. Reference Image 2 = the exact artwork/design. Preserve garment construction, fabric behavior, artwork geometry, typography, colors and placement. Do not redesign the shirt or artwork. The prompt is designed for cinematic apparel photography, not a generic fashion image.</div>
+<div class="tabs" id="tabs"></div><div class="tabs" id="subtabs"></div><div class="tabs" id="utilitytabs"></div>
+<div id="utilityPanel" class="hidden"></div>
+<div class="count" id="count"></div>
+<div class="grid" id="grid"></div>
+</div>
+<script>
+const types=["Extreme Wide Shot","Wide Shot","Full Shot","Medium Full Shot","Medium Shot","Medium Close-Up","Close-Up","Extreme Close-Up","Macro"];
+const pos=["In front","Behind","Left","Right","Front-left","Front-right","Back-left","Back-right","Directly above","Directly below"];
+const heights=["Ground level","Very low","Low","Waist level","Chest level","Eye level","Slightly above eye level","High angle","Overhead"];
+const angles=["Eye-level","Low angle","High angle","Dutch angle","Straight-on","Three-quarter angle","Profile","Rear three-quarter","Top-down","Bottom-up"];
+const lenses=["Ultra-wide","Wide","Normal","Short telephoto","Telephoto","Super telephoto","Macro"];
+const focals=[24,28,35,40,50,65,85,105,135,200];
+const lights=["Softbox","Window light","Large diffused source","Hard spotlight","Side light","Backlight","Practical light","LED","Mixed sources","Natural sunlight"];
+const env=["Minimal luxury studio","Raw concrete studio","Architectural gallery","Dark luxury interior","Premium hotel corridor","Brutalist exterior","Modern glass building","Editorial street","Industrial loft","Clean cyclorama"];
+const moods=["Luxury","Dark luxury","Editorial","Minimal","Futuristic","Raw","Elegant","Energetic","Mysterious","Commercial"];
+const categorySets={
+"Left Chest":[
+["MODEL EDITORIAL","a professional fashion model wearing the exact referenced T-shirt","a sophisticated editorial composition where the left-chest print is deliberately visible and naturally integrated"],
+["PORTRAIT CAMPAIGN","a close fashion portrait with the exact referenced T-shirt","controlled upper-body framing that makes the left-chest artwork a secondary premium focal point"],
+["FULL-BODY FASHION","a full-body model wearing the exact referenced T-shirt","the complete silhouette, proportions and left-chest placement remain visible"],
+["PRODUCT HERO","the exact referenced T-shirt presented as the hero product","a luxury advertising composition where the garment itself is the unquestionable subject"],
+["FLAT LAY","the exact T-shirt laid perfectly flat as a premium fashion product","precise top-down product photography showing construction, fabric and left-chest placement"],
+["HANGING GARMENT","the exact T-shirt suspended or displayed without a model","sculptural product presentation emphasizing natural fabric behavior and the chest artwork"],
+["MANNEQUIN / DISPLAY","the exact T-shirt presented on a premium mannequin or invisible display form","commercial showroom photography focused on garment shape and chest placement"],
+["GARMENT DETAIL","a macro or close product study of the exact T-shirt","fabric weave, stitching, collar, seams and left-chest print texture become the visual subject"],
+["ARTWORK DETAIL","the exact left-chest artwork itself","a controlled detail shot where every line, color and typographic element remains unchanged"],
+["STYLING / ACCESSORIES","the exact T-shirt styled with carefully selected fashion accessories","editorial styling supports the garment without covering or modifying the chest artwork"],
+["STREETWEAR CAMPAIGN","the exact T-shirt in an elevated streetwear environment","architectural and urban storytelling supports the garment while preserving chest visibility"],
+["LUXURY INTERIOR","the exact T-shirt photographed inside an upscale architectural environment","cinematic luxury atmosphere with the garment remaining the primary commercial subject"],
+["OUTDOOR LIFESTYLE","the exact T-shirt in a believable premium lifestyle environment","natural environmental storytelling without turning the image into a generic portrait"],
+["TABLETOP PRODUCT","the exact T-shirt arranged on a premium surface","controlled tabletop advertising photography emphasizing material quality and print placement"],
+["PACKAGING / UNBOXING","the exact T-shirt presented as a premium fashion product","luxury product-reveal composition with packaging elements supporting rather than obscuring the garment"],
+["CAMPAIGN BILLBOARD","the exact T-shirt photographed as if for a major fashion campaign","strong graphic composition, intentional negative space and unmistakable product hierarchy"],
+["MINIMAL STUDIO","the exact T-shirt isolated in a refined studio environment","minimalist commercial lighting and composition make the garment impossible to confuse with a generic shirt"],
+["MOTION PRODUCT","the exact T-shirt captured during controlled physical movement","realistic fabric motion while preserving the exact chest artwork and garment construction"],
+["EDITORIAL STILL LIFE","the exact T-shirt treated as an art-directed fashion object","sculptural placement, sophisticated shadows and luxury-magazine visual language"],
+["COLLECTION / MULTI-ANGLE","the exact T-shirt shown through a carefully composed product arrangement","multiple controlled views or presentation elements while preserving one exact garment identity"]
+],
+"Large Back":[
+["REAR MODEL EDITORIAL","a professional fashion model wearing the exact referenced T-shirt","a rear-oriented editorial composition designed specifically to showcase the large-back artwork"],
+["REAR FULL-BODY","a full-body rear view of the model wearing the exact T-shirt","the entire back silhouette and large artwork remain clearly readable"],
+["OVER-SHOULDER REVEAL","the exact T-shirt worn by a model with a controlled over-shoulder composition","the large-back artwork is intentionally revealed through body orientation"],
+["PRODUCT HERO REAR","the exact T-shirt presented with its back facing the camera","luxury advertising photography where the large-back print is the unquestionable hero"],
+["FLAT LAY REAR","the exact T-shirt laid completely flat with the back facing upward","top-down product photography revealing the entire large-back artwork and garment construction"],
+["HANGING GARMENT REAR","the exact T-shirt suspended with the back facing the camera","sculptural fabric presentation with the complete back print visible"],
+["MANNEQUIN / DISPLAY REAR","the exact T-shirt displayed on a premium mannequin or invisible form","commercial showroom photography emphasizing back shape and artwork placement"],
+["BACK GARMENT DETAIL","a close product study of the exact back section","fabric weave, seams, print texture and artwork edges become the visual subject"],
+["MICRO DETAIL REAR","an extreme close-up macro study of the exact large-back print and garment surface","microscopic-level detail of ink texture, fabric fibers, stitching, print edges and material interaction; the camera is extremely close and no portrait framing is allowed"],
+["ARTWORK DETAIL REAR","the exact large-back artwork itself","precision product photography preserving every graphic element, color and typographic detail"],
+["STREETWEAR BACK CAMPAIGN","the exact T-shirt in a cinematic urban environment","environmental storytelling is built around the large-back graphic"],
+["ARCHITECTURAL BACKDROP","the exact T-shirt photographed against striking architecture","strong geometry and perspective frame the large-back artwork without competing with it"],
+["LUXURY INTERIOR REAR","the exact T-shirt inside an upscale interior","dark-luxury lighting and architectural depth elevate the back print"],
+["OUTDOOR LIFESTYLE REAR","the exact T-shirt integrated into a premium outdoor environment","natural storytelling while intentionally presenting the back artwork"],
+["TABLETOP REAR","the exact T-shirt arranged back-side-up on a premium surface","high-end tabletop advertising focused entirely on the rear garment"],
+["PACKAGING / REVEAL REAR","the exact T-shirt being revealed as a premium product with its back facing camera","controlled unveiling that makes the large artwork the visual payoff"],
+["CAMPAIGN BILLBOARD REAR","the exact T-shirt treated like a major fashion campaign image","bold graphic framing, strong negative space and immediate back-artwork recognition"],
+["MINIMAL STUDIO REAR","the exact T-shirt isolated in a refined studio with its back facing camera","precise lighting reveals fabric and print without visual distractions"],
+["MOTION FABRIC REAR","the exact T-shirt captured during controlled movement","realistic folds and fabric dynamics while keeping the large-back artwork coherent"],
+["EDITORIAL STILL LIFE REAR","the exact T-shirt treated as a sculptural fashion object with the back exposed","museum-like composition, refined shadows and premium material rendering"],
+["COLLECTION / MULTI-ANGLE REAR","the exact T-shirt presented through deliberate rear product angles","multiple controlled views centered on the large-back artwork and garment identity"]
+]};
+let categories=categorySets["Left Chest"];
+function prompt(section,i,active){
+ const c=active||categories[(i-1)%categories.length], t=types[(i*3)%types.length], p=pos[(i*7)%pos.length], h=heights[(i*5)%heights.length], a=angles[(i*2)%angles.length], l=lenses[(i*4)%lenses.length], f=focals[(i*3)%focals.length], light=lights[(i*5)%lights.length], e=env[(i*7)%env.length], mood=moods[(i*3)%moods.length];
+ const garment=section==="Large Back"?"large-back artwork":"left-chest artwork";
+ return `You are a world-class cinematic fashion and apparel photographer and commercial image director with 40+ years of professional experience photographing premium clothing, models, campaigns and luxury product advertising. Your expertise is extreme attention to garment construction, fabric physics, stitching, folds, print texture, artwork geometry, typography, proportions, skin, hands, lighting continuity and photographic realism.
+
+Create one premium cinematic apparel campaign image using TWO user-provided reference images as the absolute source of truth:
+REFERENCE IMAGE 1: the exact T-shirt/product.
+REFERENCE IMAGE 2: the exact artwork/design applied to the T-shirt.
+
+The references are mandatory. Do not redesign, reinterpret, simplify, beautify, redraw, repaint, replace, distort or invent any part of the shirt or artwork. Preserve the exact garment cut, 100% combed cotton appearance, heavyweight 5.3 oz fabric behavior, 28 singles yarn character, pre-shrunk regular fit, crew neck, side seams, double-needle sleeve/hem stitching, ribbed collar, shoulder-to-shoulder taping, label construction, artwork colors, typography, linework, proportions and placement. Marles color, when present, remains 85% cotton / 15% viscose.
+
+CAMPAIGN SECTION: ${section}
+SHOT CATEGORY: ${c[0]}
+CATEGORY DIRECTIVE: ${c[1]}. This shot MUST behave like a ${c[0]} production. Do not convert it into a generic model portrait, fashion selfie, generic standing model shot, or unrelated lifestyle image. The selected category is the creative premise and overrides generic portrait conventions.
+MICRO-DETAIL RULE: If the selected category contains "MICRO DETAIL", use an extreme close-up or macro product-photography approach. Fill the frame with the relevant garment surface. Prioritize real fabric fibers, cotton weave, individual print texture, ink deposition, stitching threads, seam construction, rib texture, tiny folds and material transitions. Use physically believable macro optics, extremely precise focus on the requested detail, controlled falloff and premium commercial product lighting. Do not show a full face, full body or generic portrait. Do not invent microscopic details that contradict the reference images.
+SHOT TYPE: ${t}
+CAMERA POSITION: ${p}
+CAMERA HEIGHT: ${h}
+CAMERA ANGLE: ${a}
+CAMERA DISTANCE: ${["Close","Medium","Far","Very close"][i%4]}
+LENS: ${l}
+FOCAL LENGTH: ${f}mm
+LENS CHARACTER: cinematic, high micro-contrast, natural optical rendering
+PERSPECTIVE: ${["Natural perspective","Strong perspective","Compressed perspective"][i%3]}
+FRAMING: ${["Centered","Rule of thirds","Symmetrical","Asymmetrical","Subject dominant"][i%5]}
+SUBJECT SIZE: ${["Medium","Large","Very large","Nearly fills frame"][i%4]}
+SUBJECT ORIENTATION: ${["Facing camera","Three-quarter","Profile","Facing away","Rear three-quarter"][i%5]}
+POSE / BODY POSITION: ${c[2]}; the physical arrangement must serve the selected shot category. Do not default to a portrait pose. If this is a product shot, prioritize garment geometry; if flat lay/tabletop, no model is required; if hanging/display, the garment must be presented as an object; if rear-focused, orient the garment specifically to reveal the back artwork.
+FACIAL EXPRESSION: only relevant when a human model is actually required by the selected category; otherwise no face is visible.
+EYE DIRECTION: only relevant for model-based categories; never force a portrait gaze into product photography.
+CAMERA MOVEMENT: ${["Static","Slow push-in","Dolly-in","Orbit","Gimbal movement"][i%5]}
+CAMERA STABILITY: locked-off tripod or controlled gimbal, perfectly intentional
+FOCUS POINT: ${section==="Large Back"?"the large-back artwork and garment surface":"the left-chest artwork and garment surface"}
+FOCUS BEHAVIOR: selective focus with the critical artwork area locked sharp
+DEPTH OF FIELD: ${["Very shallow","Moderate","Deep"][i%3]}
+BACKGROUND: ${e}
+ENVIRONMENT: ${e}; premium, uncluttered, physically believable, with surfaces and spatial depth that support the garment.
+TIME OF DAY: ${["Artificial interior lighting","Golden hour","Blue hour","Night","Day"][i%5]}
+WEATHER / ATMOSPHERE: clean air with subtle cinematic atmosphere only when appropriate
+PRIMARY LIGHT SOURCE: ${light}
+LIGHTING DIRECTION: ${["Three-quarter","Side","Backlight","Front","Cross-light"][i%5]}
+LIGHTING QUALITY: ${["Soft","Diffused","Directional","Mixed"][i%4]}
+LIGHTING INTENSITY: controlled and premium
+LIGHTING CONTRAST: ${["Moderate","High","Extreme"][i%3]}
+SHADOW CHARACTER: ${["Soft","Directional","Dramatic","Diffused"][i%4]}
+HIGHLIGHTS: controlled, crisp and physically realistic
+REFLECTIONS: subtle, natural and material-dependent
+BACKLIGHT: ${i%3===0?"Moderate":"Subtle"}
+RIM LIGHT: ${i%4===0?"Thin":"Subtle"}
+PRACTICAL LIGHTS: ${i%3===0?"architectural LED or practical lamps":"none unless naturally present"}
+COLOR TEMPERATURE: ${["Neutral","Warm","Cool","Warm-cool contrast"][i%4]}
+COLOR PALETTE: sophisticated neutrals with restrained cinematic accents; never alter the actual T-shirt or artwork colors
+COLOR GRADING: ${["Cinematic neutral","Dark luxury","Soft luxury","High contrast"][i%4]}
+CONTRAST: ${["Medium","High","Very high"][i%3]}
+BLACK LEVEL: deep but detailed blacks
+HIGHLIGHT ROLL-OFF: natural and soft
+SATURATION: natural to moderately rich
+IMAGE MOOD: ${mood}
+VISUAL STYLE: ${["Luxury advertising","Cinematic fashion","Editorial photography","Streetwear campaign","High-end commercial"][i%5]}
+REALISM LEVEL: hyper-realistic commercial photography
+CAMERA SENSOR CHARACTER: ${i%3===0?"Medium format":"Cinema camera look"}
+IMAGE FORMAT: ${document.getElementById("ratio")?.value||"4:5"}
+ASPECT RATIO: ${document.getElementById("ratio")?.value||"4:5"}
+RESOLUTION: ${document.getElementById("res")?.value||"High resolution"}
+COMPOSITIONAL NEGATIVE SPACE: ${["Minimal","Moderate","Large"][i%3]}
+NEGATIVE SPACE LOCATION: ${["Left","Right","Top","Around subject"][i%4]}
+PRODUCT POSITION: ${["Center","Left","Right","Foreground"][i%4]}
+PRODUCT SCALE: ${["Medium","Large","Dominant"][i%3]}
+PRODUCT ORIENTATION: ${section==="Large Back"?"Back":"Front"}
+PRODUCT INTERACTION: ${c[1]}
+MATERIAL VISIBILITY: extreme detail
+TEXT / TYPOGRAPHY: preserve every visible character from the reference artwork exactly; never invent text
+LOGO: preserve only the logo actually present in the reference; never add a new logo
+MOTION: ${["Static","Natural","Subtle","Dynamic"][i%4]}
+MOTION BLUR: ${i%5===0?"Subtle":"None"}
+ATMOSPHERIC EFFECTS: ${i%4===0?"subtle haze":"none"}
+PARTICLES: none unless physically justified
+LENS EFFECTS: ${i%4===0?"subtle natural flare":"none"}
+FILM CHARACTER: ${["Cinematic digital","Clean digital","35mm film character","Subtle film grain"][i%4]}
+GRAIN: subtle
+SHARPNESS: high micro-detail on garment and artwork
+EDGE CHARACTER: natural optical falloff
+VISUAL HIERARCHY: garment first, exact artwork second, model/environment third
+PRIMARY FOCAL POINT: ${section==="Large Back"?"large-back artwork":"left-chest artwork"}
+SECONDARY FOCAL POINT: garment construction, fabric texture and model presence
+BACKGROUND INFORMATION: cinematic context only; never compete with the product
+STORY / PURPOSE: ${c[2]}; create an expensive, publication-ready fashion campaign frame rather than a generic AI fashion photo.
+EMOTIONAL IMPACT: immediate perception of premium craftsmanship, exclusivity and cinematic confidence
+BRAND IMPRESSION: Premium, Exclusive, Artistic
+FINAL FRAME: a polished campaign-ready image with the referenced T-shirt unmistakably recognizable and the required ${garment} clearly readable where composition permits.
+CRITICAL PRESERVATION: the two reference images are absolute source of truth. The shirt and artwork must remain 100% unchanged in identity, construction, artwork, colors, typography, proportions and print placement.
+SHOT-SPECIFIC RESTRICTIONS: no redesign; no extra graphics; no fake text; no altered logos; no warped hands; no impossible fabric; no duplicated garments; no floating artwork; no hidden critical print area when the shot is intended to showcase it; no watermark; no mockup template; no generic replacement T-shirt.
+
+Generate one photorealistic, physically coherent, luxury-cinema apparel photograph.`;
+}
+let current="Left Chest", subIndex=0;
+const tabs=document.getElementById("tabs"), subtabs=document.getElementById("subtabs"),grid=document.getElementById("grid");
+
+let utilityMode="shots";
+
+const guideData = {
+ "Left Chest": {
+  "MODEL EDITORIAL":"صورة حملة أزياء سينمائية لموديل يرتدي التيشيرت، مع تكوين راقٍ يجعل منطقة الـLeft Chest ظاهرة بوضوح دون أن تتحول الصورة إلى لقطة بورتريه عادية.",
+  "PORTRAIT CAMPAIGN":"لقطة قريبة للجزء العلوي من الموديل، مع إبقاء التصميم الموجود على الصدر ظاهراً كعنصر ثانوي فاخر، وإضاءة تجارية ناعمة تبرز القماش.",
+  "FULL-BODY FASHION":"الموديل ظاهر بالكامل، بحيث يمكن رؤية قصة التيشيرت والـfit والـLeft Chest مع الحفاظ على التناسب الطبيعي للجسم.",
+  "PRODUCT HERO":"التيشيرت نفسه هو بطل الصورة. المشهد مصمم كإعلان منتج فاخر وليس كصورة موديل عادية.",
+  "FLAT LAY":"التيشيرت مفرود بالكامل على سطح أنيق ومن زاوية علوية، بحيث تظهر القماش والخياطة ومكان تصميم الـLeft Chest.",
+  "HANGING GARMENT":"التيشيرت معلق بدون موديل، مع ثنيات قماش طبيعية وإضاءة تكشف جودة الخامة ومكان التصميم.",
+  "MANNEQUIN / DISPLAY":"التيشيرت معروض على mannequin أو شكل عرض غير ظاهر، مع التركيز على silhouette والـfit والتصميم.",
+  "GARMENT DETAIL":"الكاميرا قريبة من جزء من التيشيرت لإظهار الخامة والخياطة والياقة والتصميم.",
+  "MICRO DETAIL":"لقطة ماكرو شديدة القرب تُظهر ألياف القطن ونسيج القماش وحبيبات الطباعة والخياطة الدقيقة، وليست صورة موديل.",
+  "ARTWORK DETAIL":"الكاميرا تركز على تصميم الـLeft Chest نفسه مع الحفاظ على كل خط ولون وحرف كما هو في المرجع.",
+  "STYLING / ACCESSORIES":"التيشيرت منسق مع إكسسوارات مختارة بعناية ضمن جلسة أزياء تحريرية، مع عدم تغطية التصميم.",
+  "STREETWEAR CAMPAIGN":"حملة streetwear سينمائية في بيئة حضرية، حيث يخدم المكان التيشيرت ولا ينافسه.",
+  "LUXURY INTERIOR":"التيشيرت داخل مساحة معمارية فاخرة بإضاءة سينمائية راقية، مع بقاء المنتج هو العنصر الرئيسي.",
+  "OUTDOOR LIFESTYLE":"مشهد lifestyle خارجي طبيعي، لكن مع إخراج تجاري يحافظ على وضوح التيشيرت والتصميم.",
+  "TABLETOP PRODUCT":"التيشيرت موضوع على سطح فاخر ومصور كمنتج تجاري، مع تكوين دقيق ومتحكم به.",
+  "PACKAGING / UNBOXING":"مشهد كشف منتج فاخر، حيث يظهر التيشيرت والتصميم كقطعة أزياء premium.",
+  "CAMPAIGN BILLBOARD":"لقطة إعلانية قوية ذات تكوين graphic واضح ومساحة سالبة مناسبة لحملة أزياء.",
+  "MINIMAL STUDIO":"استوديو بسيط وفخم، بدون عناصر مشتتة، مع إضاءة تكشف جودة القماش والتصميم.",
+  "MOTION PRODUCT":"التيشيرت في حركة قماش واقعية ومدروسة، مع بقاء التصميم ثابتاً وغير مشوه.",
+  "EDITORIAL STILL LIFE":"التيشيرت يُعامل كقطعة فنية ضمن still life أزياء فاخرة، مع ظلال ونِسَب محسوبة.",
+  "COLLECTION / MULTI-ANGLE":"عرض منظم للتيشيرت من عدة زوايا أو أوضاع، بهدف إظهار المنتج كقطعة كاملة."
+ },
+ "Large Back": {
+  "REAR MODEL EDITORIAL":"حملة أزياء من الخلف لموديل يرتدي التيشيرت، بحيث يكون الـLarge Back artwork هو البطل البصري.",
+  "REAR FULL-BODY":"الموديل كامل من الخلف، مع ظهور كامل للـsilhouette والتصميم الخلفي.",
+  "OVER-SHOULDER REVEAL":"تكوين over-the-shoulder يكشف التصميم الخلفي بطريقة سينمائية مقصودة.",
+  "PRODUCT HERO REAR":"التيشيرت نفسه مصور من الخلف كمنتج فاخر، والتصميم الخلفي هو نقطة التركيز الأساسية.",
+  "FLAT LAY REAR":"التيشيرت مفرود والظهر للأعلى، مع ظهور التصميم الخلفي كاملاً من أعلى.",
+  "HANGING GARMENT REAR":"التيشيرت معلق والظهر مواجه للكاميرا، مع إبراز الطباعة وثنيات القماش.",
+  "MANNEQUIN / DISPLAY REAR":"عرض احترافي للتيشيرت من الخلف على mannequin أو display form.",
+  "BACK GARMENT DETAIL":"لقطة قريبة من جزء الظهر لإظهار نسيج القماش وحواف الطباعة والخياطة.",
+  "MICRO DETAIL REAR":"لقطة macro شديدة القرب من الطباعة الخلفية وألياف القماش والحبر والخياطة الدقيقة.",
+  "ARTWORK DETAIL REAR":"التركيز على الـLarge Back artwork نفسه مع الحفاظ الكامل على تفاصيله.",
+  "STREETWEAR BACK CAMPAIGN":"حملة streetwear مبنية بصرياً حول التصميم الخلفي في بيئة حضرية فاخرة.",
+  "ARCHITECTURAL BACKDROP":"العمارة والخطوط الهندسية تعمل كإطار بصري للتصميم الخلفي.",
+  "LUXURY INTERIOR REAR":"مساحة داخلية فاخرة مع إضاءة خلفية وعمق سينمائي يرفع قيمة التصميم.",
+  "OUTDOOR LIFESTYLE REAR":"مشهد خارجي lifestyle لكن بتكوين مقصود لإظهار الـLarge Back.",
+  "TABLETOP REAR":"التيشيرت موضوع back-side-up على سطح فاخر كمشهد منتج تجاري.",
+  "PACKAGING / REVEAL REAR":"كشف تدريجي للتيشيرت من الخلف بحيث تكون لحظة ظهور التصميم هي الـvisual payoff.",
+  "CAMPAIGN BILLBOARD REAR":"تكوين إعلاني قوي يصلح لحملة كبيرة ويجعل الـLarge Back مقروءاً فوراً.",
+  "MINIMAL STUDIO REAR":"استوديو minimal من الخلف مع إضاءة دقيقة على القماش والطباعة.",
+  "MOTION FABRIC REAR":"حركة قماش واقعية من الخلف مع الحفاظ على تماسك التصميم وعدم تشوهه.",
+  "EDITORIAL STILL LIFE REAR":"التيشيرت كقطعة فنية مصورة من الخلف ضمن still life فاخر.",
+  "COLLECTION / MULTI-ANGLE REAR":"مجموعة زوايا خلفية منظمة تُظهر التصميم والـgarment identity بوضوح."
+ }
+};
+
+function buildUtilityTabs(){
+ const u=document.getElementById("utilitytabs");
+ u.innerHTML="";
+ [["shots","SHOT LIBRARY"],["fourref","4-REFERENCE CAMPAIGN"],["guide","PROMPT VISUAL GUIDE"]].forEach(([id,label])=>{
+  const b=document.createElement("button");
+  b.className="tab"+(utilityMode===id?" active":"");
+  b.textContent=label;
+  b.onclick=()=>{utilityMode=id;buildUtilityTabs();toggleUtility()};
+  u.appendChild(b);
+ });
+}
+function toggleUtility(){
+ const panel=document.getElementById("utilityPanel");
+ const main=document.getElementById("grid");
+ const tabs2=document.getElementById("subtabs");
+ if(utilityMode==="shots"){panel.classList.add("hidden");main.classList.remove("hidden");tabs2.classList.remove("hidden");render();return}
+ main.classList.add("hidden");tabs2.classList.add("hidden");panel.classList.remove("hidden");
+ if(utilityMode==="fourref") renderFourRef(panel); else renderGuide(panel);
+}
+function renderFourRef(panel){
+ panel.innerHTML=`<div class="utility-box">
+ <div class="utility-title">4-REFERENCE CAMPAIGN</div>
+ <div class="utility-sub">استخدم أربع صور كمرجع مطلق: Front T-shirt + Front Artwork + Back T-shirt + Back Artwork. هذا القسم يولد مجموعة لقطات بنفس فلسفة مكتبة Left Chest / Large Back، لكن يفهم الهوية الكاملة للتيشيرت من الأمام والخلف.</div>
+ <div class="ref-grid">
+  <div class="ref-slot"><strong>01 · FRONT T-SHIRT</strong><span>صورة التيشيرت من الأمام</span></div>
+  <div class="ref-slot"><strong>02 · FRONT ARTWORK</strong><span>التصميم الأمامي</span></div>
+  <div class="ref-slot"><strong>03 · BACK T-SHIRT</strong><span>صورة التيشيرت من الخلف</span></div>
+  <div class="ref-slot"><strong>04 · BACK ARTWORK</strong><span>التصميم الخلفي</span></div>
+ </div>
+ <div class="guide-result"><span class="label">REFERENCE PROTOCOL</span><br>الصور الأربع هي مصدر الحقيقة المطلق. يجب على نموذج الصور مطابقة نفس الـgarment identity من الأمام والخلف، ونفس القماش والقصّة والألوان، ونفس التصميمين ومكانهما. لا يسمح بإنشاء تصميم ثالث أو تعديل أي عنصر من المرجع.</div>
+ <div class="campaign-grid">
+  ${["FULL FRONT HERO","FULL BACK HERO","FRONT + BACK EDITORIAL","GARMENT TURNAROUND","FLAT LAY FRONT/BACK","LUXURY PRODUCT CAMPAIGN","DETAIL COMPARISON","STREETWEAR CAMPAIGN","PACKAGING REVEAL","CAMPAIGN MASTER SHOT"].map((x,i)=>`<div class="campaign-card"><div class="mini">4-REF SHOT ${String(i+1).padStart(2,"0")}</div><strong>${x}</strong><p>${["لقطة بطل أمامية تعرض الهوية الأمامية كاملة.","لقطة بطل خلفية تجعل التصميم الخلفي هو العنصر الرئيسي.","تكوين تحريري يدمج front وback في قصة واحدة.","عرض سينمائي يوحي بالدوران حول نفس التيشيرت مع الحفاظ على هويته.","عرض منتج منظم يوضح الوجهين دون اختراع تفاصيل.","تصوير إعلاني فاخر يتعامل مع التيشيرت كمنتج كامل.","مقارنة بصرية راقية للتفاصيل الأمامية والخلفية.","حملة streetwear مبنية على الهوية الكاملة للقطعة.","كشف المنتج بحيث تظهر الوجهتان ضمن تجربة واحدة.","لقطة master campaign تجمع هوية التيشيرت الأمامية والخلفية في تكوين واحد."][i]}</p></div>`).join("")}
+ </div>
+ </div>`;
+}
+function renderGuide(panel){
+ const sections=Object.keys(categorySets);
+ panel.innerHTML=`<div class="utility-box">
+ <div class="utility-title">PROMPT VISUAL GUIDE</div>
+ <div class="utility-sub">اختر القسم، القسم الفرعي، ورقم البرومبت. سيشرح لك الموقع بالعربي ماذا يُفترض أن ترى في الصورة قبل أن تستخدم البرومبت في مولد الصور.</div>
+ <div class="guide-controls">
+  <select id="gSection">${sections.map(x=>`<option>${x}</option>`).join("")}</select>
+  <select id="gCategory"></select>
+  <input id="gNumber" type="number" min="1" max="100" value="50">
+  <button id="gShow">SHOW GUIDE</button>
+ </div>
+ <div id="guideResult" class="guide-result"></div>
+ </div>`;
+ const gs=document.getElementById("gSection"), gc=document.getElementById("gCategory"), gn=document.getElementById("gNumber"), gr=document.getElementById("guideResult");
+ function fill(){gc.innerHTML=categorySets[gs.value].map(x=>`<option>${x[0]}</option>`).join("")}
+ function show(){
+  const n=Math.min(100,Math.max(1,Number(gn.value)||1)), cat=gc.value;
+  const desc=(guideData[gs.value]||{})[cat]||"لقطة سينمائية احترافية مبنية على وصف القسم المختار.";
+  gr.innerHTML=`<h3>${gs.value} → ${cat} → SHOT ${String(n).padStart(3,"0")}</h3><span class="label">ماذا ستنتج الصورة؟</span><br>${desc}<br><br><span class="label">ملاحظة</span><br>رقم اللقطة يغيّر المعالجة السينمائية داخل نفس القسم: زاوية الكاميرا، العدسة، المسافة، الإضاءة، البيئة، الـcomposition والـmood، بينما يبقى مفهوم القسم نفسه ثابتاً.`;
+ }
+ gs.onchange=()=>{fill();show()};document.getElementById("gShow").onclick=show;fill();show();
+}
+
+function buildTabs(){
+ tabs.innerHTML=""; ["Left Chest","Large Back"].forEach((x,j)=>{let b=document.createElement("button");b.className="tab"+(x===current?" active":"");b.textContent=x;b.onclick=()=>{current=x;subIndex=0;utilityMode="shots";buildTabs();toggleUtility()};tabs.appendChild(b)});
+ subtabs.innerHTML="";
+ categories=categorySets[current];
+ categories.forEach((x,j)=>{let b=document.createElement("button");b.className="tab"+(j===subIndex?" active":"");b.textContent=x[0];b.onclick=()=>{subIndex=j;document.querySelectorAll("#subtabs .tab").forEach(z=>z.classList.remove("active"));b.classList.add("active");render()};subtabs.appendChild(b)});
+}
+function copyText(text,btn){
+ const done=()=>{const old=btn.textContent;btn.textContent="COPIED";setTimeout(()=>btn.textContent=old,1400)};
+ if(navigator.clipboard && window.isSecureContext){navigator.clipboard.writeText(text).then(done).catch(()=>fallbackCopy(text,done))}
+ else fallbackCopy(text,done);
+}
+function fallbackCopy(text,done){
+ const ta=document.createElement("textarea");ta.value=text;ta.style.position="fixed";ta.style.opacity="0";document.body.appendChild(ta);ta.focus();ta.select();
+ try{document.execCommand("copy");done()}catch(e){alert("Copy failed. Please select the prompt manually.")}ta.remove();
+}
+function render(){
+ grid.innerHTML="";
+ const active=categories[subIndex];
+ document.getElementById("count").textContent=`${current} / ${active[0]} — 100 cinematic variations. Shot controls are applied dynamically to every prompt.`;
+ for(let i=1;i<=100;i++){
+  let c=document.createElement("article");c.className="card";
+  c.innerHTML=`<div class="meta"><span>${current.toUpperCase()}</span><span>SHOT ${String(i).padStart(3,"0")}</span></div><div class="title">${active[0]} · Variation ${i}</div><div class="desc">لقطة ${i}: ${active[1]} — ${active[2]} مع معالجة سينمائية فاخرة، والحفاظ الكامل على التيشيرت والتصميم كمرجعين أساسيين.</div><div class="prompt"></div><button class="copy">COPY PROMPT</button>`;
+  const text=prompt(current,i,active);
+  c.querySelector(".prompt").textContent=text;
+  c.querySelector(".copy").onclick=()=>copyText(text,c.querySelector(".copy"));
+  grid.appendChild(c);
+ }
+}
+buildTabs();buildUtilityTabs();["ratio","res","shot"].forEach(id=>document.getElementById(id).addEventListener("change",()=>{if(utilityMode==="shots")render();}));render();
+</script>
+</body>
+</html>

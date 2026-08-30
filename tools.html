@@ -1,0 +1,1372 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>أدوات المتجر - إعادة التسمية + تقويم النشر</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Tahoma, Arial, sans-serif;
+      background: #0d1117;
+      color: #f2f5f7;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: linear-gradient(135deg, #111827, #0f172a);
+      border-bottom: 1px solid #243041;
+      padding: 18px 20px;
+    }
+
+    .topbar h1 {
+      margin: 0 0 6px;
+      font-size: 24px;
+      color: #66d9ef;
+    }
+
+    .topbar p {
+      margin: 0;
+      color: #9db1c8;
+      font-size: 14px;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 10px;
+      padding: 16px 20px 0;
+      flex-wrap: wrap;
+    }
+
+    .tab-btn {
+      border: 1px solid #2e4057;
+      background: #141b24;
+      color: #dbe7f3;
+      padding: 12px 16px;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: .2s;
+      font-weight: 700;
+    }
+
+    .tab-btn:hover { background: #1b2633; }
+    .tab-btn.active {
+      background: #0ea5e9;
+      color: white;
+      border-color: #0ea5e9;
+    }
+
+    .page {
+      padding: 20px;
+      max-width: 1450px;
+      margin: auto;
+    }
+
+    .tab-section { display: none; }
+    .tab-section.active { display: block; }
+
+    .card {
+      background: #121821;
+      border: 1px solid #233041;
+      border-radius: 18px;
+      padding: 18px;
+      margin-bottom: 20px;
+      box-shadow: 0 12px 30px rgba(0,0,0,.18);
+    }
+
+    .card h2 {
+      margin-top: 0;
+      color: #7dd3fc;
+      font-size: 22px;
+    }
+
+    .muted {
+      color: #9db1c8;
+      font-size: 14px;
+    }
+
+    .grid {
+      display: grid;
+      gap: 14px;
+    }
+
+    .grid-4 {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .grid-3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .field label {
+      display: block;
+      margin-bottom: 7px;
+      color: #c9d9ea;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .field input,
+    .field select,
+    .field textarea {
+      width: 100%;
+      background: #0b1220;
+      color: #f4f7fa;
+      border: 1px solid #2a394d;
+      border-radius: 12px;
+      padding: 11px 12px;
+      outline: none;
+    }
+
+    .field textarea {
+      min-height: 90px;
+      resize: vertical;
+    }
+
+    .field input:focus,
+    .field select:focus,
+    .field textarea:focus {
+      border-color: #38bdf8;
+      box-shadow: 0 0 0 3px rgba(56,189,248,.13);
+    }
+
+    .inline-check {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 30px;
+      color: #d6e2ee;
+      font-size: 14px;
+    }
+
+    .inline-check input {
+      width: 18px;
+      height: 18px;
+      accent-color: #38bdf8;
+    }
+
+    .actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 14px;
+    }
+
+    .btn {
+      border: none;
+      background: #0ea5e9;
+      color: white;
+      padding: 11px 16px;
+      border-radius: 12px;
+      cursor: pointer;
+      font-weight: 700;
+      transition: .2s;
+    }
+
+    .btn:hover { filter: brightness(1.06); }
+    .btn.ghost {
+      background: #182230;
+      color: #dbe8f5;
+      border: 1px solid #2d4259;
+    }
+
+    .btn.red { background: #ef4444; }
+    .btn.green { background: #16a34a; }
+    .btn.purple { background: #7c3aed; }
+    .btn.orange { background: #f59e0b; color: #101010; }
+
+    .stat-boxes {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0,1fr));
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .stat {
+      background: #0d1622;
+      border: 1px solid #243447;
+      border-radius: 14px;
+      padding: 14px;
+      text-align: center;
+    }
+
+    .stat .num {
+      display: block;
+      font-size: 22px;
+      font-weight: 800;
+      color: #67e8f9;
+      margin-bottom: 4px;
+    }
+
+    .stat .lab {
+      color: #9db1c8;
+      font-size: 13px;
+    }
+
+    .token-box {
+      margin-top: 12px;
+      background: #0b1320;
+      border: 1px dashed #35506d;
+      border-radius: 12px;
+      padding: 12px;
+      color: #c6d6e6;
+      font-size: 13px;
+      line-height: 1.8;
+    }
+
+    .token-box code {
+      background: #162235;
+      padding: 3px 8px;
+      border-radius: 8px;
+      color: #7dd3fc;
+      margin: 0 2px;
+    }
+
+    .table-wrap {
+      overflow: auto;
+      margin-top: 18px;
+      border: 1px solid #243447;
+      border-radius: 14px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 900px;
+      background: #0f1723;
+    }
+
+    th, td {
+      padding: 12px;
+      border-bottom: 1px solid #1e2a39;
+      text-align: right;
+      vertical-align: middle;
+      font-size: 14px;
+    }
+
+    th {
+      background: #152133;
+      color: #d9e8f6;
+      position: sticky;
+      top: 0;
+    }
+
+    tr:hover td {
+      background: rgba(56,189,248,.04);
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 4px 9px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .badge.ok { background: rgba(34,197,94,.14); color: #4ade80; }
+    .badge.info { background: rgba(14,165,233,.14); color: #7dd3fc; }
+    .badge.warn { background: rgba(245,158,11,.14); color: #fbbf24; }
+    .badge.danger { background: rgba(239,68,68,.14); color: #f87171; }
+    .badge.purple { background: rgba(124,58,237,.14); color: #c4b5fd; }
+
+    /* Calendar */
+    .calendar-toolbar {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+
+    .calendar-toolbar .month-label {
+      font-weight: 800;
+      color: #7dd3fc;
+      padding: 0 8px;
+      font-size: 18px;
+    }
+
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 10px;
+    }
+
+    .weekday {
+      background: #162131;
+      border: 1px solid #243447;
+      padding: 10px;
+      border-radius: 12px;
+      text-align: center;
+      font-weight: 700;
+      color: #cae0f5;
+    }
+
+    .day-cell {
+      min-height: 145px;
+      background: #0d1520;
+      border: 1px solid #243447;
+      border-radius: 14px;
+      padding: 10px;
+      position: relative;
+      cursor: pointer;
+      transition: .2s;
+      overflow: hidden;
+    }
+
+    .day-cell:hover {
+      border-color: #38bdf8;
+      transform: translateY(-1px);
+    }
+
+    .day-cell.empty {
+      background: rgba(255,255,255,.02);
+      cursor: default;
+      border-style: dashed;
+    }
+
+    .day-number {
+      font-size: 13px;
+      color: #b9cfdf;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .day-cell.today {
+      outline: 2px solid #38bdf8;
+    }
+
+    .post-chip {
+      border-radius: 10px;
+      padding: 6px 8px;
+      margin-bottom: 6px;
+      font-size: 12px;
+      line-height: 1.4;
+      color: white;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .chip-product { background: #2563eb; }
+    .chip-post { background: #0ea5e9; }
+    .chip-story { background: #f59e0b; color: #111; }
+    .chip-reel { background: #8b5cf6; }
+    .chip-collection { background: #10b981; }
+    .chip-other { background: #64748b; }
+
+    .more-chip {
+      font-size: 12px;
+      color: #7dd3fc;
+      margin-top: 6px;
+    }
+
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.72);
+      z-index: 999;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal-overlay.active { display: flex; }
+
+    .modal {
+      width: min(1000px, 100%);
+      max-height: 92vh;
+      overflow: auto;
+      background: #111924;
+      border: 1px solid #2a3c53;
+      border-radius: 18px;
+      padding: 18px;
+    }
+
+    .modal-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .modal-head h3 {
+      margin: 0;
+      color: #7dd3fc;
+    }
+
+    .close-btn {
+      border: none;
+      background: #1b2736;
+      color: white;
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      cursor: pointer;
+      font-size: 18px;
+    }
+
+    .platforms {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      background: #0d1420;
+      padding: 10px;
+      border: 1px solid #243447;
+      border-radius: 12px;
+    }
+
+    .platforms label {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: #d6e3ef;
+      font-size: 14px;
+    }
+
+    .platforms input {
+      width: 16px;
+      height: 16px;
+      accent-color: #38bdf8;
+    }
+
+    .posts-list {
+      margin-top: 18px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .post-card {
+      background: #0c1420;
+      border: 1px solid #233548;
+      border-radius: 14px;
+      padding: 12px;
+    }
+
+    .post-card-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: 8px;
+    }
+
+    .post-title {
+      font-weight: 800;
+      color: #edf6ff;
+    }
+
+    .post-meta {
+      color: #9fb4c8;
+      font-size: 13px;
+      margin-bottom: 8px;
+    }
+
+    .post-notes {
+      color: #d8e4ef;
+      font-size: 14px;
+      white-space: pre-wrap;
+      line-height: 1.6;
+    }
+
+    .post-card-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+
+    .small-btn {
+      border: 1px solid #2a4058;
+      background: #152131;
+      color: #dce9f7;
+      border-radius: 10px;
+      padding: 7px 10px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .small-btn.red {
+      background: rgba(239,68,68,.12);
+      color: #fca5a5;
+      border-color: rgba(239,68,68,.32);
+    }
+
+    .small-btn.green {
+      background: rgba(22,163,74,.12);
+      color: #86efac;
+      border-color: rgba(22,163,74,.32);
+    }
+
+    .small-btn.purple {
+      background: rgba(124,58,237,.12);
+      color: #c4b5fd;
+      border-color: rgba(124,58,237,.32);
+    }
+
+    .footer-note {
+      margin-top: 12px;
+      color: #92a9bf;
+      font-size: 13px;
+    }
+
+    @media (max-width: 1100px) {
+      .grid-4 { grid-template-columns: repeat(2, minmax(0,1fr)); }
+      .grid-3 { grid-template-columns: repeat(2, minmax(0,1fr)); }
+      .stat-boxes { grid-template-columns: repeat(2, minmax(0,1fr)); }
+    }
+
+    @media (max-width: 700px) {
+      .grid-4, .grid-3 { grid-template-columns: 1fr; }
+      .stat-boxes { grid-template-columns: 1fr; }
+      .calendar-grid { grid-template-columns: repeat(2, 1fr); }
+      .weekday { display: none; }
+      .day-cell { min-height: 120px; }
+      .topbar h1 { font-size: 20px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <h1>🧠 أدوات الشغل السريع</h1>
+    <p>إعادة تسمية الملفات تلقائياً + تقويم نشر شهري منظم ومحفوظ على جهازك</p>
+  </div>
+
+  <div class="tabs">
+    <button class="tab-btn active" data-tab="renamer">8) إعادة تسمية الملفات</button>
+    <button class="tab-btn" data-tab="calendar">10) تقويم النشر الشهري</button>
+  </div>
+
+  <div class="page">
+    <!-- TAB 1 -->
+    <section class="tab-section active" id="tab-renamer">
+      <div class="card">
+        <h2>8) موقع إعادة تسمية الملفات تلقائياً</h2>
+        <p class="muted">ارفع ملفاتك، اعمل معاينة للأسماء الجديدة، وبعدها حمّل ZIP جاهز بكل الملفات بالأسماء الجديدة.</p>
+
+        <div class="grid grid-4">
+          <div class="field">
+            <label>ارفع الملفات</label>
+            <input type="file" id="fileInput" multiple />
+          </div>
+
+          <div class="field">
+            <label>التصنيف Category</label>
+            <input type="text" id="categoryInput" placeholder="anime / football / series" />
+          </div>
+
+          <div class="field">
+            <label>اسم اللاعب / الشخصية Subject</label>
+            <input type="text" id="subjectInput" placeholder="jon-snow / messi / naruto" />
+          </div>
+
+          <div class="field">
+            <label>بادئة إضافية Prefix</label>
+            <input type="text" id="prefixInput" placeholder="dark / premium / drop1" />
+          </div>
+
+          <div class="field">
+            <label>القالب Template</label>
+            <input type="text" id="templateInput" value="{category}-{subject}-{prefix}-{index}" />
+          </div>
+
+          <div class="field">
+            <label>بداية الترقيم</label>
+            <input type="number" id="startIndexInput" min="1" value="1" />
+          </div>
+
+          <div class="field">
+            <label>عدد خانات الرقم</label>
+            <input type="number" id="padInput" min="1" max="6" value="2" />
+          </div>
+
+          <div class="field">
+            <label>صيغة الأحرف</label>
+            <select id="caseSelect">
+              <option value="lower">small letters</option>
+              <option value="as-is">كما هي</option>
+              <option value="upper">CAPS</option>
+            </select>
+          </div>
+        </div>
+
+        <label class="inline-check">
+          <input type="checkbox" id="fallbackOriginal" checked />
+          إذا كان Subject فاضي، استخدم الاسم الأصلي للملف
+        </label>
+
+        <div class="token-box">
+          التوكنات المتاحة:
+          <code>{category}</code>
+          <code>{subject}</code>
+          <code>{prefix}</code>
+          <code>{index}</code>
+          <code>{date}</code>
+          <code>{original}</code>
+          <br>
+          <span class="muted">الامتداد مثل png / jpg يتم الحفاظ عليه تلقائياً.</span>
+        </div>
+
+        <div class="actions">
+          <button class="btn" onclick="generatePreview()">معاينة الأسماء</button>
+          <button class="btn green" onclick="downloadZip()">تحميل ZIP بالأسماء الجديدة</button>
+          <button class="btn purple" onclick="copyNewNames()">نسخ الأسماء الجديدة</button>
+          <button class="btn ghost" onclick="clearRenamer()">تصفير</button>
+        </div>
+
+        <div class="stat-boxes">
+          <div class="stat">
+            <span class="num" id="filesCount">0</span>
+            <span class="lab">عدد الملفات</span>
+          </div>
+          <div class="stat">
+            <span class="num" id="renamedCount">0</span>
+            <span class="lab">عدد الأسماء المجهزة</span>
+          </div>
+          <div class="stat">
+            <span class="num" id="duplicatesFixed">0</span>
+            <span class="lab">تكرارات تم حلها</span>
+          </div>
+          <div class="stat">
+            <span class="num" id="totalSize">0 MB</span>
+            <span class="lab">الحجم الكلي</span>
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>الاسم الأصلي</th>
+                <th>الاسم الجديد</th>
+                <th>الامتداد</th>
+                <th>الحجم</th>
+                <th>الحالة</th>
+              </tr>
+            </thead>
+            <tbody id="previewTableBody">
+              <tr>
+                <td colspan="6" style="text-align:center; color:#9db1c8;">ارفع ملفاتك ثم اضغط "معاينة الأسماء"</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="footer-note">
+          مثال قالب ممتاز إلك:
+          <code>{category}-{subject}-{index}</code>
+          أو
+          <code>{category}-{subject}-{prefix}-{index}</code>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 2 -->
+    <section class="tab-section" id="tab-calendar">
+      <div class="card">
+        <h2>10) موقع تقويم النشر الشهري</h2>
+        <p class="muted">رتّب نزول التصاميم على Instagram / TikTok / Pinterest / Fourthwall وخلي كل يوم معروف شو فيه.</p>
+
+        <div class="calendar-toolbar">
+          <button class="btn ghost" onclick="changeMonth(-1)">← الشهر السابق</button>
+          <div class="month-label" id="monthLabel">-</div>
+          <button class="btn ghost" onclick="changeMonth(1)">الشهر التالي →</button>
+
+          <select id="monthSelect" onchange="goToSelectedMonth()"></select>
+          <input type="number" id="yearInput" value="2026" min="2020" max="2100" onchange="goToSelectedMonth()" style="width:120px;background:#0b1220;color:#fff;border:1px solid #2a394d;border-radius:12px;padding:11px 12px;">
+          <button class="btn orange" onclick="jumpToday()">اليوم</button>
+        </div>
+
+        <div class="actions">
+          <button class="btn" onclick="exportCalendar()">تصدير الجدول JSON</button>
+          <button class="btn purple" onclick="document.getElementById('calendarImport').click()">استيراد JSON</button>
+          <button class="btn red" onclick="clearCurrentMonth()">مسح هذا الشهر</button>
+        </div>
+        <input type="file" id="calendarImport" accept=".json" style="display:none" onchange="importCalendar(event)" />
+
+        <div class="stat-boxes">
+          <div class="stat">
+            <span class="num" id="monthTotalStat">0</span>
+            <span class="lab">إجمالي منشورات الشهر</span>
+          </div>
+          <div class="stat">
+            <span class="num" id="plannedStat">0</span>
+            <span class="lab">مخطط</span>
+          </div>
+          <div class="stat">
+            <span class="num" id="readyStat">0</span>
+            <span class="lab">جاهز</span>
+          </div>
+          <div class="stat">
+            <span class="num" id="postedStat">0</span>
+            <span class="lab">تم نشره</span>
+          </div>
+        </div>
+
+        <div class="calendar-grid" style="margin-bottom:10px;">
+          <div class="weekday">الأحد</div>
+          <div class="weekday">الاثنين</div>
+          <div class="weekday">الثلاثاء</div>
+          <div class="weekday">الأربعاء</div>
+          <div class="weekday">الخميس</div>
+          <div class="weekday">الجمعة</div>
+          <div class="weekday">السبت</div>
+        </div>
+
+        <div class="calendar-grid" id="calendarGrid"></div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Calendar Modal -->
+  <div class="modal-overlay" id="calendarModal">
+    <div class="modal">
+      <div class="modal-head">
+        <h3 id="modalDateTitle">إدارة اليوم</h3>
+        <button class="close-btn" onclick="closeCalendarModal()">✕</button>
+      </div>
+
+      <div class="grid grid-4">
+        <div class="field">
+          <label>عنوان المنشور</label>
+          <input type="text" id="postTitle" placeholder="مثلاً: Jon Snow Black Tee" />
+        </div>
+
+        <div class="field">
+          <label>النوع</label>
+          <select id="postType">
+            <option value="product">Product</option>
+            <option value="post">Post</option>
+            <option value="story">Story</option>
+            <option value="reel">Reel</option>
+            <option value="collection">Collection Drop</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label>الوقت</label>
+          <input type="time" id="postTime" />
+        </div>
+
+        <div class="field">
+          <label>الحالة</label>
+          <select id="postStatus">
+            <option value="planned">مخطط</option>
+            <option value="ready">جاهز</option>
+            <option value="posted">تم نشره</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field" style="margin-top:14px;">
+        <label>المنصات</label>
+        <div class="platforms">
+          <label><input type="checkbox" value="Instagram" class="platform-check" /> Instagram</label>
+          <label><input type="checkbox" value="TikTok" class="platform-check" /> TikTok</label>
+          <label><input type="checkbox" value="Pinterest" class="platform-check" /> Pinterest</label>
+          <label><input type="checkbox" value="Fourthwall" class="platform-check" /> Fourthwall</label>
+          <label><input type="checkbox" value="X" class="platform-check" /> X</label>
+        </div>
+      </div>
+
+      <div class="field" style="margin-top:14px;">
+        <label>ملاحظات</label>
+        <textarea id="postNotes" placeholder="مثلاً: هذا التصميم لازم ينزل معه ستوري + ريل + لينك المنتج"></textarea>
+      </div>
+
+      <div class="actions">
+        <button class="btn green" onclick="saveCalendarPost()">حفظ</button>
+        <button class="btn ghost" onclick="resetPostForm()">تفريغ الحقول</button>
+      </div>
+
+      <div class="posts-list" id="dayPostsList"></div>
+    </div>
+  </div>
+
+  <script>
+    /* -------------------- GENERAL -------------------- */
+    const tabs = document.querySelectorAll('.tab-btn');
+    const sections = document.querySelectorAll('.tab-section');
+
+    tabs.forEach(btn => {
+      btn.addEventListener('click', () => {
+        tabs.forEach(b => b.classList.remove('active'));
+        sections.forEach(s => s.classList.remove('active'));
+        btn.classList.add('active');
+        document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+      });
+    });
+
+    function escapeHtml(str = '') {
+      return String(str)
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;')
+        .replaceAll("'", '&#039;');
+    }
+
+    function formatBytes(bytes) {
+      if (!bytes) return '0 MB';
+      const mb = bytes / (1024 * 1024);
+      return mb >= 1 ? mb.toFixed(2) + ' MB' : (bytes / 1024).toFixed(1) + ' KB';
+    }
+
+    function pad(num, len = 2) {
+      return String(num).padStart(len, '0');
+    }
+
+    function todayDateKey() {
+      const d = new Date();
+      return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+    }
+
+    function cleanSlug(text) {
+      return String(text || '')
+        .trim()
+        .normalize('NFKD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/\.[^/.]+$/, '')
+        .replace(/[_\s]+/g, '-')
+        .replace(/[^\p{L}\p{N}-]+/gu, '-')
+        .replace(/-+/g, '-')
+        .replace(/^-+|-+$/g, '');
+    }
+
+    function applyCase(text, mode) {
+      if (mode === 'lower') return text.toLowerCase();
+      if (mode === 'upper') return text.toUpperCase();
+      return text;
+    }
+
+    /* -------------------- RENAMER -------------------- */
+    let uploadedFiles = [];
+    let renamedPreview = [];
+    let duplicatesResolvedCount = 0;
+
+    const fileInput = document.getElementById('fileInput');
+    fileInput.addEventListener('change', handleFiles);
+
+    function handleFiles(e) {
+      uploadedFiles = Array.from(e.target.files || []);
+      generatePreview();
+    }
+
+    function getBaseName(filename) {
+      const i = filename.lastIndexOf('.');
+      return i === -1 ? filename : filename.slice(0, i);
+    }
+
+    function getExtension(filename) {
+      const i = filename.lastIndexOf('.');
+      return i === -1 ? '' : filename.slice(i + 1);
+    }
+
+    function ensureUniqueFileName(fullName, used) {
+      const dot = fullName.lastIndexOf('.');
+      const base = dot !== -1 ? fullName.slice(0, dot) : fullName;
+      const ext = dot !== -1 ? fullName.slice(dot) : '';
+      let candidate = fullName;
+      let counter = 2;
+
+      while (used[candidate]) {
+        candidate = `${base}-${counter}${ext}`;
+        counter++;
+      }
+
+      if (candidate !== fullName) duplicatesResolvedCount++;
+      used[candidate] = true;
+      return candidate;
+    }
+
+    function buildFileName(file, indexNumber) {
+      const category = cleanSlug(document.getElementById('categoryInput').value);
+      let subject = cleanSlug(document.getElementById('subjectInput').value);
+      const prefix = cleanSlug(document.getElementById('prefixInput').value);
+      const template = document.getElementById('templateInput').value || '{category}-{subject}-{index}';
+      const padLen = parseInt(document.getElementById('padInput').value || '2', 10);
+      const caseMode = document.getElementById('caseSelect').value;
+      const fallbackOriginal = document.getElementById('fallbackOriginal').checked;
+
+      const originalBase = getBaseName(file.name);
+      const cleanOriginal = cleanSlug(originalBase);
+      const ext = getExtension(file.name);
+
+      if (!subject && fallbackOriginal) subject = cleanOriginal;
+
+      const date = new Date();
+      const dateStr = `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`;
+
+      let body = template
+        .replace(/\{category\}/g, category)
+        .replace(/\{subject\}/g, subject)
+        .replace(/\{prefix\}/g, prefix)
+        .replace(/\{index\}/g, pad(indexNumber, padLen))
+        .replace(/\{date\}/g, dateStr)
+        .replace(/\{original\}/g, cleanOriginal);
+
+      body = body
+        .replace(/--+/g, '-')
+        .replace(/^-+|-+$/g, '');
+
+      if (!body) body = cleanOriginal || `file-${pad(indexNumber, padLen)}`;
+      body = applyCase(body, caseMode);
+
+      return ext ? `${body}.${ext}` : body;
+    }
+
+    function generatePreview() {
+      const tbody = document.getElementById('previewTableBody');
+      duplicatesResolvedCount = 0;
+      renamedPreview = [];
+
+      if (!uploadedFiles.length) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="6" style="text-align:center; color:#9db1c8;">ارفع ملفاتك ثم اضغط "معاينة الأسماء"</td>
+          </tr>
+        `;
+        updateRenamerStats();
+        return;
+      }
+
+      const startIndex = parseInt(document.getElementById('startIndexInput').value || '1', 10);
+      const usedNames = {};
+
+      uploadedFiles.forEach((file, i) => {
+        const rawNew = buildFileName(file, startIndex + i);
+        const uniqueNew = ensureUniqueFileName(rawNew, usedNames);
+
+        renamedPreview.push({
+          originalName: file.name,
+          newName: uniqueNew,
+          ext: getExtension(file.name) || '-',
+          size: file.size
+        });
+      });
+
+      tbody.innerHTML = renamedPreview.map((item, idx) => `
+        <tr>
+          <td>${idx + 1}</td>
+          <td>${escapeHtml(item.originalName)}</td>
+          <td><strong style="color:#7dd3fc;">${escapeHtml(item.newName)}</strong></td>
+          <td>${escapeHtml(item.ext)}</td>
+          <td>${formatBytes(item.size)}</td>
+          <td><span class="badge ok">جاهز</span></td>
+        </tr>
+      `).join('');
+
+      updateRenamerStats();
+    }
+
+    function updateRenamerStats() {
+      const totalSize = uploadedFiles.reduce((sum, f) => sum + f.size, 0);
+      document.getElementById('filesCount').textContent = uploadedFiles.length;
+      document.getElementById('renamedCount').textContent = renamedPreview.length;
+      document.getElementById('duplicatesFixed').textContent = duplicatesResolvedCount;
+      document.getElementById('totalSize').textContent = formatBytes(totalSize);
+    }
+
+    async function downloadZip() {
+      if (!uploadedFiles.length) {
+        alert('ارفع ملفات أولاً');
+        return;
+      }
+
+      if (!renamedPreview.length) generatePreview();
+
+      const zip = new JSZip();
+      uploadedFiles.forEach((file, idx) => {
+        const targetName = renamedPreview[idx]?.newName || file.name;
+        zip.file(targetName, file);
+      });
+
+      const blob = await zip.generateAsync({ type: 'blob' });
+      const link = document.createElement('a');
+      const url = URL.createObjectURL(blob);
+      link.href = url;
+      link.download = `renamed-files-${Date.now()}.zip`;
+      link.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function copyNewNames() {
+      if (!renamedPreview.length) {
+        alert('اعمل معاينة أولاً');
+        return;
+      }
+
+      const text = renamedPreview.map(i => i.newName).join('\n');
+      navigator.clipboard.writeText(text)
+        .then(() => alert('تم نسخ الأسماء الجديدة'))
+        .catch(() => alert('ما قدرت أنسخ تلقائياً، جرّب على متصفح أحدث'));
+    }
+
+    function clearRenamer() {
+      uploadedFiles = [];
+      renamedPreview = [];
+      duplicatesResolvedCount = 0;
+      fileInput.value = '';
+      document.getElementById('previewTableBody').innerHTML = `
+        <tr>
+          <td colspan="6" style="text-align:center; color:#9db1c8;">تم التصفير</td>
+        </tr>
+      `;
+      updateRenamerStats();
+    }
+
+    [
+      'categoryInput',
+      'subjectInput',
+      'prefixInput',
+      'templateInput',
+      'startIndexInput',
+      'padInput',
+      'caseSelect',
+      'fallbackOriginal'
+    ].forEach(id => {
+      document.getElementById(id).addEventListener('input', () => {
+        if (uploadedFiles.length) generatePreview();
+      });
+      document.getElementById(id).addEventListener('change', () => {
+        if (uploadedFiles.length) generatePreview();
+      });
+    });
+
+    /* -------------------- CALENDAR -------------------- */
+    let calendarDB = JSON.parse(localStorage.getItem('contentCalendarDB') || '{}');
+    let currentDate = new Date();
+    let selectedDateKey = null;
+    let editingPostId = null;
+
+    const arabicMonths = [
+      'يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو',
+      'يوليو', 'أغسطس', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر'
+    ];
+
+    function populateMonthSelect() {
+      const select = document.getElementById('monthSelect');
+      select.innerHTML = arabicMonths.map((m, i) => `<option value="${i}">${m}</option>`).join('');
+      select.value = currentDate.getMonth();
+      document.getElementById('yearInput').value = currentDate.getFullYear();
+    }
+
+    function saveCalendarDB() {
+      localStorage.setItem('contentCalendarDB', JSON.stringify(calendarDB));
+    }
+
+    function dateKey(y, m, d) {
+      return `${y}-${pad(m + 1)}-${pad(d)}`;
+    }
+
+    function getTypeClass(type) {
+      if (type === 'product') return 'chip-product';
+      if (type === 'post') return 'chip-post';
+      if (type === 'story') return 'chip-story';
+      if (type === 'reel') return 'chip-reel';
+      if (type === 'collection') return 'chip-collection';
+      return 'chip-other';
+    }
+
+    function renderCalendar() {
+      populateMonthSelect();
+
+      const year = currentDate.getFullYear();
+      const month = currentDate.getMonth();
+
+      document.getElementById('monthLabel').textContent = `${arabicMonths[month]} ${year}`;
+
+      const grid = document.getElementById('calendarGrid');
+      grid.innerHTML = '';
+
+      const firstDay = new Date(year, month, 1).getDay();
+      const daysInMonth = new Date(year, month + 1, 0).getDate();
+      const today = todayDateKey();
+
+      for (let i = 0; i < firstDay; i++) {
+        const empty = document.createElement('div');
+        empty.className = 'day-cell empty';
+        grid.appendChild(empty);
+      }
+
+      for (let day = 1; day <= daysInMonth; day++) {
+        const key = dateKey(year, month, day);
+        const items = (calendarDB[key] || []).slice().sort((a, b) => (a.time || '').localeCompare(b.time || ''));
+
+        const cell = document.createElement('div');
+        cell.className = 'day-cell';
+        if (key === today) cell.classList.add('today');
+
+        const visible = items.slice(0, 3).map(item => `
+          <div class="post-chip ${getTypeClass(item.type)}">
+            ${item.time ? escapeHtml(item.time) + ' - ' : ''}${escapeHtml(item.title)}
+          </div>
+        `).join('');
+
+        const more = items.length > 3 ? `<div class="more-chip">+ ${items.length - 3} عناصر إضافية</div>` : '';
+
+        cell.innerHTML = `
+          <div class="day-number">${day}</div>
+          ${visible}
+          ${more}
+        `;
+
+        cell.addEventListener('click', () => openCalendarModal(key));
+        grid.appendChild(cell);
+      }
+
+      updateMonthStats();
+    }
+
+    function updateMonthStats() {
+      const year = currentDate.getFullYear();
+      const month = currentDate.getMonth();
+
+      let total = 0;
+      let planned = 0;
+      let ready = 0;
+      let posted = 0;
+
+      Object.keys(calendarDB).forEach(key => {
+        const [y, m] = key.split('-').map(Number);
+        if (y === year && m === month + 1) {
+          const arr = calendarDB[key] || [];
+          total += arr.length;
+          arr.forEach(item => {
+            if (item.status === 'planned') planned++;
+            if (item.status === 'ready') ready++;
+            if (item.status === 'posted') posted++;
+          });
+        }
+      });
+
+      document.getElementById('monthTotalStat').textContent = total;
+      document.getElementById('plannedStat').textContent = planned;
+      document.getElementById('readyStat').textContent = ready;
+      document.getElementById('postedStat').textContent = posted;
+    }
+
+    function changeMonth(delta) {
+      currentDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + delta, 1);
+      renderCalendar();
+    }
+
+    function goToSelectedMonth() {
+      const month = parseInt(document.getElementById('monthSelect').value, 10);
+      const year = parseInt(document.getElementById('yearInput').value, 10);
+      currentDate = new Date(year, month, 1);
+      renderCalendar();
+    }
+
+    function jumpToday() {
+      currentDate = new Date();
+      renderCalendar();
+    }
+
+    function openCalendarModal(key) {
+      selectedDateKey = key;
+      editingPostId = null;
+      document.getElementById('modalDateTitle').textContent = `إدارة يوم ${key}`;
+      document.getElementById('calendarModal').classList.add('active');
+      resetPostForm(false);
+      renderDayPosts();
+    }
+
+    function closeCalendarModal() {
+      document.getElementById('calendarModal').classList.remove('active');
+      selectedDateKey = null;
+      editingPostId = null;
+    }
+
+    function resetPostForm(clearList = false) {
+      editingPostId = null;
+      document.getElementById('postTitle').value = '';
+      document.getElementById('postType').value = 'product';
+      document.getElementById('postTime').value = '';
+      document.getElementById('postStatus').value = 'planned';
+      document.getElementById('postNotes').value = '';
+      document.querySelectorAll('.platform-check').forEach(ch => ch.checked = false);
+      if (clearList) document.getElementById('dayPostsList').innerHTML = '';
+    }
+
+    function saveCalendarPost() {
+      if (!selectedDateKey) return;
+
+      const title = document.getElementById('postTitle').value.trim();
+      const type = document.getElementById('postType').value;
+      const time = document.getElementById('postTime').value;
+      const status = document.getElementById('postStatus').value;
+      const notes = document.getElementById('postNotes').value.trim();
+      const platforms = Array.from(document.querySelectorAll('.platform-check:checked')).map(ch => ch.value);
+
+      if (!title) {
+        alert('اكتب عنوان للمنشور');
+        return;
+      }
+
+      if (!calendarDB[selectedDateKey]) calendarDB[selectedDateKey] = [];
+
+      if (editingPostId) {
+        const idx = calendarDB[selectedDateKey].findIndex(p => p.id === editingPostId);
+        if (idx !== -1) {
+          calendarDB[selectedDateKey][idx] = {
+            ...calendarDB[selectedDateKey][idx],
+            title, type, time, status, notes, platforms
+          };
+        }
+      } else {
+        calendarDB[selectedDateKey].push({
+          id: Date.now() + Math.random().toString(16).slice(2),
+          title,
+          type,
+          time,
+          status,
+          notes,
+          platforms
+        });
+      }
+
+      saveCalendarDB();
+      renderDayPosts();
+      renderCalendar();
+      resetPostForm();
+    }
+
+    function renderDayPosts() {
+      const container = document.getElementById('dayPostsList');
+      const list = (calendarDB[selectedDateKey] || []).slice().sort((a, b) => (a.time || '').localeCompare(b.time || ''));
+
+      if (!list.length) {
+        container.innerHTML = `<div class="muted">لا يوجد عناصر لهذا اليوم بعد.</div>`;
+        return;
+      }
+
+      container.innerHTML = list.map(item => `
+        <div class="post-card">
+          <div class="post-card-head">
+            <div class="post-title">${escapeHtml(item.title)}</div>
+            <div style="display:flex; gap:6px; flex-wrap:wrap;">
+              <span class="badge info">${escapeHtml(item.type)}</span>
+              <span class="badge ${item.status === 'posted' ? 'ok' : item.status === 'ready' ? 'purple' : 'warn'}">
+                ${item.status === 'planned' ? 'مخطط' : item.status === 'ready' ? 'جاهز' : 'تم نشره'}
+              </span>
+            </div>
+          </div>
+          <div class="post-meta">
+            ${item.time ? `الوقت: ${escapeHtml(item.time)} | ` : ''}
+            ${item.platforms?.length ? `المنصات: ${escapeHtml(item.platforms.join(', '))}` : 'بدون منصات محددة'}
+          </div>
+          <div class="post-notes">${escapeHtml(item.notes || 'بدون ملاحظات')}</div>
+          <div class="post-card-actions">
+            <button class="small-btn green" onclick="markPosted('${item.id}')">تم نشره</button>
+            <button class="small-btn purple" onclick="editPost('${item.id}')">تعديل</button>
+            <button class="small-btn red" onclick="deletePost('${item.id}')">حذف</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function editPost(id) {
+      const item = (calendarDB[selectedDateKey] || []).find(p => p.id === id);
+      if (!item) return;
+
+      editingPostId = id;
+      document.getElementById('postTitle').value = item.title || '';
+      document.getElementById('postType').value = item.type || 'product';
+      document.getElementById('postTime').value = item.time || '';
+      document.getElementById('postStatus').value = item.status || 'planned';
+      document.getElementById('postNotes').value = item.notes || '';
+
+      document.querySelectorAll('.platform-check').forEach(ch => {
+        ch.checked = (item.platforms || []).includes(ch.value);
+      });
+    }
+
+    function markPosted(id) {
+      const idx = (calendarDB[selectedDateKey] || []).findIndex(p => p.id === id);
+      if (idx === -1) return;
+      calendarDB[selectedDateKey][idx].status = 'posted';
+      saveCalendarDB();
+      renderDayPosts();
+      renderCalendar();
+    }
+
+    function deletePost(id) {
+      if (!confirm('متأكد من حذف هذا العنصر؟')) return;
+      calendarDB[selectedDateKey] = (calendarDB[selectedDateKey] || []).filter(p => p.id !== id);
+      if (!calendarDB[selectedDateKey].length) delete calendarDB[selectedDateKey];
+      saveCalendarDB();
+      renderDayPosts();
+      renderCalendar();
+    }
+
+    function exportCalendar() {
+      const blob = new Blob([JSON.stringify(calendarDB, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `content-calendar-${Date.now()}.json`;
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function importCalendar(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = e => {
+        try {
+          const data = JSON.parse(e.target.result);
+          if (typeof data !== 'object' || Array.isArray(data)) throw new Error('Invalid');
+          if (!confirm('هل تريد استبدال الجدول الحالي بالملف المستورد؟')) return;
+          calendarDB = data;
+          saveCalendarDB();
+          renderCalendar();
+          alert('تم الاستيراد بنجاح');
+        } catch {
+          alert('الملف غير صالح');
+        }
+      };
+      reader.readAsText(file);
+      event.target.value = '';
+    }
+
+    function clearCurrentMonth() {
+      const y = currentDate.getFullYear();
+      const m = pad(currentDate.getMonth() + 1);
+
+      if (!confirm(`سيتم حذف كل عناصر شهر ${arabicMonths[currentDate.getMonth()]} ${y}. متأكد؟`)) return;
+
+      Object.keys(calendarDB).forEach(key => {
+        if (key.startsWith(`${y}-${m}-`)) delete calendarDB[key];
+      });
+
+      saveCalendarDB();
+      renderCalendar();
+      if (selectedDateKey) renderDayPosts();
+    }
+
+    document.getElementById('calendarModal').addEventListener('click', (e) => {
+      if (e.target.id === 'calendarModal') closeCalendarModal();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeCalendarModal();
+    });
+
+    /* -------------------- INIT -------------------- */
+    updateRenamerStats();
+    renderCalendar();
+  </script>
+</body>
+</html>

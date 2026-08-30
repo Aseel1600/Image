@@ -1,0 +1,144 @@
+نعم. الأفضل هنا أن تكون البرومبتات قصيرة جدًا ومباشرة، لأن مولد الفيديو لا يحتاج شرحًا طويلًا إذا كانت القاعدة الأساسية واضحة.
+
+استخدم هذه الـ10 كقوالب:
+
+01 — Push In
+
+Keep the T-shirt completely frozen and motionless.
+
+The T-shirt must NEVER move, rotate, deform, fold, stretch, or change shape.
+
+Only the camera moves.
+
+Slow cinematic camera push-in toward the T-shirt.
+Start wide and gradually move closer.
+Soft premium lighting.
+Keep the T-shirt and artwork sharp.
+Realistic commercial fashion video.
+
+02 — Pull Out
+
+Keep the T-shirt completely frozen and motionless.
+
+The T-shirt must NEVER move in any way.
+
+Only the camera moves.
+
+Start close to the T-shirt and slowly pull the camera backward.
+Gradually reveal the full environment.
+Cinematic lighting.
+Premium fashion advertisement.
+
+03 — Side Move
+
+Keep the T-shirt completely frozen and motionless.
+
+Do NOT animate the T-shirt.
+
+Only move the camera.
+
+Slowly move the camera from left to right while keeping the T-shirt centered.
+Subtle parallax.
+Soft cinematic lighting.
+Realistic luxury product photography.
+
+04 — Orbit
+
+Keep the T-shirt completely frozen.
+
+The T-shirt must NOT rotate or move.
+
+Only the camera moves.
+
+Slowly orbit the camera around the stationary T-shirt.
+Smooth cinematic movement.
+Keep the artwork accurate and visible.
+Premium fashion campaign.
+
+05 — Low Angle
+
+Keep the T-shirt completely stationary.
+
+Do NOT move or animate the product.
+
+Only the camera moves.
+
+Start from a low angle and slowly raise the camera upward.
+Strong premium perspective.
+Cinematic shadows.
+Luxury streetwear advertisement.
+
+06 — Top Down
+
+Keep the T-shirt completely frozen.
+
+The product itself must never move.
+
+Only move the camera.
+
+Start above the T-shirt and slowly move the camera downward.
+Keep the entire product sharp.
+Clean cinematic lighting.
+Premium commercial photography.
+
+07 — Macro
+
+Keep the T-shirt completely motionless.
+
+Do NOT animate the fabric, artwork, or garment.
+
+Only the camera moves.
+
+Slowly move the camera toward the artwork for a cinematic close-up.
+Reveal fabric and print texture.
+Shallow depth of field.
+Luxury product commercial.
+
+08 — Vertical Move
+
+Keep the T-shirt completely frozen.
+
+The T-shirt must never move.
+
+Only the camera moves.
+
+Slowly move the camera upward from the bottom of the T-shirt toward the top.
+Smooth cinematic movement.
+Keep the artwork sharp.
+Premium fashion lighting.
+
+09 — Focus Pull
+
+Keep the T-shirt completely stationary.
+
+Do NOT move the product.
+
+The camera stays almost completely still.
+
+Create a slow cinematic focus transition from the foreground to the T-shirt artwork.
+Subtle lighting.
+Realistic lens behavior.
+Premium fashion advertisement.
+
+10 — Hero Shot
+
+Keep the T-shirt completely frozen and motionless.
+
+The T-shirt must NEVER move, rotate, deform, or change shape.
+
+Only the camera moves.
+
+Slow cinematic push-in combined with a very subtle side movement.
+Finish on a strong hero composition.
+Keep the artwork perfectly visible.
+Premium cinematic lighting.
+Luxury streetwear campaign.
+
+القاعدة التي أنصحك تثبتها في بداية كل فيديو مهما كان الـPrompt:
+
+IMPORTANT:
+THE T-SHIRT IS A COMPLETELY STATIC OBJECT.
+IT MUST NOT MOVE AT ALL.
+ONLY THE CAMERA AND LIGHTING MAY MOVE.
+
+وهذا أفضل من كتابة وصف طويل؛ لأنك تريد تحريك اللقطة وليس تحريك المنتج.

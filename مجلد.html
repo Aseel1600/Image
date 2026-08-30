@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تنزيل مجلدات الشخصيات الـ 100</title>
+    <!-- مكتبة JSZip لإنشاء ملفات الضغط داخل المتصفح -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #0f172a;
+            color: #f8fafc;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+            text-align: center;
+        }
+
+        .card {
+            background-color: #1e293b;
+            border: 1px solid #334155;
+            padding: 30px;
+            border-radius: 16px;
+            max-width: 450px;
+            width: 100%;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+        }
+
+        h2 {
+            color: #60a5fa;
+            margin-top: 0;
+            font-size: 1.4rem;
+        }
+
+        p {
+            color: #94a3b8;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin-bottom: 25px;
+        }
+
+        .btn-download {
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            color: white;
+            border: none;
+            padding: 16px 24px;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            transition: transform 0.2s, background 0.2s;
+        }
+
+        .btn-download:active {
+            transform: scale(0.98);
+        }
+
+        .status {
+            margin-top: 15px;
+            font-size: 0.9rem;
+            color: #4ade80;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <h2>منشئ مجلدات الشخصيات الـ 100</h2>
+        <p>اضغط على الزر أدناه لتنزيل ملف ZIP يحتوي على الـ 100 مجلد بالترتيب الجديد والمطلوب مباشرة لجوالك.</p>
+        
+        <button class="btn-download" onclick="downloadZip()">تحميل الـ 100 مجلد (ZIP)</button>
+        <div id="status" class="status">جاري إنشاء المجلدات وتحميلها...</div>
+    </div>
+
+    <script>
+        const rawCharacters = [
+            "Monkey D. Luffy (One Piece)",
+            "Roronoa Zoro (One Piece)",
+            "Portgas D. Ace (One Piece)",
+            "Trafalgar Law (One Piece)",
+            "Shanks (One Piece)",
+            "Gol D. Roger (One Piece)",
+            "Whitebeard (One Piece)",
+            "Kaido (One Piece)",
+            "Sanji (One Piece)",
+            "Sabo (One Piece)",
+            "Son Goku (Dragon Ball Super)",
+            "Vegeta (Dragon Ball Super)",
+            "Gohan (Dragon Ball Super)",
+            "Broly (Dragon Ball Super)",
+            "Future Trunks (Dragon Ball Super)",
+            "Gogeta (Dragon Ball Super)",
+            "Frieza (Dragon Ball Super)",
+            "Vegito (Dragon Ball Super)",
+            "Beerus (Dragon Ball Super)",
+            "Jiren (Dragon Ball Super)",
+            "Naruto Uzumaki (Naruto Shippuden)",
+            "Sasuke Uchiha (Naruto Shippuden)",
+            "Itachi Uchiha (Naruto)",
+            "Madara Uchiha (Naruto Shippuden)",
+            "Kakashi Hatake (Naruto Shippuden)",
+            "Minato Namikaze (Naruto)",
+            "Pain (Naruto Shippuden)",
+            "Obito Uchiha (Naruto Shippuden)",
+            "Rock Lee (Naruto)",
+            "Gaara (Naruto)",
+            "Ichigo Kurosaki (Bleach)",
+            "Sosuke Aizen (Bleach)",
+            "Kenpachi Zaraki (Bleach)",
+            "Byakuya Kuchiki (Bleach)",
+            "Toshiro Hitsugaya (Bleach)",
+            "Tanjiro Kamado (Demon Slayer)",
+            "Nezuko Kamado (Demon Slayer)",
+            "Rengoku (Demon Slayer)",
+            "Tengen Uzui (Demon Slayer)",
+            "Muichiro Tokito (Demon Slayer)",
+            "Gojo Satoru (Jujutsu Kaisen)",
+            "Ryomen Sukuna (Jujutsu Kaisen)",
+            "Yuji Itadori (Jujutsu Kaisen)",
+            "Toji Fushiguro (Jujutsu Kaisen)",
+            "Yuta Okkotsu (Jujutsu Kaisen)",
+            "Levi Ackerman (Attack on Titan)",
+            "Eren Yeager (Attack on Titan)",
+            "Mikasa Ackerman (Attack on Titan)",
+            "Erwin Smith (Attack on Titan)",
+            "Armin Arlert (Attack on Titan)",
+            "Edward Elric (Fullmetal Alchemist)",
+            "Roy Mustang (Fullmetal Alchemist)",
+            "Alphonse Elric (Fullmetal Alchemist)",
+            "Light Yagami (Death Note)",
+            "L (Death Note)",
+            "Killua Zoldyck (Hunter × Hunter)",
+            "Gon Freecss (Hunter × Hunter)",
+            "Hisoka (Hunter × Hunter)",
+            "Chrollo Lucilfer (Hunter × Hunter)",
+            "Meruem (Hunter × Hunter)",
+            "Saitama (One Punch Man)",
+            "Genos (One Punch Man)",
+            "Mob (Mob Psycho 100)",
+            "Reigen (Mob Psycho 100)",
+            "Denji (Chainsaw Man)",
+            "Makima (Chainsaw Man)",
+            "Power (Chainsaw Man)",
+            "Aki Hayakawa (Chainsaw Man)",
+            "Frieren (Frieren)",
+            "Fern (Frieren)",
+            "Sung Jin-Woo (Solo Leveling)",
+            "Beru (Solo Leveling)",
+            "Rimuru Tempest (Tensura)",
+            "Anos Voldigoad (Misfit of Demon King Academy)",
+            "Cid Kagenou (Eminence in Shadow)",
+            "Asta (Black Clover)",
+            "Yuno (Black Clover)",
+            "Yami Sukehiro (Black Clover)",
+            "Natsu Dragneel (Fairy Tail)",
+            "Erza Scarlet (Fairy Tail)",
+            "Gray Fullbuster (Fairy Tail)",
+            "Meliodas (Seven Deadly Sins)",
+            "Escanor (Seven Deadly Sins)",
+            "Ban (Seven Deadly Sins)",
+            "Guts (Berserk)",
+            "Griffith (Berserk)",
+            "Thorfinn (Vinland Saga)",
+            "Askeladd (Vinland Saga)",
+            "Johan Liebert (Monster)",
+            "Ken Kaneki (Tokyo Ghoul)",
+            "Accelerator (A Certain Magical Index)",
+            "Lelouch Lamperouge (Code Geass)",
+            "Spike Spiegel (Cowboy Bebop)",
+            "Vash the Stampede (Trigun)",
+            "Alucard (Hellsing Ultimate)",
+            "Shinra Kusakabe (Fire Force)",
+            "Arthur Boyle (Fire Force)",
+            "Izuku Midoriya (My Hero Academia)",
+            "Katsuki Bakugo (My Hero Academia)",
+            "Shoto Todoroki (My Hero Academia)"
+        ];
+
+        function cleanFolderName(name) {
+            return name.replace(/[\/:*?"<>|]/g, "").trim();
+        }
+
+        function downloadZip() {
+            const statusDiv = document.getElementById('status');
+            statusDiv.style.display = 'block';
+            statusDiv.innerText = 'جاري بناء المجلدات...';
+
+            const zip = new JSZip();
+            const mainFolder = zip.folder("مجلدات_الشخصيات_100");
+
+            rawCharacters.forEach((char, index) => {
+                // إضائة الترقيم التلقائي المسبوق برقم لترتيب الملفات بالترتيب
+                const folderNumber = index + 1;
+                const formattedName = `${folderNumber} ${cleanFolderName(char)}`;
+                
+                const subFolder = mainFolder.folder(formattedName);
+                subFolder.file(".keep", "");
+            });
+
+            zip.generateAsync({ type: "blob" }).then(function (content) {
+                statusDiv.innerText = 'تم التجميع، جاري التحميل...';
+                
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(content);
+                link.download = "مجلدات_الشخصيات_100.zip";
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+
+                setTimeout(() => {
+                    statusDiv.innerText = '✅ تم التحميل بنجاح! افتح مدير الملفات واعمل فك ضغط.';
+                }, 1000);
+            });
+        }
+    </script>
+</body>
+</html>

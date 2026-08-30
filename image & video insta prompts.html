@@ -1,0 +1,3505 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>أداة النسخ السريع - 100 مربع نص</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .main-title {
+            margin-bottom: 15px;
+            color: #222;
+        }
+        .action-bar {
+            margin-bottom: 25px;
+            display: flex;
+            gap: 10px;
+        }
+        .save-btn {
+            background-color: #10b981;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            transition: background 0.2s;
+        }
+        .save-btn:hover {
+            background-color: #059669;
+        }
+        .container {
+            max-width: 700px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .box-container {
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+            box-sizing: border-box;
+            border: 1px solid #e2e8f0;
+        }
+        .box-title {
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-size: 16px;
+            color: #007bff;
+            font-weight: bold;
+            outline: none;
+        }
+        textarea {
+            width: 100%;
+            height: 150px;
+            padding: 12px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 14px;
+            box-sizing: border-box;
+            resize: vertical;
+            outline: none;
+            transition: border-color 0.2s;
+            background-color: #fff;
+            font-family: inherit;
+        }
+        textarea:focus {
+            border-color: #007bff;
+        }
+        .btn {
+            margin-top: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: bold;
+            transition: background 0.2s;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .toast {
+            margin-top: 8px;
+            color: #10b981;
+            font-weight: bold;
+            font-size: 13px;
+            display: none;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<h2 class="main-title">مكتبة النصوص - 100 مربع نص للنسخ السريع</h2>
+
+<div class="action-bar">
+    <button class="save-btn" onclick="exportHTML()">💾 حفظ وتصدير ملف HTML جديد</button>
+</div>
+
+<div class="container" id="boxes-container">
+            <div class="box-container">
+                <div class="box-title" contenteditable="true" id="title_1" oninput="saveData(1)">-3 image</div>
+                <textarea id="text_1" placeholder="أدخل النص أو البرومبت هنا..." oninput="saveData(1)">اعمل صورة
+The three reference images are the absolute source of truth.
+
+Do NOT redesign, reinterpret, simplify, or enhance the T-shirt or its artwork in any way.
+
+The final video must preserve 100% accuracy of:
+
+The exact artwork composition.
+
+Every character detail.
+
+Every typography element.
+
+Every line of text.
+
+Every color.
+
+Every print placement.
+
+Every proportion and scale.
+
+The garment color.
+
+The fabric appearance.
+
+The print texture.
+
+The T-shirt shown in the video must be visually identical to the provided reference images. The only things allowed to change are the camera angle, camera movement, lighting, focus, depth of field, cloth physics, and cinematic environment.
+
+Never invent missing details.
+Never modify the artwork.
+Never replace fonts.
+Never crop important parts of the print.
+Never generate a different version of the design.
+
+Treat the provided images as a locked product asset that cannot be altered under any circumstances.
+
+Create a highly cinematic Day -3 teaser advertisement for the provided T-shirt product.
+
+I will provide three visual references:
+
+1. T-shirt FRONT image
+
+
+2. T-shirt BACK image
+
+
+3. Original T-shirt DESIGN / GRAPHIC
+
+
+
+Treat these three references as the only source of truth for the product.
+
+STRICT REFERENCE FIDELITY:
+
+Carefully inspect all three supplied images before constructing the scene.
+
+Correctly distinguish the FRONT, BACK, and DESIGN references.
+
+Preserve the exact T-shirt color, cut, proportions, fabric appearance, print placement, graphic structure, typography, symbols, colors, and all visible design details.
+
+Do NOT merge information between the references incorrectly.
+
+Do NOT invent, redesign, reinterpret, simplify, or modify the T-shirt graphic.
+
+Do NOT use your own imagined version of the design.
+
+The supplied design reference exists specifically to ensure that any visible portion of the artwork remains accurate.
+
+If a detail is intentionally hidden by the composition, do not replace it with an invented detail.
+
+CONCEPT — DAY -3 MYSTERIOUS TEASER:
+
+This is the first major teaser for an upcoming T-shirt launch, three days before the product becomes available in the store.
+
+The objective is NOT to reveal the entire product.
+
+The objective is to create strong curiosity, anticipation, and visual tension, making the viewer feel that something important is about to be revealed.
+
+The T-shirt should be visible enough to establish that a real premium product exists, but the complete design must remain intentionally concealed.
+
+Create a premium cinematic streetwear campaign aesthetic rather than a conventional product advertisement.
+
+SCENE:
+
+Place the provided T-shirt in a dark, atmospheric, high-end cinematic environment that complements the visual identity of the actual supplied design without altering it.
+
+Use controlled darkness, selective illumination, deep shadows, subtle atmospheric haze, and carefully positioned highlights.
+
+The T-shirt is the hero subject.
+
+Reveal only carefully selected portions of the actual T-shirt and/or graphic through the lighting and framing.
+
+Possible concealment techniques:
+
+Extreme shadow covering part of the shirt
+
+Tight cinematic crop
+
+Partial framing
+
+Folded fabric obscuring sections of the graphic
+
+Controlled backlight
+
+Narrow directional light revealing only fragments
+
+Atmospheric darkness surrounding the product
+
+Shallow depth of field
+
+Cropped composition that intentionally excludes the complete design
+
+The concealment must feel intentional and premium, never accidental.
+
+Do NOT make the design merely blurry or low quality.
+
+The visible fragments must remain sharp, accurate, and recognizable as genuine portions of the supplied design.
+
+Do NOT reveal enough of the artwork for the viewer to fully understand the complete graphic.
+
+CAMERA &amp; COMPOSITION:
+
+Use a cinematic close-to-medium product framing with a premium commercial photography aesthetic.
+
+Camera positioned slightly below or at product level, creating subtle visual authority.
+
+Use a 50mm or 85mm cinematic lens with controlled depth of field.
+
+Compose the frame so the viewer's eye is immediately drawn toward the small illuminated portion of the actual T-shirt/design while the rest disappears naturally into darkness.
+
+Use strong negative space around the product for a sophisticated luxury-streetwear feeling.
+
+Avoid generic centered e-commerce product photography.
+
+LIGHTING:
+
+Use a highly controlled cinematic lighting setup.
+
+A narrow, directional key light selectively illuminates only part of the T-shirt.
+
+Use extremely subtle rim lighting to separate the garment from the dark environment.
+
+Keep most of the garment in deep shadow.
+
+Allow realistic fabric texture, folds, stitching, and material response to appear wherever light touches the shirt.
+
+The lighting should create a feeling of secrecy and anticipation.
+
+No flat studio lighting.
+
+No excessive neon.
+
+No artificial glow around the shirt.
+
+ATMOSPHERE:
+
+Subtle atmospheric haze and very fine floating particles may catch the light.
+
+Keep the environment minimal and uncluttered.
+
+Any atmospheric effect must remain physically believable and must never obscure or distort the actual T-shirt.
+
+COLOR GRADING:
+
+Dark, premium cinematic grading with deep blacks, controlled contrast, restrained saturation, and sophisticated tonal separation.
+
+The T-shirt's actual colors and the actual colors of the supplied graphic must remain faithful to the references.
+
+Do not color-grade the product in a way that changes its real appearance.
+
+TEXT / MARKETING MESSAGE:
+
+Integrate one short, premium teaser message into the composition.
+
+Use elegant, minimal typography that feels like a luxury streetwear campaign.
+
+Primary text:
+
+"SOMETHING IS COMING."
+
+Secondary text, smaller:
+
+"03 DAYS."
+
+Typography should remain subtle and never compete with the T-shirt.
+
+The message should reinforce mystery rather than explain the product.
+
+No excessive text.
+
+No fake brand names.
+
+No invented logos.
+
+No additional product information.
+
+VISUAL STORYTELLING:
+
+The viewer should immediately understand:
+
+Something is coming.
+
+A new T-shirt is about to be revealed.
+
+But they should NOT yet be able to see the full design.
+
+The final image should create the psychological feeling of:
+
+"I want to see what this actually looks like."
+
+QUALITY:
+
+Ultra-premium commercial fashion photography.
+
+Photorealistic fabric.
+
+Accurate garment construction.
+
+Natural folds.
+
+Physically accurate shadows.
+
+Realistic material reflections.
+
+Precise print texture.
+
+Natural depth of field.
+
+Cinematic contrast.
+
+High-end editorial composition.
+
+Expensive luxury streetwear campaign aesthetic.
+
+No generic AI-art appearance.
+
+No excessive visual effects.
+
+No unnecessary props.
+
+No redesign of the supplied product.
+
+The final result must look like an intentionally photographed Day -3 mystery campaign, not a random cinematic image.
+
+NEGATIVE PROMPT:
+
+Full T-shirt reveal, fully visible graphic, invented artwork, redesigned graphic, altered typography, incorrect print placement, front/back confusion, mixing front and back designs, inaccurate shirt color, inaccurate garment shape, distorted clothing, warped fabric, fake logos, extra graphics, missing graphic elements, generic T-shirt design, excessive blur, unreadable product, overexposed highlights, flat lighting, excessive neon, excessive smoke, unrealistic shadows, floating fabric, distorted anatomy if a model is used, extra limbs, malformed hands, duplicate objects, cluttered background, cheap e-commerce photography, stock-photo appearance, generic AI aesthetic, excessive text, promotional clutter, low detail, oversharpening, plastic fabric, unrealistic reflections, visible artifacts</textarea>
+                <button class="btn" onclick="copyBox('text_1', 'toast_1')">نسخ النص</button>
+                <div id="toast_1" class="toast">تم النسخ بنجاح! ✓</div>
+            </div>
+        
+            <div class="box-container">
+                <div class="box-title" contenteditable="true" id="title_2" oninput="saveData(2)">-3 video</div>
+                <textarea id="text_2" placeholder="أدخل النص أو البرومبت هنا..." oninput="saveData(2)">The three reference images are the absolute source of truth.
+
+Do NOT redesign, reinterpret, simplify, or enhance the T-shirt or its artwork in any way.
+
+The final video must preserve 100% accuracy of:
+
+The exact artwork composition.
+
+Every character detail.
+
+Every typography element.
+
+Every line of text.
+
+Every color.
+
+Every print placement.
+
+Every proportion and scale.
+
+The garment color.
+
+The fabric appearance.
+
+The print texture.
+
+The T-shirt shown in the video must be visually identical to the provided reference images. The only things allowed to change are the camera angle, camera movement, lighting, focus, depth of field, cloth physics, and cinematic environment.
+
+Never invent missing details.
+Never modify the artwork.
+Never replace fonts.
+Never crop important parts of the print.
+Never generate a different version of the design.
+
+Treat the provided images as a locked product asset that cannot be altered under any circumstances.
+
+Create a highly cinematic Day -3 teaser advertisement for the provided T-shirt product.
+
+I will provide three visual references:
+
+1. T-shirt FRONT image
+
+
+2. T-shirt BACK image
+
+
+3. Original T-shirt DESIGN / GRAPHIC
+
+
+
+Treat these three references as the only source of truth for the product.
+
+STRICT REFERENCE FIDELITY:
+
+Carefully inspect all three supplied images before constructing the scene.
+
+Correctly distinguish the FRONT, BACK, and DESIGN references.
+
+Preserve the exact T-shirt color, cut, proportions, fabric appearance, print placement, graphic structure, typography, symbols, colors, and all visible design details.
+
+Do NOT merge information between the references incorrectly.
+
+Do NOT invent, redesign, reinterpret, simplify, or modify the T-shirt graphic.
+
+Do NOT use your own imagined version of the design.
+
+The supplied design reference exists specifically to ensure that any visible portion of the artwork remains accurate.
+
+If a detail is intentionally hidden by the composition, do not replace it with an invented detail.
+
+CONCEPT — DAY -3 MYSTERIOUS TEASER:
+
+This is the first major teaser for an upcoming T-shirt launch, three days before the product becomes available in the store.
+
+The objective is NOT to reveal the entire product.
+
+The objective is to create strong curiosity, anticipation, and visual tension, making the viewer feel that something important is about to be revealed.
+
+The T-shirt should be visible enough to establish that a real premium product exists, but the complete design must remain intentionally concealed.
+
+Create a premium cinematic streetwear campaign aesthetic rather than a conventional product advertisement.
+
+SCENE:
+
+Place the provided T-shirt in a dark, atmospheric, high-end cinematic environment that complements the visual identity of the actual supplied design without altering it.
+
+Use controlled darkness, selective illumination, deep shadows, subtle atmospheric haze, and carefully positioned highlights.
+
+The T-shirt is the hero subject.
+
+Reveal only carefully selected portions of the actual T-shirt and/or graphic through the lighting and framing.
+
+Possible concealment techniques:
+
+Extreme shadow covering part of the shirt
+
+Tight cinematic crop
+
+Partial framing
+
+Folded fabric obscuring sections of the graphic
+
+Controlled backlight
+
+Narrow directional light revealing only fragments
+
+Atmospheric darkness surrounding the product
+
+Shallow depth of field
+
+Cropped composition that intentionally excludes the complete design
+
+The concealment must feel intentional and premium, never accidental.
+
+Do NOT make the design merely blurry or low quality.
+
+The visible fragments must remain sharp, accurate, and recognizable as genuine portions of the supplied design.
+
+Do NOT reveal enough of the artwork for the viewer to fully understand the complete graphic.
+
+CAMERA &amp; COMPOSITION:
+
+Use a cinematic close-to-medium product framing with a premium commercial photography aesthetic.
+
+Camera positioned slightly below or at product level, creating subtle visual authority.
+
+Use a 50mm or 85mm cinematic lens with controlled depth of field.
+
+Compose the frame so the viewer's eye is immediately drawn toward the small illuminated portion of the actual T-shirt/design while the rest disappears naturally into darkness.
+
+Use strong negative space around the product for a sophisticated luxury-streetwear feeling.
+
+Avoid generic centered e-commerce product photography.
+
+LIGHTING:
+
+Use a highly controlled cinematic lighting setup.
+
+A narrow, directional key light selectively illuminates only part of the T-shirt.
+
+Use extremely subtle rim lighting to separate the garment from the dark environment.
+
+Keep most of the garment in deep shadow.
+
+Allow realistic fabric texture, folds, stitching, and material response to appear wherever light touches the shirt.
+
+The lighting should create a feeling of secrecy and anticipation.
+
+No flat studio lighting.
+
+No excessive neon.
+
+No artificial glow around the shirt.
+
+ATMOSPHERE:
+
+Subtle atmospheric haze and very fine floating particles may catch the light.
+
+Keep the environment minimal and uncluttered.
+
+Any atmospheric effect must remain physically believable and must never obscure or distort the actual T-shirt.
+
+COLOR GRADING:
+
+Dark, premium cinematic grading with deep blacks, controlled contrast, restrained saturation, and sophisticated tonal separation.
+
+The T-shirt's actual colors and the actual colors of the supplied graphic must remain faithful to the references.
+
+Do not color-grade the product in a way that changes its real appearance.
+
+TEXT / MARKETING MESSAGE:
+
+Integrate one short, premium teaser message into the composition.
+
+Use elegant, minimal typography that feels like a luxury streetwear campaign.
+
+Primary text:
+
+"SOMETHING IS COMING."
+
+Secondary text, smaller:
+
+"03 DAYS."
+
+Typography should remain subtle and never compete with the T-shirt.
+
+The message should reinforce mystery rather than explain the product.
+
+No excessive text.
+
+No fake brand names.
+
+No invented logos.
+
+No additional product information.
+
+VISUAL STORYTELLING:
+
+The viewer should immediately understand:
+
+Something is coming.
+
+A new T-shirt is about to be revealed.
+
+But they should NOT yet be able to see the full design.
+
+The final image should create the psychological feeling of:
+
+"I want to see what this actually looks like."
+
+QUALITY:
+
+Ultra-premium commercial fashion photography.
+
+Photorealistic fabric.
+
+Accurate garment construction.
+
+Natural folds.
+
+Physically accurate shadows.
+
+Realistic material reflections.
+
+Precise print texture.
+
+Natural depth of field.
+
+Cinematic contrast.
+
+High-end editorial composition.
+
+Expensive luxury streetwear campaign aesthetic.
+
+No generic AI-art appearance.
+
+No excessive visual effects.
+
+No unnecessary props.
+
+No redesign of the supplied product.
+
+The final result must look like an intentionally photographed Day -3 mystery campaign, not a random cinematic image.
+
+NEGATIVE PROMPT:
+
+Full T-shirt reveal, fully visible graphic, invented artwork, redesigned graphic, altered typography, incorrect print placement, front/back confusion, mixing front and back designs, inaccurate shirt color, inaccurate garment shape, distorted clothing, warped fabric, fake logos, extra graphics, missing graphic elements, generic T-shirt design, excessive blur, unreadable product, overexposed highlights, flat lighting, excessive neon, excessive smoke, unrealistic shadows, floating fabric, distorted anatomy if a model is used, extra limbs, malformed hands, duplicate objects, cluttered background, cheap e-commerce photography, stock-photo appearance, generic AI aesthetic, excessive text, promotional clutter, low detail, oversharpening, plastic fabric, unrealistic reflections, visible artifacts</textarea>
+                <button class="btn" onclick="copyBox('text_2', 'toast_2')">نسخ النص</button>
+                <div id="toast_2" class="toast">تم النسخ بنجاح! ✓</div>
+            </div>
+        
+            <div class="box-container">
+                <div class="box-title" contenteditable="true" id="title_3" oninput="saveData(3)">-2 image</div>
+                <textarea id="text_3" placeholder="أدخل النص أو البرومبت هنا..." oninput="saveData(3)">The three reference images are the absolute source of truth.
+
+Do NOT redesign, reinterpret, simplify, or enhance the T-shirt or its artwork in any way.
+
+The final video must preserve 100% accuracy of:
+- The exact artwork composition.
+- Every character detail.
+- Every typography element.
+- Every line of text.
+- Every color.
+- Every print placement.
+- Every proportion and scale.
+- The garment color.
+- The fabric appearance.
+- The print texture.
+
+The T-shirt shown in the video must be visually identical to the provided reference images. The only things allowed to change are the camera angle, camera movement, lighting, focus, depth of field, cloth physics, and cinematic environment.
+
+Never invent missing details.
+Never modify the artwork.
+Never replace fonts.
+Never crop important parts of the print.
+Never generate a different version of the design.
+
+Treat the provided images as a locked product asset that cannot be altered under any circumstances.
+
+OUTPUT TYPE:
+IMAGE
+
+FINAL GENERATION PROMPT:
+
+Create a premium, cinematic, mysterious social-media teaser image for a dark luxury anime streetwear T-shirt brand.
+
+MARKETING PURPOSE:
+This is a DAY -2 teaser, published exactly two days before the T-shirt officially launches in the store. The objective is NOT to fully reveal the product. The objective is to create strong curiosity, make viewers stop scrolling, make them examine the image for clues, and encourage them to comment with their guesses and opinions about the upcoming design.
+
+REFERENCE IMAGES — ABSOLUTE SOURCE OF TRUTH:
+Three reference images will be provided:
+
+1. FRONT T-SHIRT IMAGE → use ONLY as the exact reference for the front side of the garment.
+2. BACK T-SHIRT IMAGE → use ONLY as the exact reference for the back side of the garment.
+3. DESIGN / ARTWORK IMAGE → use ONLY as the exact reference for the actual artwork, characters, typography, colors, composition, and visual details.
+
+Do NOT mix the roles of these references.
+Do NOT assume missing details.
+Do NOT redesign the artwork from imagination.
+Do NOT create a different version of the T-shirt.
+Do NOT invent characters, typography, logos, colors, graphics, or garment details.
+
+The supplied references are the absolute visual source of truth.
+
+PRODUCT ACCURACY:
+If any part of the T-shirt becomes visible, it must accurately correspond to the provided references.
+
+Preserve the exact:
+• Garment color
+• Garment shape
+• Fabric appearance
+• Artwork
+• Character details
+• Typography
+• Logos
+• Colors
+• Print placement
+• Print proportions
+• Front/back structure
+• Artwork scale
+
+The teaser may intentionally obscure, crop, shadow, blur, partially conceal, or reveal only fragments of the design for marketing purposes, but the underlying visible details must remain faithful to the supplied references.
+
+IMPORTANT:
+Do not modify the artwork itself to make it mysterious. Make the PRESENTATION mysterious.
+
+CORE VISUAL CONCEPT:
+Create the feeling that the viewer has discovered only a fragment of something much larger.
+
+The T-shirt should be presented as a highly valuable, unrevealed streetwear piece hidden within darkness.
+
+Only carefully selected fragments of the actual artwork should be visible.
+
+The viewer should NOT be able to clearly understand the complete design at first glance.
+
+Reveal approximately 15–30% of the artwork visually, depending on what produces the strongest teaser effect.
+
+Possible reveal methods:
+• Extreme close-up crop of a recognizable artwork detail
+• Deep shadows covering most of the garment
+• Narrow controlled beam of light revealing only selected areas
+• Partial framing that cuts off the majority of the T-shirt
+• Foreground obstruction
+• Controlled darkness around the garment
+• Very shallow depth of field
+• Slight atmospheric haze
+• Layered shadows
+
+Do NOT simply blur the entire T-shirt.
+
+The visible fragment must remain sharp enough to make viewers wonder what they are looking at.
+
+The image should reward close inspection.
+
+COMPOSITION:
+Create a vertical social-media composition optimized for Instagram.
+
+Place the T-shirt or the selected portion of the T-shirt centrally or slightly off-center, using strong negative space around it.
+
+The composition should feel deliberate, expensive, minimal, and editorial.
+
+Do not overcrowd the frame.
+
+The majority of the image should remain dark and controlled.
+
+Use visual hierarchy:
+
+1. Mysterious visible fragment of the actual T-shirt/design
+2. Atmospheric lighting
+3. Short teaser message
+4. Subtle launch timing information
+
+The T-shirt should remain the visual hero even though most of it is concealed.
+
+CAMERA:
+Premium fashion campaign photography.
+
+Use a cinematic close-up / extreme close-up perspective with realistic photographic depth.
+
+Use a 50mm–85mm equivalent fashion/editorial lens aesthetic.
+
+Natural perspective, realistic proportions, no fisheye distortion.
+
+Extremely controlled depth of field.
+
+The visible artwork fragment should have crisp micro-detail while the concealed areas fall naturally into darkness or shallow focus.
+
+LIGHTING:
+Dark luxury studio lighting.
+
+Use one highly controlled directional key light from the side or slightly above.
+
+The light should skim across the fabric and reveal only selected parts of the actual artwork.
+
+Keep the majority of the T-shirt in deep shadow.
+
+Use subtle rim lighting only where necessary to separate the garment from the background.
+
+No excessive glow.
+
+No giant light beams.
+
+No cheap lens flares.
+
+No excessive particles.
+
+The lighting should feel like a premium fashion campaign, not a generic AI cinematic scene.
+
+MATERIAL AND FABRIC:
+The garment must look physically real.
+
+Show realistic cotton fabric texture, subtle folds, natural stitching, realistic print integration, and physically accurate shadows.
+
+The print must appear genuinely printed onto the garment rather than floating above it.
+
+Maintain realistic fabric deformation where visible.
+
+BACKGROUND:
+Minimal, dark, sophisticated studio environment.
+
+Predominantly black / near-black tones.
+
+No distracting objects.
+
+No generic urban stock-photo environment.
+
+No unnecessary props.
+
+A subtle atmospheric texture may be used in the background, but it must remain extremely restrained.
+
+The background exists only to support the product and mystery.
+
+COLOR GRADING:
+Dark luxury color grade with deep blacks, controlled contrast, muted tones, and cinematic highlight roll-off.
+
+Preserve the actual colors of the supplied artwork wherever they are visible.
+
+Do not change artwork colors for stylistic purposes.
+
+Do not oversaturate.
+
+Do not crush the visible artwork into unreadable black.
+
+TEXT:
+Add a short, premium teaser message that creates curiosity without revealing the product.
+
+Primary text:
+
+"48 HOURS."
+
+Secondary text:
+
+"Something is coming."
+
+Small supporting text:
+
+"WHAT DO YOU THINK IT IS?"
+
+The typography must be clean, premium, minimal, and highly readable.
+
+Use restrained typography appropriate for a luxury streetwear campaign.
+
+Do not cover important artwork details with text.
+
+Do not invent additional slogans, product names, logos, or claims.
+
+The text should feel integrated into the art direction rather than looking like a generic advertisement template.
+
+MARKETING PSYCHOLOGY:
+The image should create an information gap.
+
+The viewer should immediately understand that:
+• A new product is coming
+• The launch is close
+• The design is intentionally hidden
+• They are being invited to guess what it is
+
+Do not reveal the full front or full back.
+
+Do not show enough of the design for the viewer to completely identify every major element.
+
+The teaser should create comments such as:
+"What is this?"
+"Anime?"
+"Which character?"
+"I think I know the design."
+"When does it drop?"
+
+The image should feel like a deliberate leak or controlled reveal rather than a normal product advertisement.
+
+FINAL VISUAL IMPRESSION:
+The finished image should resemble a high-budget luxury streetwear campaign teaser: dark, mysterious, minimal, premium, cinematic, and highly intentional.
+
+It must NOT look like a generic AI-generated T-shirt mockup.
+
+It must NOT look like a finished product showcase.
+
+It must feel like the brand is deliberately hiding something valuable.
+
+ASPECT RATIO:
+9:16 vertical composition optimized for Instagram social-media viewing.
+
+High resolution, commercial advertising quality, ultra-sharp visible details, realistic photography, physically accurate materials, professional color grading, premium fashion editorial quality.
+
+IMPORTANT FINAL RULE:
+The supplied FRONT, BACK, and DESIGN reference images are the only source of truth for the product and artwork. Do not use imagination to reconstruct or redesign any product detail. Use cinematic lighting, framing, cropping, shadows, and composition to create mystery around the exact supplied design.
+
+NEGATIVE / AVOID:
+
+Do not fully reveal the T-shirt.
+Do not show the complete artwork.
+Do not redesign or reinterpret the artwork.
+Do not mix front and back references.
+Do not invent missing details.
+Do not alter typography.
+Do not alter logos.
+Do not change artwork colors.
+Do not create new characters.
+Do not add random graphics.
+Do not add random text.
+Do not distort the garment.
+Do not create floating prints.
+Do not create plastic-looking fabric.
+No deformed clothing.
+No distorted artwork.
+No duplicated T-shirts.
+No duplicate objects.
+No warped typography.
+No fake logos.
+No excessive blur.
+No excessive glow.
+No excessive lens flare.
+No neon overload.
+No excessive particles.
+No cheap cinematic effects.
+No generic stock-photo aesthetic.
+No cluttered background.
+No full product reveal.
+No generic AI aesthetic.</textarea>
+                <button class="btn" onclick="copyBox('text_3', 'toast_3')">نسخ النص</button>
+                <div id="toast_3" class="toast">تم النسخ بنجاح! ✓</div>
+            </div>
+        
+            <div class="box-container">
+                <div class="box-title" contenteditable="true" id="title_4" oninput="saveData(4)">-1 video</div>
+                <textarea id="text_4" placeholder="أدخل النص أو البرومبت هنا..." oninput="saveData(4)">The three reference images are the absolute source of truth.
+
+Do NOT redesign, reinterpret, simplify, or enhance the T-shirt or its artwork in any way.
+
+The final video must preserve 100% accuracy of:
+- The exact artwork composition.
+- Every character detail.
+- Every typography element.
+- Every line of text.
+- Every color.
+- Every print placement.
+- Every proportion and scale.
+- The garment color.
+- The fabric appearance.
+- The print texture.
+
+The T-shirt shown in the video must be visually identical to the provided reference images. The only things allowed to change are the camera angle, camera movement, lighting, focus, depth of field, cloth physics, and cinematic environment.
+
+Never invent missing details.
+Never modify the artwork.
+Never replace fonts.
+Never crop important parts of the print.
+Never generate a different version of the design.
+
+Treat the provided images as a locked product asset that cannot be altered under any circumstances.
+
+Create a premium, cinematic Day -1 teaser advertisement for an upcoming streetwear T-shirt launch. The purpose of this video is to build maximum curiosity, anticipation, exclusivity, and desire one day before the T-shirt officially launches in the store.
+
+The video must be generated using the provided reference images as the absolute source of truth:
+
+- FRONT T-SHIRT IMAGE: exact reference for the front of the garment.
+- BACK T-SHIRT IMAGE: exact reference for the back of the garment.
+- DESIGN ARTWORK IMAGE: exact reference for the artwork printed on the T-shirt.
+
+These references must NEVER be mixed, substituted, redesigned, reinterpreted, simplified, or reconstructed from imagination. Carefully inspect every reference before generating the scene. Preserve the exact garment color, fabric appearance, artwork, typography, character details, proportions, print placement, logos, graphic elements, and overall identity whenever any part of the T-shirt becomes visible.
+
+The video is a standalone independently generated commercial clip. It will later be combined with other separately generated marketing clips during editing. Do not assume continuity with previous or following generations.
+
+CORE CREATIVE DIRECTION
+
+Create a dark, mysterious, premium streetwear teaser that reveals the T-shirt only partially. The viewer should understand that something valuable is being revealed without being able to clearly inspect the complete artwork.
+
+The T-shirt must remain the hero product, but the presentation should deliberately hide or obscure enough of the artwork to create curiosity.
+
+This is NOT the final product reveal.
+
+The visual feeling should communicate:
+
+SECRET → CURIOSITY → ANTICIPATION → COUNTDOWN → TOMORROW
+
+The advertisement should feel like a high-end fashion campaign rather than a generic AI-generated product video.
+
+VIDEO FORMAT
+
+- Duration: approximately 10 seconds.
+- Aspect ratio: 9:16 vertical.
+- Designed for Instagram Reels / TikTok / short-form advertising.
+- Mobile-first composition.
+- Premium commercial cinematography.
+- Dark luxury streetwear aesthetic.
+- High visual fidelity.
+- Realistic fabric and garment physics.
+- Controlled, deliberate motion.
+- No unnecessary visual effects.
+
+SCENE STRUCTURE
+
+0.0–2.0 SECONDS — THE HOOK
+
+Begin in near darkness.
+
+Show an extremely tight cinematic close-up of the T-shirt fabric and a very small portion of the printed artwork.
+
+Only fragments of the design should be visible.
+
+Use shallow depth of field so that some artwork details are intentionally out of focus.
+
+Slowly move the camera laterally across the garment with a controlled macro tracking movement.
+
+Use dramatic directional lighting that grazes across the fabric, revealing realistic textile texture, folds, stitching, and subtle highlights.
+
+Do NOT show the complete artwork.
+
+Do NOT allow the viewer to immediately identify the entire design.
+
+On-screen text appears subtly:
+
+"YOU'RE NOT READY."
+
+Typography should be minimal, premium, clean, and integrated into the composition rather than looking like a generic social-media overlay.
+
+2.0–4.5 SECONDS — PARTIAL REVEAL
+
+Transition through a motivated camera movement into a slightly wider shot.
+
+Reveal a larger section of the T-shirt while keeping the most recognizable parts of the artwork partially hidden through:
+
+- framing,
+- darkness,
+- shallow depth of field,
+- controlled shadow,
+- cropping,
+- selective lighting.
+
+The actual artwork must remain completely faithful to the supplied DESIGN ARTWORK reference wherever visible.
+
+Do not generate replacement artwork.
+
+Do not invent additional graphic elements.
+
+The garment can move subtly and naturally, as if suspended or worn by an unseen model, but the product itself must remain physically realistic.
+
+Introduce a slow push-in toward one visually interesting detail of the artwork.
+
+On-screen text:
+
+"ONE DAY."
+
+The text should appear briefly and confidently.
+
+4.5–7.0 SECONDS — BUILD THE COUNTDOWN
+
+Increase the visual tension.
+
+Cut to an extremely detailed close-up of another authentic section of the T-shirt.
+
+Use controlled camera motion combined with a slight rack focus.
+
+The camera should move from the fabric texture toward a partially obscured artwork detail, but stop before revealing the complete design.
+
+The lighting becomes slightly more dramatic while remaining sophisticated and realistic.
+
+Introduce a premium countdown element:
+
+"01"
+
+Make the number large enough to immediately communicate the countdown but visually integrated with the brand aesthetic.
+
+Underneath or beside it:
+
+"DAY LEFT"
+
+Keep the typography minimal.
+
+Do not clutter the frame.
+
+The countdown must clearly communicate that the launch is tomorrow.
+
+7.0–9.0 SECONDS — THE TEASE
+
+Briefly reveal a more recognizable portion of the T-shirt.
+
+This should be the closest point to a product reveal, but STILL NOT a full reveal.
+
+Use a dramatic partial silhouette of the garment.
+
+Allow only selected sections of the artwork to catch the light while the rest disappears into controlled darkness.
+
+The camera performs a slow, elegant push-in.
+
+The viewer should feel that the complete design is intentionally being withheld.
+
+Display:
+
+"TOMORROW."
+
+Pause visually for a moment so the message has impact.
+
+9.0–10.0 SECONDS — FINAL FRAME
+
+End with a powerful minimalist final shot.
+
+The T-shirt becomes mostly obscured again, leaving only a distinctive partial detail visible.
+
+Fade or transition into a dark premium frame.
+
+Display:
+
+"THE WAIT IS ALMOST OVER."
+
+Then, if space allows, a smaller final line:
+
+"TOMORROW."
+
+The final frame should feel exclusive and restrained.
+
+Do not show the complete artwork.
+
+Do not show the entire front and back simultaneously.
+
+Do not reveal enough information to eliminate curiosity.
+
+CAMERA &amp; CINEMATOGRAPHY
+
+Use professional commercial cinematography.
+
+Camera behavior should be slow, controlled, intentional, and physically believable.
+
+Use:
+
+- macro close-ups,
+- extreme close-ups,
+- controlled lateral tracking,
+- subtle push-in,
+- shallow depth of field,
+- selective rack focus,
+- controlled parallax.
+
+Avoid excessive camera shake.
+
+Avoid artificial spinning.
+
+Avoid impossible camera movements.
+
+The camera should feel like a real professional cinema camera filming a premium fashion campaign.
+
+Use realistic lens characteristics and natural depth-of-field behavior.
+
+LIGHTING
+
+Use sophisticated low-key lighting.
+
+Primary lighting should come from controlled directional sources positioned to skim across the garment.
+
+Create:
+
+- deep shadows,
+- subtle highlights,
+- realistic fabric texture,
+- controlled contrast,
+- selective illumination of artwork details.
+
+The lighting should reveal only what is necessary.
+
+Do not use excessive neon.
+
+Do not use random colored lights.
+
+Do not use excessive lens flares.
+
+Do not use cheap-looking glow effects.
+
+PRODUCT ACCURACY — CRITICAL
+
+The supplied references are the absolute source of truth.
+
+The AI must NOT:
+
+- redesign the artwork,
+- alter characters,
+- change typography,
+- change colors,
+- change garment proportions,
+- change print placement,
+- invent logos,
+- add graphics,
+- remove artwork elements,
+- combine front and back artwork incorrectly,
+- replace the supplied design,
+- create a different T-shirt,
+- hallucinate details that are not present.
+
+If only a small section of the garment is visible, that section must still correspond exactly to the appropriate supplied reference.
+
+The FRONT reference must only be used to reproduce the actual front of the garment.
+
+The BACK reference must only be used to reproduce the actual back of the garment.
+
+The DESIGN reference must only be used to reproduce the supplied artwork.
+
+Never blend information between references in a way that creates a new design.
+
+TEXT ACCURACY
+
+The following on-screen text must appear exactly as written:
+
+"YOU'RE NOT READY."
+
+"ONE DAY."
+
+"01"
+
+"DAY LEFT"
+
+"TOMORROW."
+
+"THE WAIT IS ALMOST OVER."
+
+Do not rewrite, translate, correct, replace, or modify these phrases.
+
+Typography should be premium, sharp, minimal, highly legible, and consistent throughout the video.
+
+COLOR &amp; GRADING
+
+Use a dark luxury color grade with controlled contrast.
+
+Maintain accurate T-shirt and artwork colors.
+
+Do not artificially recolor the garment.
+
+Do not oversaturate the artwork.
+
+Do not crush important product details into pure black.
+
+The final image should feel expensive, cinematic, mysterious, and editorial.
+
+MOTION &amp; EDITING
+
+The editing rhythm should progressively increase anticipation.
+
+Start slow and mysterious.
+
+Gradually increase visual tension.
+
+Use motivated cuts based on:
+
+- camera movement,
+- fabric details,
+- lighting changes,
+- focus transitions,
+- artwork fragments.
+
+Avoid random transitions.
+
+Avoid excessive glitch effects.
+
+Avoid generic cinematic effects.
+
+The final second should provide a strong visual pause around the countdown/launch message.
+
+AUDIO DIRECTION
+
+Optional audio direction:
+
+Use dark, atmospheric, premium electronic sound design.
+
+Begin with a very subtle low-frequency ambience.
+
+Gradually introduce tension through a restrained pulse.
+
+Use subtle impact sounds synchronized with:
+
+"01"
+
+and
+
+"TOMORROW."
+
+End with a clean, controlled impact or bass hit.
+
+No voice-over.
+
+No loud generic trailer music.
+
+The sound should feel like a premium fashion campaign.
+
+AI GENERATION CONSISTENCY
+
+Maintain consistent:
+
+- garment identity,
+- fabric texture,
+- artwork,
+- colors,
+- lighting logic,
+- physical proportions,
+- environment,
+- camera physics.
+
+Prevent:
+
+- artwork morphing,
+- typography distortion,
+- garment deformation,
+- changing print placement,
+- duplicated garments,
+- duplicate artwork,
+- floating objects,
+- inconsistent shadows,
+- impossible fabric movement,
+- flickering,
+- frame-to-frame texture changes,
+- sudden camera cuts,
+- random visual elements.
+
+The T-shirt must remain physically realistic throughout the entire clip.
+
+The final result should look like a professionally directed Day -1 luxury streetwear launch teaser, intentionally withholding the full design to maximize curiosity and anticipation before tomorrow's release.</textarea>
+                <button class="btn" onclick="copyBox('text_4', 'toast_4')">نسخ النص</button>
+                <div id="toast_4" class="toast">تم النسخ بنجاح! ✓</div>
+            </div>
+        
+            <div class="box-container">
+                <div class="box-title" contenteditable="true" id="title_5" oninput="saveData(5)">-1 image</div>
+                <textarea id="text_5" placeholder="أدخل النص أو البرومبت هنا..." oninput="saveData(5)">اعمل صورة
+The three reference images are the absolute source of truth.
+
+Do NOT redesign, reinterpret, simplify, or enhance the T-shirt or its artwork in any way.
+
+The final video must preserve 100% accuracy of:
+- The exact artwork composition.
+- Every character detail.
+- Every typography element.
+- Every line of text.
+- Every color.
+- Every print placement.
+- Every proportion and scale.
+- The garment color.
+- The fabric appearance.
+- The print texture.
+
+The T-shirt shown in the video must be visually identical to the provided reference images. The only things allowed to change are the camera angle, camera movement, lighting, focus, depth of field, cloth physics, and cinematic environment.
+
+Never invent missing details.
+Never modify the artwork.
+Never replace fonts.
+Never crop important parts of the print.
+Never generate a different version of the design.
+
+Treat the provided images as a locked product asset that cannot be altered under any circumstances.
+
+Create a premium, cinematic Day -1 teaser advertisement for an upcoming streetwear T-shirt launch. The purpose of this video is to build maximum curiosity, anticipation, exclusivity, and desire one day before the T-shirt officially launches in the store.
+
+The video must be generated using the provided reference images as the absolute source of truth:
+
+- FRONT T-SHIRT IMAGE: exact reference for the front of the garment.
+- BACK T-SHIRT IMAGE: exact reference for the back of the garment.
+- DESIGN ARTWORK IMAGE: exact reference for the artwork printed on the T-shirt.
+
+These references must NEVER be mixed, substituted, redesigned, reinterpreted, simplified, or reconstructed from imagination. Carefully inspect every reference before generating the scene. Preserve the exact garment color, fabric appearance, artwork, typography, character details, proportions, print placement, logos, graphic elements, and overall identity whenever any part of the T-shirt becomes visible.
+
+The video is a standalone independently generated commercial clip. It will later be combined with other separately generated marketing clips during editing. Do not assume continuity with previous or following generations.
+
+CORE CREATIVE DIRECTION
+
+Create a dark, mysterious, premium streetwear teaser that reveals the T-shirt only partially. The viewer should understand that something valuable is being revealed without being able to clearly inspect the complete artwork.
+
+The T-shirt must remain the hero product, but the presentation should deliberately hide or obscure enough of the artwork to create curiosity.
+
+This is NOT the final product reveal.
+
+The visual feeling should communicate:
+
+SECRET → CURIOSITY → ANTICIPATION → COUNTDOWN → TOMORROW
+
+The advertisement should feel like a high-end fashion campaign rather than a generic AI-generated product video.
+
+VIDEO FORMAT
+
+- Duration: approximately 10 seconds.
+- Aspect ratio: 9:16 vertical.
+- Designed for Instagram Reels / TikTok / short-form advertising.
+- Mobile-first composition.
+- Premium commercial cinematography.
+- Dark luxury streetwear aesthetic.
+- High visual fidelity.
+- Realistic fabric and garment physics.
+- Controlled, deliberate motion.
+- No unnecessary visual effects.
+
+SCENE STRUCTURE
+
+0.0–2.0 SECONDS — THE HOOK
+
+Begin in near darkness.
+
+Show an extremely tight cinematic close-up of the T-shirt fabric and a very small portion of the printed artwork.
+
+Only fragments of the design should be visible.
+
+Use shallow depth of field so that some artwork details are intentionally out of focus.
+
+Slowly move the camera laterally across the garment with a controlled macro tracking movement.
+
+Use dramatic directional lighting that grazes across the fabric, revealing realistic textile texture, folds, stitching, and subtle highlights.
+
+Do NOT show the complete artwork.
+
+Do NOT allow the viewer to immediately identify the entire design.
+
+On-screen text appears subtly:
+
+"YOU'RE NOT READY."
+
+Typography should be minimal, premium, clean, and integrated into the composition rather than looking like a generic social-media overlay.
+
+2.0–4.5 SECONDS — PARTIAL REVEAL
+
+Transition through a motivated camera movement into a slightly wider shot.
+
+Reveal a larger section of the T-shirt while keeping the most recognizable parts of the artwork partially hidden through:
+
+- framing,
+- darkness,
+- shallow depth of field,
+- controlled shadow,
+- cropping,
+- selective lighting.
+
+The actual artwork must remain completely faithful to the supplied DESIGN ARTWORK reference wherever visible.
+
+Do not generate replacement artwork.
+
+Do not invent additional graphic elements.
+
+The garment can move subtly and naturally, as if suspended or worn by an unseen model, but the product itself must remain physically realistic.
+
+Introduce a slow push-in toward one visually interesting detail of the artwork.
+
+On-screen text:
+
+"ONE DAY."
+
+The text should appear briefly and confidently.
+
+4.5–7.0 SECONDS — BUILD THE COUNTDOWN
+
+Increase the visual tension.
+
+Cut to an extremely detailed close-up of another authentic section of the T-shirt.
+
+Use controlled camera motion combined with a slight rack focus.
+
+The camera should move from the fabric texture toward a partially obscured artwork detail, but stop before revealing the complete design.
+
+The lighting becomes slightly more dramatic while remaining sophisticated and realistic.
+
+Introduce a premium countdown element:
+
+"01"
+
+Make the number large enough to immediately communicate the countdown but visually integrated with the brand aesthetic.
+
+Underneath or beside it:
+
+"DAY LEFT"
+
+Keep the typography minimal.
+
+Do not clutter the frame.
+
+The countdown must clearly communicate that the launch is tomorrow.
+
+7.0–9.0 SECONDS — THE TEASE
+
+Briefly reveal a more recognizable portion of the T-shirt.
+
+This should be the closest point to a product reveal, but STILL NOT a full reveal.
+
+Use a dramatic partial silhouette of the garment.
+
+Allow only selected sections of the artwork to catch the light while the rest disappears into controlled darkness.
+
+The camera performs a slow, elegant push-in.
+
+The viewer should feel that the complete design is intentionally being withheld.
+
+Display:
+
+"TOMORROW."
+
+Pause visually for a moment so the message has impact.
+
+9.0–10.0 SECONDS — FINAL FRAME
+
+End with a powerful minimalist final shot.
+
+The T-shirt becomes mostly obscured again, leaving only a distinctive partial detail visible.
+
+Fade or transition into a dark premium frame.
+
+Display:
+
+"THE WAIT IS ALMOST OVER."
+
+Then, if space allows, a smaller final line:
+
+"TOMORROW."
+
+The final frame should feel exclusive and restrained.
+
+Do not show the complete artwork.
+
+Do not show the entire front and back simultaneously.
+
+Do not reveal enough information to eliminate curiosity.
+
+CAMERA &amp; CINEMATOGRAPHY
+
+Use professional commercial cinematography.
+
+Camera behavior should be slow, controlled, intentional, and physically believable.
+
+Use:
+
+- macro close-ups,
+- extreme close-ups,
+- controlled lateral tracking,
+- subtle push-in,
+- shallow depth of field,
+- selective rack focus,
+- controlled parallax.
+
+Avoid excessive camera shake.
+
+Avoid artificial spinning.
+
+Avoid impossible camera movements.
+
+The camera should feel like a real professional cinema camera filming a premium fashion campaign.
+
+Use realistic lens characteristics and natural depth-of-field behavior.
+
+LIGHTING
+
+Use sophisticated low-key lighting.
+
+Primary lighting should come from controlled directional sources positioned to skim across the garment.
+
+Create:
+
+- deep shadows,
+- subtle highlights,
+- realistic fabric texture,
+- controlled contrast,
+- selective illumination of artwork details.
+
+The lighting should reveal only what is necessary.
+
+Do not use excessive neon.
+
+Do not use random colored lights.
+
+Do not use excessive lens flares.
+
+Do not use cheap-looking glow effects.
+
+PRODUCT ACCURACY — CRITICAL
+
+The supplied references are the absolute source of truth.
+
+The AI must NOT:
+
+- redesign the artwork,
+- alter characters,
+- change typography,
+- change colors,
+- change garment proportions,
+- change print placement,
+- invent logos,
+- add graphics,
+- remove artwork elements,
+- combine front and back artwork incorrectly,
+- replace the supplied design,
+- create a different T-shirt,
+- hallucinate details that are not present.
+
+If only a small section of the garment is visible, that section must still correspond exactly to the appropriate supplied reference.
+
+The FRONT reference must only be used to reproduce the actual front of the garment.
+
+The BACK reference must only be used to reproduce the actual back of the garment.
+
+The DESIGN reference must only be used to reproduce the supplied artwork.
+
+Never blend information between references in a way that creates a new design.
+
+TEXT ACCURACY
+
+The following on-screen text must appear exactly as written:
+
+"YOU'RE NOT READY."
+
+"ONE DAY."
+
+"01"
+
+"DAY LEFT"
+
+"TOMORROW."
+
+"THE WAIT IS ALMOST OVER."
+
+Do not rewrite, translate, correct, replace, or modify these phrases.
+
+Typography should be premium, sharp, minimal, highly legible, and consistent throughout the video.
+
+COLOR &amp; GRADING
+
+Use a dark luxury color grade with controlled contrast.
+
+Maintain accurate T-shirt and artwork colors.
+
+Do not artificially recolor the garment.
+
+Do not oversaturate the artwork.
+
+Do not crush important product details into pure black.
+
+The final image should feel expensive, cinematic, mysterious, and editorial.
+
+MOTION &amp; EDITING
+
+The editing rhythm should progressively increase anticipation.
+
+Start slow and mysterious.
+
+Gradually increase visual tension.
+
+Use motivated cuts based on:
+
+- camera movement,
+- fabric details,
+- lighting changes,
+- focus transitions,
+- artwork fragments.
+
+Avoid random transitions.
+
+Avoid excessive glitch effects.
+
+Avoid generic cinematic effects.
+
+The final second should provide a strong visual pause around the countdown/launch message.
+
+AUDIO DIRECTION
+
+Optional audio direction:
+
+Use dark, atmospheric, premium electronic sound design.
+
+Begin with a very subtle low-frequency ambience.
+
+Gradually introduce tension through a restrained pulse.
+
+Use subtle impact sounds synchronized with:
+
+"01"
+
+and
+
+"TOMORROW."
+
+End with a clean, controlled impact or bass hit.
+
+No voice-over.
+
+No loud generic trailer music.
+
+The sound should feel like a premium fashion campaign.
+
+AI GENERATION CONSISTENCY
+
+Maintain consistent:
+
+- garment identity,
+- fabric texture,
+- artwork,
+- colors,
+- lighting logic,
+- physical proportions,
+- environment,
+- camera physics.
+
+Prevent:
+
+- artwork morphing,
+- typography distortion,
+- garment deformation,
+- changing print placement,
+- duplicated garments,
+- duplicate artwork,
+- floating objects,
+- inconsistent shadows,
+- impossible fabric movement,
+- flickering,
+- frame-to-frame texture changes,
+- sudden camera cuts,
+- random visual elements.
+
+The T-shirt must remain physically realistic throughout the entire clip.
+
+The final result should look like a professionally directed Day -1 luxury streetwear launch teaser, intentionally withholding the full design to maximize curiosity and anticipation before tomorrow's release.</textarea>
+                <button class="btn" onclick="copyBox('text_5', 'toast_5')">نسخ النص</button>
+                <div id="toast_5" class="toast">تم النسخ بنجاح! ✓</div>
+            </div>
+        
+            <div class="box-container">
+                <div class="box-title" contenteditable="true" id="title_6" oninput="saveData(6)">0 image</div>
+                <textarea id="text_6" placeholder="أدخل النص أو البرومبت هنا..." oninput="saveData(6)">اعمل صورة
+The three reference images are the absolute source of truth.
+
+Do NOT redesign, reinterpret, simplify, or enhance the T-shirt or its artwork in any way.
+
+The final video must preserve 100% accuracy of:
+- The exact artwork composition.
+- Every character detail.
+- Every typography element.
+- Every line of text.
+- Every color.
+- Every print placement.
+- Every proportion and scale.
+- The garment color.
+- The fabric appearance.
+- The print texture.
+
+The T-shirt shown in the video must be visually identical to the provided reference images. The only things allowed to change are the camera angle, camera movement, lighting, focus, depth of field, cloth physics, and cinematic environment.
+
+Never invent missing details.
+Never modify the artwork.
+Never replace fonts.
+Never crop important parts of the print.
+Never generate a different version of the design.
+
+Treat the provided images as a locked product asset that cannot be altered under any circumstances.
+
+Use the provided artwork as the ONLY reference. Do not redesign, modify, or reinterpret it. Instead, create a premium cinematic "Behind the Design" commercial that makes it appear as though this exact artwork is being professionally created from scratch.
+
+The video should tell the creative journey of the artwork while always converging to the exact final design.
+
+Scene 1 – Creative Inspiration
+A luxury designer studio at night. The artwork appears as faint construction lines on a digital drawing tablet. The environment feels premium, cinematic, and creative.
+
+Scene 2 – Digital Sketch
+A professional designer uses a stylus to sketch the composition. Clean digital line art gradually appears exactly matching the final artwork. Cinematic macro shots, shallow depth of field, realistic hand movement, premium lighting.
+
+Scene 3 – Design Development
+The artwork evolves naturally through multiple creative stages:
+• Rough sketch
+• Refined line art
+• Color blocking
+• Shadows and highlights
+• Texture creation
+• Final detailing
+
+Each stage smoothly transitions into the next while preserving the exact composition of the provided artwork.
+
+Scene 4 – Professional Design Process
+Show realistic creative workflow:
+Zooming into details,
+Adding brush strokes,
+Adjusting layers,
+Fine-tuning colors,
+Applying lighting effects,
+Cleaning edges,
+Professional digital illustration process.
+Avoid showing readable software UI or logos.
+
+Scene 5 – Cinematic Reveal
+The completed artwork is displayed beautifully on the digital canvas. Dramatic lighting sweeps across the design while the camera slowly orbits around it. Small particles, glow effects, and premium reflections emphasize the craftsmanship.
+
+Scene 6 – Hero Ending
+The artwork remains exactly identical to the provided reference. The camera performs a slow cinematic push-in with luxurious lighting and elegant atmosphere, ending with a premium advertisement feel.
+
+Style:
+Luxury fashion commercial, cinematic storytelling, Apple-style product presentation, ultra-realistic digital art workflow, smooth transitions, macro cinematography, realistic stylus animation, shallow depth of field, dramatic lighting, premium creative studio, 4K HDR, high detail, elegant motion, no text, no logos, no watermark.
+
+CRITICAL:
+The final artwork must remain 100% identical to the provided reference image. Never invent new elements or change the composition. The animation should only simulate the professional creative process that led to the existing design.</textarea>
+                <button class="btn" onclick="copyBox('text_6', 'toast_6')">نسخ النص</button>
+                <div id="toast_6" class="toast">تم النسخ بنجاح! ✓</div>
+            </div>
+        
+            <div class="box-container">
+                <div class="box-title" contenteditable="true" id="title_7" oninput="saveData(7)">0 image</div>
+                <textarea id="text_7" placeholder="أدخل النص أو البرومبت هنا..." oninput="saveData(7)">اعمل صورة
+The three reference images are the absolute source of truth.
+
+Do NOT redesign, reinterpret, simplify, or enhance the T-shirt or its artwork in any way.
+
+The final video must preserve 100% accuracy of:
+- The exact artwork composition.
+- Every character detail.
+- Every typography element.
+- Every line of text.
+- Every color.
+- Every print placement.
+- Every proportion and scale.
+- The garment color.
+- The fabric appearance.
+- The print texture.
+
+The T-shirt shown in the video must be visually identical to the provided reference images. The only things allowed to change are the camera angle, camera movement, lighting, focus, depth of field, cloth physics, and cinematic environment.
+
+Never invent missing details.
+Never modify the artwork.
+Never replace fonts.
+Never crop important parts of the print.
+Never generate a different version of the design.
+
+Treat the provided images as a locked product asset that cannot be altered under any circumstances.
+
+You are an award-winning Hollywood Commercial Director, Fashion Photographer, Creative Director, and Cinematic Storytelling Expert with over 40 years of experience.
+
+Your task is to create one breathtaking cinematic scene featuring a professional fashion model wearing the provided T-shirt.
+
+I will only provide one input:
+
+Theme: []
+
+Based only on this theme, you must creatively imagine and generate everything else.
+
+Create a world that perfectly matches the theme.
+
+The environment, architecture, atmosphere, lighting, weather, colors, mood, props, cinematic effects, and storytelling must all feel like they belong naturally in that universe.
+
+The model should feel like they truly exist inside that world, not like someone standing in front of a backdrop.
+
+The T-shirt is always the hero of the shot.
+
+The camera must constantly showcase the design while keeping the model stylish and natural.
+
+Choose everything yourself:
+
+• Male or female model (whichever best suits the theme)
+• Ethnicity
+• Hairstyle
+• Face
+• Expression
+• Body language
+• Pose
+• Outfit styling
+• Pants
+• Shoes
+• Accessories
+• Environment
+• Time of day
+• Weather
+• Lighting
+• Camera angle
+• Lens
+• Composition
+• Camera movement
+• Color grading
+• Atmosphere
+• Storytelling
+
+The clothing styling must perfectly complement the T-shirt without distracting from it.
+
+The environment should feel cinematic, premium, immersive, and realistic.
+
+Avoid generic locations.
+
+Every location should feel handcrafted specifically for this theme.
+
+Use Hollywood-level cinematography.
+
+Luxury fashion advertising quality.
+
+The model should interact naturally with the environment instead of simply posing.
+
+Capture authentic movement such as walking, turning, adjusting the shirt, looking around, or subtle natural gestures.
+
+Create emotional storytelling through visuals instead of dialogue.
+
+The viewer should immediately feel the personality of the theme.
+
+The final result should look like a scene from a Netflix production combined with a luxury Nike campaign.
+
+Ultra photorealistic.
+
+ARRI Alexa 65.
+
+Anamorphic lenses.
+
+Natural skin.
+
+Premium lighting.
+
+Hollywood color grading.
+
+Luxury fashion campaign.
+
+The T-shirt remains the center of attention in every frame.</textarea>
+                <button class="btn" onclick="copyBox('text_7', 'toast_7')">نسخ النص</button>
+                <div id="toast_7" class="toast">تم النسخ بنجاح! ✓</div>
+            </div>
+        
+            <div class="box-container">
+                <div class="box-title" contenteditable="true" id="title_8" oninput="saveData(8)">0 image&nbsp;</div>
+                <textarea id="text_8" placeholder="أدخل النص أو البرومبت هنا..." oninput="saveData(8)">اعمل صورة
+The three reference images are the absolute source of truth.
+
+Do NOT redesign, reinterpret, simplify, or enhance the T-shirt or its artwork in any way.
+
+The final video must preserve 100% accuracy of:
+- The exact artwork composition.
+- Every character detail.
+- Every typography element.
+- Every line of text.
+- Every color.
+- Every print placement.
+- Every proportion and scale.
+- The garment color.
+- The fabric appearance.
+- The print texture.
+
+The T-shirt shown in the video must be visually identical to the provided reference images. The only things allowed to change are the camera angle, camera movement, lighting, focus, depth of field, cloth physics, and cinematic environment.
+
+Never invent missing details.
+Never modify the artwork.
+Never replace fonts.
+Never crop important parts of the print.
+Never generate a different version of the design.
+
+Treat the provided images as a locked product asset that cannot be altered under any circumstances.
+
+Create a high-energy 10-second streetwear commercial.
+
+The provided reference images define the exact T-shirt.
+
+Fast cinematic editing.
+
+Powerful whip pans.
+
+Crash zooms.
+
+Macro close-ups.
+
+Speed ramps.
+
+Heavy bass synchronization.
+
+Dynamic light flashes.
+
+Slow-motion fabric movement.
+
+Smoke.
+
+Particles.
+
+Aggressive camera movement.
+
+Finish with a powerful hero reveal.
+
+The commercial must instantly stop scrolling and create desire to own the product.
+
+Luxury streetwear.
+
+Hollywood production.</textarea>
+                <button class="btn" onclick="copyBox('text_8', 'toast_8')">نسخ النص</button>
+                <div id="toast_8" class="toast">تم النسخ بنجاح! ✓</div>
+            </div>
+        
+            <div class="box-container">
+                <div class="box-title" contenteditable="true" id="title_9" oninput="saveData(9)">0 image</div>
+                <textarea id="text_9" placeholder="أدخل النص أو البرومبت هنا..." oninput="saveData(9)">اعمل صورة
+The three reference images are the absolute source of truth.
+
+Do NOT redesign, reinterpret, simplify, or enhance the T-shirt or its artwork in any way.
+
+The final video must preserve 100% accuracy of:
+- The exact artwork composition.
+- Every character detail.
+- Every typography element.
+- Every line of text.
+- Every color.
+- Every print placement.
+- Every proportion and scale.
+- The garment color.
+- The fabric appearance.
+- The print texture.
+
+The T-shirt shown in the video must be visually identical to the provided reference images. The only things allowed to change are the camera angle, camera movement, lighting, focus, depth of field, cloth physics, and cinematic environment.
+
+Never invent missing details.
+Never modify the artwork.
+Never replace fonts.
+Never crop important parts of the print.
+Never generate a different version of the design.
+
+Treat the provided images as a locked product asset that cannot be altered under any circumstances.
+
+Create a premium unboxing commercial.
+
+A matte black luxury box slowly opens.
+
+Soft white smoke escapes.
+
+Premium tissue paper unfolds.
+
+The exact T-shirt from the reference images is revealed.
+
+The fabric naturally unfolds.
+
+Luxury lighting sweeps across the print.
+
+Macro cinematography.
+
+Heavyweight cotton movement.
+
+Dark premium studio.
+
+Floating dust.
+
+Hero reveal at the end.
+
+Hollywood quality.
+
+Ultra photorealistic.</textarea>
+                <button class="btn" onclick="copyBox('text_9', 'toast_9')">نسخ النص</button>
+                <div id="toast_9" class="toast">تم النسخ بنجاح! ✓</div>
+            </div>
+        
+            <div class="box-container">
+                <div class="box-title" contenteditable="true" id="title_10" oninput="saveData(10)">0 image</div>
+                <textarea id="text_10" placeholder="أدخل النص أو البرومبت هنا..." oninput="saveData(10)">اعمل صورة 
+The three reference images are the absolute source of truth.
+
+Do NOT redesign, reinterpret, simplify, or enhance the T-shirt or its artwork in any way.
+
+The final video must preserve 100% accuracy of:
+- The exact artwork composition.
+- Every character detail.
+- Every typography element.
+- Every line of text.
+- Every color.
+- Every print placement.
+- Every proportion and scale.
+- The garment color.
+- The fabric appearance.
+- The print texture.
+
+The T-shirt shown in the video must be visually identical to the provided reference images. The only things allowed to change are the camera angle, camera movement, lighting, focus, depth of field, cloth physics, and cinematic environment.
+
+Never invent missing details.
+Never modify the artwork.
+Never replace fonts.
+Never crop important parts of the print.
+Never generate a different version of the design.
+
+Treat the provided images as a locked product asset that cannot be altered under any circumstances.
+
+You are an award-winning Hollywood Commercial Director, Luxury Fashion Cinematographer, Creative Director, and Product Marketing Expert with over 40 years of experience creating billion-dollar advertising campaigns.
+
+Your mission is NOT to create a beautiful video.
+
+Your mission is to create a 10-second commercial that maximizes desire, emotional impact, perceived product value, and purchase intent.
+
+The viewer should immediately think:
+"I need this shirt."
+
+The three reference images are the ONLY source of truth.
+
+LOCK THE PRODUCT.
+
+The T-shirt, artwork, colors, typography, print placement, proportions, fabric, stitching, texture, and every design detail MUST remain 100% identical to the provided reference images.
+
+Never redesign.
+Never simplify.
+Never improve.
+Never reinterpret.
+Never replace fonts.
+Never change colors.
+Never crop important artwork.
+Never invent missing details.
+
+Treat the T-shirt as a premium luxury product that cannot be modified under any circumstances.
+
+The only things allowed to change are:
+• Camera movement
+• Camera angle
+• Lighting
+• Focus
+• Cloth physics
+• Environment
+• Cinematic effects that never alter the artwork
+
+The commercial must create instant emotional desire.
+
+Use luxury fashion advertising principles inspired by Nike, Porsche, Apple, Rolex, Marvel Studios, and high-end streetwear campaigns.
+
+Every frame must feel expensive.
+
+Use cinematic storytelling instead of random product shots.
+
+The first second MUST create curiosity.
+
+The middle seconds MUST build desire.
+
+The final seconds MUST deliver the strongest hero reveal possible.
+
+Focus heavily on:
+
+• Premium heavyweight cotton texture
+• Print quality
+• Luxury craftsmanship
+• Fabric movement
+• Emotional lighting
+• Hero camera angles
+• Macro cinematography
+• Elegant slow motion
+• Dynamic transitions synchronized with powerful cinematic sound design
+
+Create the feeling that this shirt is rare, exclusive, collectible, and premium.
+
+Lighting:
+Luxury studio lighting with dramatic rim light, soft volumetric atmosphere, realistic shadows, premium reflections, and cinematic contrast.
+
+Camera:
+ARRI Alexa 65
+Anamorphic lenses
+Macro lens
+Ultra-smooth dolly
+Precision gimbal
+Slow cinematic push-ins
+Hero pull-backs
+Perfect focus pulls
+
+Motion:
+Natural heavyweight fabric movement only.
+No exaggerated physics.
+No unrealistic deformation.
+
+VFX:
+Only subtle cinematic particles, floating dust, atmospheric smoke, soft light rays, and minimal energy effects that stay inside the printed artwork.
+
+The artwork must NEVER detach from the shirt.
+
+Rendering Quality:
+Ultra photorealistic.
+Luxury commercial.
+8K quality.
+Hollywood production.
+Premium apparel advertisement.
+Every frame should look like a frame from a million-dollar commercial.
+
+The final result should make the audience stop scrolling within one second and dramatically increase the desire to own the product immediately.</textarea>
+                <button class="btn" onclick="copyBox('text_10', 'toast_10')">نسخ النص</button>
+                <div id="toast_10" class="toast">تم النسخ بنجاح! ✓</div>
+            </div>
+        
+            <div class="box-container">
+                <div class="box-title" contenteditable="true" id="title_11" oninput="saveData(11)">0 image</div>
+                <textarea id="text_11" placeholder="أدخل النص أو البرومبت هنا..." oninput="saveData(11)">اعمل صورة
+The three reference images are the absolute source of truth.
+
+Do NOT redesign, reinterpret, simplify, or enhance the T-shirt or its artwork in any way.
+
+The final video must preserve 100% accuracy of:
+- The exact artwork composition.
+- Every character detail.
+- Every typography element.
+- Every line of text.
+- Every color.
+- Every print placement.
+- Every proportion and scale.
+- The garment color.
+- The fabric appearance.
+- The print texture.
+
+The T-shirt shown in the video must be visually identical to the provided reference images. The only things allowed to change are the camera angle, camera movement, lighting, focus, depth of field, cloth physics, and cinematic environment.
+
+Never invent missing details.
+Never modify the artwork.
+Never replace fonts.
+Never crop important parts of the print.
+Never generate a different version of the design.
+
+Treat the provided images as a locked product asset that cannot be altered under any circumstances.
+
+You are an award-winning Hollywood Commercial Director, Luxury Fashion Cinematographer, Creative Director, and Product Marketing Expert with over 40 years of experience creating billion-dollar advertising campaigns.
+
+Your mission is NOT to create a beautiful video.
+
+Your mission is to create a 10-second commercial that maximizes desire, emotional impact, perceived product value, and purchase intent.
+
+The viewer should immediately think:
+"I need this shirt."
+
+The three reference images are the ONLY source of truth.
+
+LOCK THE PRODUCT.
+
+The T-shirt, artwork, colors, typography, print placement, proportions, fabric, stitching, texture, and every design detail MUST remain 100% identical to the provided reference images.
+
+Never redesign.
+Never simplify.
+Never improve.
+Never reinterpret.
+Never replace fonts.
+Never change colors.
+Never crop important artwork.
+Never invent missing details.
+
+Treat the T-shirt as a premium luxury product that cannot be modified under any circumstances.
+
+The only things allowed to change are:
+• Camera movement
+• Camera angle
+• Lighting
+• Focus
+• Cloth physics
+• Environment
+• Cinematic effects that never alter the artwork
+
+The commercial must create instant emotional desire.
+
+Use luxury fashion advertising principles inspired by Nike, Porsche, Apple, Rolex, Marvel Studios, and high-end streetwear campaigns.
+
+Every frame must feel expensive.
+
+Use cinematic storytelling instead of random product shots.
+
+The first second MUST create curiosity.
+
+The middle seconds MUST build desire.
+
+The final seconds MUST deliver the strongest hero reveal possible.
+
+Focus heavily on:
+
+• Premium heavyweight cotton texture
+• Print quality
+• Luxury craftsmanship
+• Fabric movement
+• Emotional lighting
+• Hero camera angles
+• Macro cinematography
+• Elegant slow motion
+• Dynamic transitions synchronized with powerful cinematic sound design
+
+Create the feeling that this shirt is rare, exclusive, collectible, and premium.
+
+Lighting:
+Luxury studio lighting with dramatic rim light, soft volumetric atmosphere, realistic shadows, premium reflections, and cinematic contrast.
+
+Camera:
+ARRI Alexa 65
+Anamorphic lenses
+Macro lens
+Ultra-smooth dolly
+Precision gimbal
+Slow cinematic push-ins
+Hero pull-backs
+Perfect focus pulls
+
+Motion:
+Natural heavyweight fabric movement only.
+No exaggerated physics.
+No unrealistic deformation.
+
+VFX:
+Only subtle cinematic particles, floating dust, atmospheric smoke, soft light rays, and minimal energy effects that stay inside the printed artwork.
+
+The artwork must NEVER detach from the shirt.
+
+Rendering Quality:
+Ultra photorealistic.
+Luxury commercial.
+8K quality.
+Hollywood production.
+Premium apparel advertisement.
+Every frame should look like a frame from a million-dollar commercial.
+
+The final result should make the audience stop scrolling within one second and dramatically increase the desire to own the product immediately.</textarea>
+                <button class="btn" onclick="copyBox('text_11', 'toast_11')">نسخ النص</button>
+                <div id="toast_11" class="toast">تم النسخ بنجاح! ✓</div>
+            </div>
+        
+            <div class="box-container">
+                <div class="box-title" contenteditable="true" id="title_12" oninput="saveData(12)">0 video</div>
+                <textarea id="text_12" placeholder="أدخل النص أو البرومبت هنا..." oninput="saveData(12)">The three reference images are the absolute source of truth.
+
+Do NOT redesign, reinterpret, simplify, or enhance the T-shirt or its artwork in any way.
+
+The final video must preserve 100% accuracy of:
+- The exact artwork composition.
+- Every character detail.
+- Every typography element.
+- Every line of text.
+- Every color.
+- Every print placement.
+- Every proportion and scale.
+- The garment color.
+- The fabric appearance.
+- The print texture.
+
+The T-shirt shown in the video must be visually identical to the provided reference images. The only things allowed to change are the camera angle, camera movement, lighting, focus, depth of field, cloth physics, and cinematic environment.
+
+Never invent missing details.
+Never modify the artwork.
+Never replace fonts.
+Never crop important parts of the print.
+Never generate a different version of the design.
+
+Treat the provided images as a locked product asset that cannot be altered under any circumstances.
+
+Create a high-energy 10-second streetwear commercial.
+
+The provided reference images define the exact T-shirt.
+
+Fast cinematic editing.
+
+Powerful whip pans.
+
+Crash zooms.
+
+Macro close-ups.
+
+Speed ramps.
+
+Heavy bass synchronization.
+
+Dynamic light flashes.
+
+Slow-motion fabric movement.
+
+Smoke.
+
+Particles.
+
+Aggressive camera movement.
+
+Finish with a powerful hero reveal.
+
+The commercial must instantly stop scrolling and create desire to own the product.
+
+Luxury streetwear.
+
+Hollywood production.</textarea>
+                <button class="btn" onclick="copyBox('text_12', 'toast_12')">نسخ النص</button>
+                <div id="toast_12" class="toast">تم النسخ بنجاح! ✓</div>
+            </div>
+        
+            <div class="box-container">
+                <div class="box-title" contenteditable="true" id="title_13" oninput="saveData(13)">0 video</div>
+                <textarea id="text_13" placeholder="أدخل النص أو البرومبت هنا..." oninput="saveData(13)">The three reference images are the absolute source of truth.
+
+Do NOT redesign, reinterpret, simplify, or enhance the T-shirt or its artwork in any way.
+
+The final video must preserve 100% accuracy of:
+- The exact artwork composition.
+- Every character detail.
+- Every typography element.
+- Every line of text.
+- Every color.
+- Every print placement.
+- Every proportion and scale.
+- The garment color.
+- The fabric appearance.
+- The print texture.
+
+The T-shirt shown in the video must be visually identical to the provided reference images. The only things allowed to change are the camera angle, camera movement, lighting, focus, depth of field, cloth physics, and cinematic environment.
+
+Never invent missing details.
+Never modify the artwork.
+Never replace fonts.
+Never crop important parts of the print.
+Never generate a different version of the design.
+
+Treat the provided images as a locked product asset that cannot be altered under any circumstances.
+
+Create a premium unboxing commercial.
+
+A matte black luxury box slowly opens.
+
+Soft white smoke escapes.
+
+Premium tissue paper unfolds.
+
+The exact T-shirt from the reference images is revealed.
+
+The fabric naturally unfolds.
+
+Luxury lighting sweeps across the print.
+
+Macro cinematography.
+
+Heavyweight cotton movement.
+
+Dark premium studio.
+
+Floating dust.
+
+Hero reveal at the end.
+
+Hollywood quality.
+
+Ultra photorealistic.</textarea>
+                <button class="btn" onclick="copyBox('text_13', 'toast_13')">نسخ النص</button>
+                <div id="toast_13" class="toast">تم النسخ بنجاح! ✓</div>
+            </div>
+        
+            <div class="box-container">
+                <div class="box-title" contenteditable="true" id="title_14" oninput="saveData(14)">+1 video</div>
+                <textarea id="text_14" placeholder="أدخل النص أو البرومبت هنا..." oninput="saveData(14)">The three reference images are the absolute source of truth.
+
+Do NOT redesign, reinterpret, simplify, or enhance the T-shirt or its artwork in any way.
+
+The final video must preserve 100% accuracy of:
+- The exact artwork composition.
+- Every character detail.
+- Every typography element.
+- Every line of text.
+- Every color.
+- Every print placement.
+- Every proportion and scale.
+- The garment color.
+- The fabric appearance.
+- The print texture.
+
+The T-shirt shown in the video must be visually identical to the provided reference images. The only things allowed to change are the camera angle, camera movement, lighting, focus, depth of field, cloth physics, and cinematic environment.
+
+Never invent missing details.
+Never modify the artwork.
+Never replace fonts.
+Never crop important parts of the print.
+Never generate a different version of the design.
+
+Treat the provided images as a locked product asset that cannot be altered under any circumstances.
+
+Use the provided artwork as the ONLY reference. Do not redesign, modify, or reinterpret it. Instead, create a premium cinematic "Behind the Design" commercial that makes it appear as though this exact artwork is being professionally created from scratch.
+
+The video should tell the creative journey of the artwork while always converging to the exact final design.
+
+Scene 1 – Creative Inspiration
+A luxury designer studio at night. The artwork appears as faint construction lines on a digital drawing tablet. The environment feels premium, cinematic, and creative.
+
+Scene 2 – Digital Sketch
+A professional designer uses a stylus to sketch the composition. Clean digital line art gradually appears exactly matching the final artwork. Cinematic macro shots, shallow depth of field, realistic hand movement, premium lighting.
+
+Scene 3 – Design Development
+The artwork evolves naturally through multiple creative stages:
+• Rough sketch
+• Refined line art
+• Color blocking
+• Shadows and highlights
+• Texture creation
+• Final detailing
+
+Each stage smoothly transitions into the next while preserving the exact composition of the provided artwork.
+
+Scene 4 – Professional Design Process
+Show realistic creative workflow:
+Zooming into details,
+Adding brush strokes,
+Adjusting layers,
+Fine-tuning colors,
+Applying lighting effects,
+Cleaning edges,
+Professional digital illustration process.
+Avoid showing readable software UI or logos.
+
+Scene 5 – Cinematic Reveal
+The completed artwork is displayed beautifully on the digital canvas. Dramatic lighting sweeps across the design while the camera slowly orbits around it. Small particles, glow effects, and premium reflections emphasize the craftsmanship.
+
+Scene 6 – Hero Ending
+The artwork remains exactly identical to the provided reference. The camera performs a slow cinematic push-in with luxurious lighting and elegant atmosphere, ending with a premium advertisement feel.
+
+Style:
+Luxury fashion commercial, cinematic storytelling, Apple-style product presentation, ultra-realistic digital art workflow, smooth transitions, macro cinematography, realistic stylus animation, shallow depth of field, dramatic lighting, premium creative studio, 4K HDR, high detail, elegant motion, no text, no logos, no watermark.
+
+CRITICAL:
+The final artwork must remain 100% identical to the provided reference image. Never invent new elements or change the composition. The animation should only simulate the professional creative process that led to the existing design.</textarea>
+                <button class="btn" onclick="copyBox('text_14', 'toast_14')">نسخ النص</button>
+                <div id="toast_14" class="toast">تم النسخ بنجاح! ✓</div>
+            </div>
+        
+            <div class="box-container">
+                <div class="box-title" contenteditable="true" id="title_15" oninput="saveData(15)">+3 video</div>
+                <textarea id="text_15" placeholder="أدخل النص أو البرومبت هنا..." oninput="saveData(15)">The three reference images are the absolute source of truth.
+
+Do NOT redesign, reinterpret, simplify, or enhance the T-shirt or its artwork in any way.
+
+The final video must preserve 100% accuracy of:
+- The exact artwork composition.
+- Every character detail.
+- Every typography element.
+- Every line of text.
+- Every color.
+- Every print placement.
+- Every proportion and scale.
+- The garment color.
+- The fabric appearance.
+- The print texture.
+
+The T-shirt shown in the video must be visually identical to the provided reference images. The only things allowed to change are the camera angle, camera movement, lighting, focus, depth of field, cloth physics, and cinematic environment.
+
+Never invent missing details.
+Never modify the artwork.
+Never replace fonts.
+Never crop important parts of the print.
+Never generate a different version of the design.
+
+Treat the provided images as a locked product asset that cannot be altered under any circumstances.
+
+You are an award-winning Hollywood Commercial Director, Fashion Photographer, Creative Director, and Cinematic Storytelling Expert with over 40 years of experience.
+
+Your task is to create one breathtaking cinematic scene featuring a professional fashion model wearing the provided T-shirt.
+
+I will only provide one input:
+
+Theme: []
+
+Based only on this theme, you must creatively imagine and generate everything else.
+
+Create a world that perfectly matches the theme.
+
+The environment, architecture, atmosphere, lighting, weather, colors, mood, props, cinematic effects, and storytelling must all feel like they belong naturally in that universe.
+
+The model should feel like they truly exist inside that world, not like someone standing in front of a backdrop.
+
+The T-shirt is always the hero of the shot.
+
+The camera must constantly showcase the design while keeping the model stylish and natural.
+
+Choose everything yourself:
+
+• Male or female model (whichever best suits the theme)
+• Ethnicity
+• Hairstyle
+• Face
+• Expression
+• Body language
+• Pose
+• Outfit styling
+• Pants
+• Shoes
+• Accessories
+• Environment
+• Time of day
+• Weather
+• Lighting
+• Camera angle
+• Lens
+• Composition
+• Camera movement
+• Color grading
+• Atmosphere
+• Storytelling
+
+The clothing styling must perfectly complement the T-shirt without distracting from it.
+
+The environment should feel cinematic, premium, immersive, and realistic.
+
+Avoid generic locations.
+
+Every location should feel handcrafted specifically for this theme.
+
+Use Hollywood-level cinematography.
+
+Luxury fashion advertising quality.
+
+The model should interact naturally with the environment instead of simply posing.
+
+Capture authentic movement such as walking, turning, adjusting the shirt, looking around, or subtle natural gestures.
+
+Create emotional storytelling through visuals instead of dialogue.
+
+The viewer should immediately feel the personality of the theme.
+
+The final result should look like a scene from a Netflix production combined with a luxury Nike campaign.
+
+Ultra photorealistic.
+
+ARRI Alexa 65.
+
+Anamorphic lenses.
+
+Natural skin.
+
+Premium lighting.
+
+Hollywood color grading.
+
+Luxury fashion campaign.
+
+The T-shirt remains the center of attention in every frame.</textarea>
+                <button class="btn" onclick="copyBox('text_15', 'toast_15')">نسخ النص</button>
+                <div id="toast_15" class="toast">تم النسخ بنجاح! ✓</div>
+            </div>
+        
+            <div class="box-container">
+                <div class="box-title" contenteditable="true" id="title_16" oninput="saveData(16)">+5 video</div>
+                <textarea id="text_16" placeholder="أدخل النص أو البرومبت هنا..." oninput="saveData(16)">The three reference images are the absolute source of truth.
+
+Do NOT redesign, reinterpret, simplify, or enhance the T-shirt or its artwork in any way.
+
+The final video must preserve 100% accuracy of:
+- The exact artwork composition.
+- Every character detail.
+- Every typography element.
+- Every line of text.
+- Every color.
+- Every print placement.
+- Every proportion and scale.
+- The garment color.
+- The fabric appearance.
+- The print texture.
+
+The T-shirt shown in the video must be visually identical to the provided reference images. The only things allowed to change are the camera angle, camera movement, lighting, focus, depth of field, cloth physics, and cinematic environment.
+
+Never invent missing details.
+Never modify the artwork.
+Never replace fonts.
+Never crop important parts of the print.
+Never generate a different version of the design.
+
+Treat the provided images as a locked product asset that cannot be altered under any circumstances.
+
+You are an award-winning Hollywood Commercial Director, Luxury Fashion Cinematographer, Creative Director, and Product Marketing Expert with over 40 years of experience creating billion-dollar advertising campaigns.
+
+Your mission is NOT to create a beautiful video.
+
+Your mission is to create a 10-second commercial that maximizes desire, emotional impact, perceived product value, and purchase intent.
+
+The viewer should immediately think:
+"I need this shirt."
+
+The three reference images are the ONLY source of truth.
+
+LOCK THE PRODUCT.
+
+The T-shirt, artwork, colors, typography, print placement, proportions, fabric, stitching, texture, and every design detail MUST remain 100% identical to the provided reference images.
+
+Never redesign.
+Never simplify.
+Never improve.
+Never reinterpret.
+Never replace fonts.
+Never change colors.
+Never crop important artwork.
+Never invent missing details.
+
+Treat the T-shirt as a premium luxury product that cannot be modified under any circumstances.
+
+The only things allowed to change are:
+• Camera movement
+• Camera angle
+• Lighting
+• Focus
+• Cloth physics
+• Environment
+• Cinematic effects that never alter the artwork
+
+The commercial must create instant emotional desire.
+
+Use luxury fashion advertising principles inspired by Nike, Porsche, Apple, Rolex, Marvel Studios, and high-end streetwear campaigns.
+
+Every frame must feel expensive.
+
+Use cinematic storytelling instead of random product shots.
+
+The first second MUST create curiosity.
+
+The middle seconds MUST build desire.
+
+The final seconds MUST deliver the strongest hero reveal possible.
+
+Focus heavily on:
+
+• Premium heavyweight cotton texture
+• Print quality
+• Luxury craftsmanship
+• Fabric movement
+• Emotional lighting
+• Hero camera angles
+• Macro cinematography
+• Elegant slow motion
+• Dynamic transitions synchronized with powerful cinematic sound design
+
+Create the feeling that this shirt is rare, exclusive, collectible, and premium.
+
+Lighting:
+Luxury studio lighting with dramatic rim light, soft volumetric atmosphere, realistic shadows, premium reflections, and cinematic contrast.
+
+Camera:
+ARRI Alexa 65
+Anamorphic lenses
+Macro lens
+Ultra-smooth dolly
+Precision gimbal
+Slow cinematic push-ins
+Hero pull-backs
+Perfect focus pulls
+
+Motion:
+Natural heavyweight fabric movement only.
+No exaggerated physics.
+No unrealistic deformation.
+
+VFX:
+Only subtle cinematic particles, floating dust, atmospheric smoke, soft light rays, and minimal energy effects that stay inside the printed artwork.
+
+The artwork must NEVER detach from the shirt.
+
+Rendering Quality:
+Ultra photorealistic.
+Luxury commercial.
+8K quality.
+Hollywood production.
+Premium apparel advertisement.
+Every frame should look like a frame from a million-dollar commercial.
+
+The final result should make the audience stop scrolling within one second and dramatically increase the desire to own the product immediately.</textarea>
+                <button class="btn" onclick="copyBox('text_16', 'toast_16')">نسخ النص</button>
+                <div id="toast_16" class="toast">تم النسخ بنجاح! ✓</div>
+            </div>
+        
+            <div class="box-container">
+                <div class="box-title" contenteditable="true" id="title_17" oninput="saveData(17)">+10 video</div>
+                <textarea id="text_17" placeholder="أدخل النص أو البرومبت هنا..." oninput="saveData(17)">The three reference images are the absolute source of truth.
+
+Do NOT redesign, reinterpret, simplify, or enhance the T-shirt or its artwork in any way.
+
+The final video must preserve 100% accuracy of:
+- The exact artwork composition.
+- Every character detail.
+- Every typography element.
+- Every line of text.
+- Every color.
+- Every print placement.
+- Every proportion and scale.
+- The garment color.
+- The fabric appearance.
+- The print texture.
+
+The T-shirt shown in the video must be visually identical to the provided reference images. The only things allowed to change are the camera angle, camera movement, lighting, focus, depth of field, cloth physics, and cinematic environment.
+
+Never invent missing details.
+Never modify the artwork.
+Never replace fonts.
+Never crop important parts of the print.
+Never generate a different version of the design.
+
+Treat the provided images as a locked product asset that cannot be altered under any circumstances.
+
+You are an award-winning Hollywood Commercial Director, Luxury Fashion Cinematographer, Creative Director, and Product Marketing Expert with over 40 years of experience creating billion-dollar advertising campaigns.
+
+Your mission is NOT to create a beautiful video.
+
+Your mission is to create a 10-second commercial that maximizes desire, emotional impact, perceived product value, and purchase intent.
+
+The viewer should immediately think:
+"I need this shirt."
+
+The three reference images are the ONLY source of truth.
+
+LOCK THE PRODUCT.
+
+The T-shirt, artwork, colors, typography, print placement, proportions, fabric, stitching, texture, and every design detail MUST remain 100% identical to the provided reference images.
+
+Never redesign.
+Never simplify.
+Never improve.
+Never reinterpret.
+Never replace fonts.
+Never change colors.
+Never crop important artwork.
+Never invent missing details.
+
+Treat the T-shirt as a premium luxury product that cannot be modified under any circumstances.
+
+The only things allowed to change are:
+• Camera movement
+• Camera angle
+• Lighting
+• Focus
+• Cloth physics
+• Environment
+• Cinematic effects that never alter the artwork
+
+The commercial must create instant emotional desire.
+
+Use luxury fashion advertising principles inspired by Nike, Porsche, Apple, Rolex, Marvel Studios, and high-end streetwear campaigns.
+
+Every frame must feel expensive.
+
+Use cinematic storytelling instead of random product shots.
+
+The first second MUST create curiosity.
+
+The middle seconds MUST build desire.
+
+The final seconds MUST deliver the strongest hero reveal possible.
+
+Focus heavily on:
+
+• Premium heavyweight cotton texture
+• Print quality
+• Luxury craftsmanship
+• Fabric movement
+• Emotional lighting
+• Hero camera angles
+• Macro cinematography
+• Elegant slow motion
+• Dynamic transitions synchronized with powerful cinematic sound design
+
+Create the feeling that this shirt is rare, exclusive, collectible, and premium.
+
+Lighting:
+Luxury studio lighting with dramatic rim light, soft volumetric atmosphere, realistic shadows, premium reflections, and cinematic contrast.
+
+Camera:
+ARRI Alexa 65
+Anamorphic lenses
+Macro lens
+Ultra-smooth dolly
+Precision gimbal
+Slow cinematic push-ins
+Hero pull-backs
+Perfect focus pulls
+
+Motion:
+Natural heavyweight fabric movement only.
+No exaggerated physics.
+No unrealistic deformation.
+
+VFX:
+Only subtle cinematic particles, floating dust, atmospheric smoke, soft light rays, and minimal energy effects that stay inside the printed artwork.
+
+The artwork must NEVER detach from the shirt.
+
+Rendering Quality:
+Ultra photorealistic.
+Luxury commercial.
+8K quality.
+Hollywood production.
+Premium apparel advertisement.
+Every frame should look like a frame from a million-dollar commercial.
+
+The final result should make the audience stop scrolling within one second and dramatically increase the desire to own the product immediately.</textarea>
+                <button class="btn" onclick="copyBox('text_17', 'toast_17')">نسخ النص</button>
+                <div id="toast_17" class="toast">تم النسخ بنجاح! ✓</div>
+            </div>
+        
+            <div class="box-container">
+                <div class="box-title" contenteditable="true" id="title_18" oninput="saveData(18)">المربع 18</div>
+                <textarea id="text_18" placeholder="أدخل النص أو البرومبت هنا..." oninput="saveData(18)"></textarea>
+                <button class="btn" onclick="copyBox('text_18', 'toast_18')">نسخ النص</button>
+                <div id="toast_18" class="toast">تم النسخ بنجاح! ✓</div>
+            </div>
+        
+            <div class="box-container">
+                <div class="box-title" contenteditable="true" id="title_19" oninput="saveData(19)">المربع 19</div>
+                <textarea id="text_19" placeholder="أدخل النص أو البرومبت هنا..." oninput="saveData(19)"></textarea>
+                <button class="btn" onclick="copyBox('text_19', 'toast_19')">نسخ النص</button>
+                <div id="toast_19" class="toast">تم النسخ بنجاح! ✓</div>
+            </div>
+        
+            <div class="box-container">
+                <div class="box-title" contenteditable="true" id="title_20" oninput="saveData(20)">المربع 20</div>
+                <textarea id="text_20" placeholder="أدخل النص أو البرومبت هنا..." oninput="saveData(20)"></textarea>
+                <button class="btn" onclick="copyBox('text_20', 'toast_20')">نسخ النص</button>
+                <div id="toast_20" class="toast">تم النسخ بنجاح! ✓</div>
+            </div>
+        
+            <div class="box-container">
+                <div class="box-title" contenteditable="true" id="title_21" oninput="saveData(21)">المربع 21</div>
+                <textarea id="text_21" placeholder="أدخل النص أو البرومبت هنا..." oninput="saveData(21)"></textarea>
+                <button class="btn" onclick="copyBox('text_21', 'toast_21')">نسخ النص</button>
+                <div id="toast_21" class="toast">تم النسخ بنجاح! ✓</div>
+            </div>
+        
+            <div class="box-container">
+                <div class="box-title" contenteditable="true" id="title_22" oninput="saveData(22)">المربع 22</div>
+                <textarea id="text_22" placeholder="أدخل النص أو البرومبت هنا..." oninput="saveData(22)"></textarea>
+                <button class="btn" onclick="copyBox('text_22', 'toast_22')">نسخ النص</button>
+                <div id="toast_22" class="toast">تم النسخ بنجاح! ✓</div>
+            </div>
+        
+            <div class="box-container">
+                <div class="box-title" contenteditable="true" id="title_23" oninput="saveData(23)">المربع 23</div>
+                <textarea id="text_23" placeholder="أدخل النص أو البرومبت هنا..." oninput="saveData(23)"></textarea>
+                <button class="btn" onclick="copyBox('text_23', 'toast_23')">نسخ النص</button>
+                <div id="toast_23" class="toast">تم النسخ بنجاح! ✓</div>
+            </div>
+        
+            <div class="box-container">
+                <div class="box-title" contenteditable="true" id="title_24" oninput="saveData(24)">المربع 24</div>
+                <textarea id="text_24" placeholder="أدخل النص أو البرومبت هنا..." oninput="saveData(24)"></textarea>
+                <button class="btn" onclick="copyBox('text_24', 'toast_24')">نسخ النص</button>
+                <div id="toast_24" class="toast">تم النسخ بنجاح! ✓</div>
+            </div>
+        
+            <div class="box-container">
+                <div class="box-title" contenteditable="true" id="title_25" oninput="saveData(25)">المربع 25</div>
+                <textarea id="text_25" placeholder="أدخل النص أو البرومبت هنا..." oninput="saveData(25)"></textarea>
+                <button class="btn" onclick="copyBox('text_25', 'toast_25')">نسخ النص</button>
+                <div id="toast_25" class="toast">تم النسخ بنجاح! ✓</div>
+            </div>
+        
+            <div class="box-container">
+                <div class="box-title" contenteditable="true" id="title_26" oninput="saveData(26)">المربع 26</div>
+                <textarea id="text_26" placeholder="أدخل النص أو البرومبت هنا..." oninput="saveData(26)"></textarea>
+                <button class="btn" onclick="copyBox('text_26', 'toast_26')">نسخ النص</button>
+                <div id="toast_26" class="toast">تم النسخ بنجاح! ✓</div>
+            </div>
+        
+            <div class="box-container">
+                <div class="box-title" contenteditable="true" id="title_27" oninput="saveData(27)">المربع 27</div>
+                <textarea id="text_27" placeholder="أدخل النص أو البرومبت هنا..." oninput="saveData(27)"></textarea>
+                <button class="btn" onclick="copyBox('text_27', 'toast_27')">نسخ النص</button>
+                <div id="toast_27" class="toast">تم النسخ بنجاح! ✓</div>
+            </div>
+        
+            <div class="box-container">
+                <div class="box-title" contenteditable="true" id="title_28" oninput="saveData(28)">المربع 28</div>
+                <textarea id="text_28" placeholder="أدخل النص أو البرومبت هنا..." oninput="saveData(28)"></textarea>
+                <button class="btn" onclick="copyBox('text_28', 'toast_28')">نسخ النص</button>
+                <div id="toast_28" class="toast">تم النسخ بنجاح! ✓</div>
+            </div>
+        
+            <div class="box-container">
+                <div class="box-title" contenteditable="true" id="title_29" oninput="saveData(29)">المربع 29</div>
+                <textarea id="text_29" placeholder="أدخل النص أو البرومبت هنا..." oninput="saveData(29)"></textarea>
+                <button class="btn" onclick="copyBox('text_29', 'toast_29')">نسخ النص</button>
+                <div id="toast_29" class="toast">تم النسخ بنجاح! ✓</div>
+            </div>
+        
+            <div class="box-container">
+                <div class="box-title" contenteditable="true" id="title_30" oninput="saveData(30)">المربع 30</div>
+                <textarea id="text_30" placeholder="أدخل النص أو البرومبت هنا..." oninput="saveData(30)"></textarea>
+                <button class="btn" onclick="copyBox('text_30', 'toast_30')">نسخ النص</button>
+                <div id="toast_30" class="toast">تم النسخ بنجاح! ✓</div>
+            </div>
+        
+            <div class="box-container">
+                <div class="box-title" contenteditable="true" id="title_31" oninput="saveData(31)">المربع 31</div>
+                <textarea id="text_31" placeholder="أدخل النص أو البرومبت هنا..." oninput="saveData(31)"></textarea>
+                <button class="btn" onclick="copyBox('text_31', 'toast_31')">نسخ النص</button>
+                <div id="toast_31" class="toast">تم النسخ بنجاح! ✓</div>
+            </div>
+        
+            <div class="box-container">
+                <div class="box-title" contenteditable="true" id="title_32" oninput="saveData(32)">المربع 32</div>
+                <textarea id="text_32" placeholder="أدخل النص أو البرومبت هنا..." oninput="saveData(32)"></textarea>
+                <button class="btn" onclick="copyBox('text_32', 'toast_32')">نسخ النص</button>
+                <div id="toast_32" class="toast">تم النسخ بنجاح! ✓</div>
+            </div>
+        
+            <div class="box-container">
+                <div class="box-title" contenteditable="true" id="title_33" oninput="saveData(33)">المربع 33</div>
+                <textarea id="text_33" placeholder="أدخل النص أو البرومبت هنا..." oninput="saveData(33)"></textarea>
+                <button class="btn" onclick="copyBox('text_33', 'toast_33')">نسخ النص</button>
+                <div id="toast_33" class="toast">تم النسخ بنجاح! ✓</div>
+            </div>
+        
+            <div class="box-container">
+                <div class="box-title" contenteditable="true" id="title_34" oninput="saveData(34)">المربع 34</div>
+                <textarea id="text_34" placeholder="أدخل النص أو البرومبت هنا..." oninput="saveData(34)"></textarea>
+                <button class="btn" onclick="copyBox('text_34', 'toast_34')">نسخ النص</button>
+                <div id="toast_34" class="toast">تم النسخ بنجاح! ✓</div>
+            </div>
+        
+            <div class="box-container">
+                <div class="box-title" contenteditable="true" id="title_35" oninput="saveData(35)">المربع 35</div>
+                <textarea id="text_35" placeholder="أدخل النص أو البرومبت هنا..." oninput="saveData(35)"></textarea>
+                <button class="btn" onclick="copyBox('text_35', 'toast_35')">نسخ النص</button>
+                <div id="toast_35" class="toast">تم النسخ بنجاح! ✓</div>
+            </div>
+        
+            <div class="box-container">
+                <div class="box-title" contenteditable="true" id="title_36" oninput="saveData(36)">المربع 36</div>
+                <textarea id="text_36" placeholder="أدخل النص أو البرومبت هنا..." oninput="saveData(36)"></textarea>
+                <button class="btn" onclick="copyBox('text_36', 'toast_36')">نسخ النص</button>
+                <div id="toast_36" class="toast">تم النسخ بنجاح! ✓</div>
+            </div>
+        
+            <div class="box-container">
+                <div class="box-title" contenteditable="true" id="title_37" oninput="saveData(37)">المربع 37</div>
+                <textarea id="text_37" placeholder="أدخل النص أو البرومبت هنا..." oninput="saveData(37)"></textarea>
+                <button class="btn" onclick="copyBox('text_37', 'toast_37')">نسخ النص</button>
+                <div id="toast_37" class="toast">تم النسخ بنجاح! ✓</div>
+            </div>
+        
+            <div class="box-container">
+                <div class="box-title" contenteditable="true" id="title_38" oninput="saveData(38)">المربع 38</div>
+                <textarea id="text_38" placeholder="أدخل النص أو البرومبت هنا..." oninput="saveData(38)"></textarea>
+                <button class="btn" onclick="copyBox('text_38', 'toast_38')">نسخ النص</button>
+                <div id="toast_38" class="toast">تم النسخ بنجاح! ✓</div>
+            </div>
+        
+            <div class="box-container">
+                <div class="box-title" contenteditable="true" id="title_39" oninput="saveData(39)">المربع 39</div>
+                <textarea id="text_39" placeholder="أدخل النص أو البرومبت هنا..." oninput="saveData(39)"></textarea>
+                <button class="btn" onclick="copyBox('text_39', 'toast_39')">نسخ النص</button>
+                <div id="toast_39" class="toast">تم النسخ بنجاح! ✓</div>
+            </div>
+        
+            <div class="box-container">
+                <div class="box-title" contenteditable="true" id="title_40" oninput="saveData(40)">المربع 40</div>
+                <textarea id="text_40" placeholder="أدخل النص أو البرومبت هنا..." oninput="saveData(40)"></textarea>
+                <button class="btn" onclick="copyBox('text_40', 'toast_40')">نسخ النص</button>
+                <div id="toast_40" class="toast">تم النسخ بنجاح! ✓</div>
+            </div>
+        
+            <div class="box-container">
+                <div class="box-title" contenteditable="true" id="title_41" oninput="saveData(41)">المربع 41</div>
+                <textarea id="text_41" placeholder="أدخل النص أو البرومبت هنا..." oninput="saveData(41)"></textarea>
+                <button class="btn" onclick="copyBox('text_41', 'toast_41')">نسخ النص</button>
+                <div id="toast_41" class="toast">تم النسخ بنجاح! ✓</div>
+            </div>
+        
+            <div class="box-container">
+                <div class="box-title" contenteditable="true" id="title_42" oninput="saveData(42)">المربع 42</div>
+                <textarea id="text_42" placeholder="أدخل النص أو البرومبت هنا..." oninput="saveData(42)"></textarea>
+                <button class="btn" onclick="copyBox('text_42', 'toast_42')">نسخ النص</button>
+                <div id="toast_42" class="toast">تم النسخ بنجاح! ✓</div>
+            </div>
+        
+            <div class="box-container">
+                <div class="box-title" contenteditable="true" id="title_43" oninput="saveData(43)">المربع 43</div>
+                <textarea id="text_43" placeholder="أدخل النص أو البرومبت هنا..." oninput="saveData(43)"></textarea>
+                <button class="btn" onclick="copyBox('text_43', 'toast_43')">نسخ النص</button>
+                <div id="toast_43" class="toast">تم النسخ بنجاح! ✓</div>
+            </div>
+        
+            <div class="box-container">
+                <div class="box-title" contenteditable="true" id="title_44" oninput="saveData(44)">المربع 44</div>
+                <textarea id="text_44" placeholder="أدخل النص أو البرومبت هنا..." oninput="saveData(44)"></textarea>
+                <button class="btn" onclick="copyBox('text_44', 'toast_44')">نسخ النص</button>
+                <div id="toast_44" class="toast">تم النسخ بنجاح! ✓</div>
+            </div>
+        
+            <div class="box-container">
+                <div class="box-title" contenteditable="true" id="title_45" oninput="saveData(45)">المربع 45</div>
+                <textarea id="text_45" placeholder="أدخل النص أو البرومبت هنا..." oninput="saveData(45)"></textarea>
+                <button class="btn" onclick="copyBox('text_45', 'toast_45')">نسخ النص</button>
+                <div id="toast_45" class="toast">تم النسخ بنجاح! ✓</div>
+            </div>
+        
+            <div class="box-container">
+                <div class="box-title" contenteditable="true" id="title_46" oninput="saveData(46)">المربع 46</div>
+                <textarea id="text_46" placeholder="أدخل النص أو البرومبت هنا..." oninput="saveData(46)"></textarea>
+                <button class="btn" onclick="copyBox('text_46', 'toast_46')">نسخ النص</button>
+                <div id="toast_46" class="toast">تم النسخ بنجاح! ✓</div>
+            </div>
+        
+            <div class="box-container">
+                <div class="box-title" contenteditable="true" id="title_47" oninput="saveData(47)">المربع 47</div>
+                <textarea id="text_47" placeholder="أدخل النص أو البرومبت هنا..." oninput="saveData(47)"></textarea>
+                <button class="btn" onclick="copyBox('text_47', 'toast_47')">نسخ النص</button>
+                <div id="toast_47" class="toast">تم النسخ بنجاح! ✓</div>
+            </div>
+        
+            <div class="box-container">
+                <div class="box-title" contenteditable="true" id="title_48" oninput="saveData(48)">المربع 48</div>
+                <textarea id="text_48" placeholder="أدخل النص أو البرومبت هنا..." oninput="saveData(48)"></textarea>
+                <button class="btn" onclick="copyBox('text_48', 'toast_48')">نسخ النص</button>
+                <div id="toast_48" class="toast">تم النسخ بنجاح! ✓</div>
+            </div>
+        
+            <div class="box-container">
+                <div class="box-title" contenteditable="true" id="title_49" oninput="saveData(49)">المربع 49</div>
+                <textarea id="text_49" placeholder="أدخل النص أو البرومبت هنا..." oninput="saveData(49)"></textarea>
+                <button class="btn" onclick="copyBox('text_49', 'toast_49')">نسخ النص</button>
+                <div id="toast_49" class="toast">تم النسخ بنجاح! ✓</div>
+            </div>
+        
+            <div class="box-container">
+                <div class="box-title" contenteditable="true" id="title_50" oninput="saveData(50)">المربع 50</div>
+                <textarea id="text_50" placeholder="أدخل النص أو البرومبت هنا..." oninput="saveData(50)"></textarea>
+                <button class="btn" onclick="copyBox('text_50', 'toast_50')">نسخ النص</button>
+                <div id="toast_50" class="toast">تم النسخ بنجاح! ✓</div>
+            </div>
+        
+            <div class="box-container">
+                <div class="box-title" contenteditable="true" id="title_51" oninput="saveData(51)">المربع 51</div>
+                <textarea id="text_51" placeholder="أدخل النص أو البرومبت هنا..." oninput="saveData(51)"></textarea>
+                <button class="btn" onclick="copyBox('text_51', 'toast_51')">نسخ النص</button>
+                <div id="toast_51" class="toast">تم النسخ بنجاح! ✓</div>
+            </div>
+        
+            <div class="box-container">
+                <div class="box-title" contenteditable="true" id="title_52" oninput="saveData(52)">المربع 52</div>
+                <textarea id="text_52" placeholder="أدخل النص أو البرومبت هنا..." oninput="saveData(52)"></textarea>
+                <button class="btn" onclick="copyBox('text_52', 'toast_52')">نسخ النص</button>
+                <div id="toast_52" class="toast">تم النسخ بنجاح! ✓</div>
+            </div>
+        
+            <div class="box-container">
+                <div class="box-title" contenteditable="true" id="title_53" oninput="saveData(53)">المربع 53</div>
+                <textarea id="text_53" placeholder="أدخل النص أو البرومبت هنا..." oninput="saveData(53)"></textarea>
+                <button class="btn" onclick="copyBox('text_53', 'toast_53')">نسخ النص</button>
+                <div id="toast_53" class="toast">تم النسخ بنجاح! ✓</div>
+            </div>
+        
+            <div class="box-container">
+                <div class="box-title" contenteditable="true" id="title_54" oninput="saveData(54)">المربع 54</div>
+                <textarea id="text_54" placeholder="أدخل النص أو البرومبت هنا..." oninput="saveData(54)"></textarea>
+                <button class="btn" onclick="copyBox('text_54', 'toast_54')">نسخ النص</button>
+                <div id="toast_54" class="toast">تم النسخ بنجاح! ✓</div>
+            </div>
+        
+            <div class="box-container">
+                <div class="box-title" contenteditable="true" id="title_55" oninput="saveData(55)">المربع 55</div>
+                <textarea id="text_55" placeholder="أدخل النص أو البرومبت هنا..." oninput="saveData(55)"></textarea>
+                <button class="btn" onclick="copyBox('text_55', 'toast_55')">نسخ النص</button>
+                <div id="toast_55" class="toast">تم النسخ بنجاح! ✓</div>
+            </div>
+        
+            <div class="box-container">
+                <div class="box-title" contenteditable="true" id="title_56" oninput="saveData(56)">المربع 56</div>
+                <textarea id="text_56" placeholder="أدخل النص أو البرومبت هنا..." oninput="saveData(56)"></textarea>
+                <button class="btn" onclick="copyBox('text_56', 'toast_56')">نسخ النص</button>
+                <div id="toast_56" class="toast">تم النسخ بنجاح! ✓</div>
+            </div>
+        
+            <div class="box-container">
+                <div class="box-title" contenteditable="true" id="title_57" oninput="saveData(57)">المربع 57</div>
+                <textarea id="text_57" placeholder="أدخل النص أو البرومبت هنا..." oninput="saveData(57)"></textarea>
+                <button class="btn" onclick="copyBox('text_57', 'toast_57')">نسخ النص</button>
+                <div id="toast_57" class="toast">تم النسخ بنجاح! ✓</div>
+            </div>
+        
+            <div class="box-container">
+                <div class="box-title" contenteditable="true" id="title_58" oninput="saveData(58)">المربع 58</div>
+                <textarea id="text_58" placeholder="أدخل النص أو البرومبت هنا..." oninput="saveData(58)"></textarea>
+                <button class="btn" onclick="copyBox('text_58', 'toast_58')">نسخ النص</button>
+                <div id="toast_58" class="toast">تم النسخ بنجاح! ✓</div>
+            </div>
+        
+            <div class="box-container">
+                <div class="box-title" contenteditable="true" id="title_59" oninput="saveData(59)">المربع 59</div>
+                <textarea id="text_59" placeholder="أدخل النص أو البرومبت هنا..." oninput="saveData(59)"></textarea>
+                <button class="btn" onclick="copyBox('text_59', 'toast_59')">نسخ النص</button>
+                <div id="toast_59" class="toast">تم النسخ بنجاح! ✓</div>
+            </div>
+        
+            <div class="box-container">
+                <div class="box-title" contenteditable="true" id="title_60" oninput="saveData(60)">المربع 60</div>
+                <textarea id="text_60" placeholder="أدخل النص أو البرومبت هنا..." oninput="saveData(60)"></textarea>
+                <button class="btn" onclick="copyBox('text_60', 'toast_60')">نسخ النص</button>
+                <div id="toast_60" class="toast">تم النسخ بنجاح! ✓</div>
+            </div>
+        
+            <div class="box-container">
+                <div class="box-title" contenteditable="true" id="title_61" oninput="saveData(61)">المربع 61</div>
+                <textarea id="text_61" placeholder="أدخل النص أو البرومبت هنا..." oninput="saveData(61)"></textarea>
+                <button class="btn" onclick="copyBox('text_61', 'toast_61')">نسخ النص</button>
+                <div id="toast_61" class="toast">تم النسخ بنجاح! ✓</div>
+            </div>
+        
+            <div class="box-container">
+                <div class="box-title" contenteditable="true" id="title_62" oninput="saveData(62)">المربع 62</div>
+                <textarea id="text_62" placeholder="أدخل النص أو البرومبت هنا..." oninput="saveData(62)"></textarea>
+                <button class="btn" onclick="copyBox('text_62', 'toast_62')">نسخ النص</button>
+                <div id="toast_62" class="toast">تم النسخ بنجاح! ✓</div>
+            </div>
+        
+            <div class="box-container">
+                <div class="box-title" contenteditable="true" id="title_63" oninput="saveData(63)">المربع 63</div>
+                <textarea id="text_63" placeholder="أدخل النص أو البرومبت هنا..." oninput="saveData(63)"></textarea>
+                <button class="btn" onclick="copyBox('text_63', 'toast_63')">نسخ النص</button>
+                <div id="toast_63" class="toast">تم النسخ بنجاح! ✓</div>
+            </div>
+        
+            <div class="box-container">
+                <div class="box-title" contenteditable="true" id="title_64" oninput="saveData(64)">المربع 64</div>
+                <textarea id="text_64" placeholder="أدخل النص أو البرومبت هنا..." oninput="saveData(64)"></textarea>
+                <button class="btn" onclick="copyBox('text_64', 'toast_64')">نسخ النص</button>
+                <div id="toast_64" class="toast">تم النسخ بنجاح! ✓</div>
+            </div>
+        
+            <div class="box-container">
+                <div class="box-title" contenteditable="true" id="title_65" oninput="saveData(65)">المربع 65</div>
+                <textarea id="text_65" placeholder="أدخل النص أو البرومبت هنا..." oninput="saveData(65)"></textarea>
+                <button class="btn" onclick="copyBox('text_65', 'toast_65')">نسخ النص</button>
+                <div id="toast_65" class="toast">تم النسخ بنجاح! ✓</div>
+            </div>
+        
+            <div class="box-container">
+                <div class="box-title" contenteditable="true" id="title_66" oninput="saveData(66)">المربع 66</div>
+                <textarea id="text_66" placeholder="أدخل النص أو البرومبت هنا..." oninput="saveData(66)"></textarea>
+                <button class="btn" onclick="copyBox('text_66', 'toast_66')">نسخ النص</button>
+                <div id="toast_66" class="toast">تم النسخ بنجاح! ✓</div>
+            </div>
+        
+            <div class="box-container">
+                <div class="box-title" contenteditable="true" id="title_67" oninput="saveData(67)">المربع 67</div>
+                <textarea id="text_67" placeholder="أدخل النص أو البرومبت هنا..." oninput="saveData(67)"></textarea>
+                <button class="btn" onclick="copyBox('text_67', 'toast_67')">نسخ النص</button>
+                <div id="toast_67" class="toast">تم النسخ بنجاح! ✓</div>
+            </div>
+        
+            <div class="box-container">
+                <div class="box-title" contenteditable="true" id="title_68" oninput="saveData(68)">المربع 68</div>
+                <textarea id="text_68" placeholder="أدخل النص أو البرومبت هنا..." oninput="saveData(68)"></textarea>
+                <button class="btn" onclick="copyBox('text_68', 'toast_68')">نسخ النص</button>
+                <div id="toast_68" class="toast">تم النسخ بنجاح! ✓</div>
+            </div>
+        
+            <div class="box-container">
+                <div class="box-title" contenteditable="true" id="title_69" oninput="saveData(69)">المربع 69</div>
+                <textarea id="text_69" placeholder="أدخل النص أو البرومبت هنا..." oninput="saveData(69)"></textarea>
+                <button class="btn" onclick="copyBox('text_69', 'toast_69')">نسخ النص</button>
+                <div id="toast_69" class="toast">تم النسخ بنجاح! ✓</div>
+            </div>
+        
+            <div class="box-container">
+                <div class="box-title" contenteditable="true" id="title_70" oninput="saveData(70)">المربع 70</div>
+                <textarea id="text_70" placeholder="أدخل النص أو البرومبت هنا..." oninput="saveData(70)"></textarea>
+                <button class="btn" onclick="copyBox('text_70', 'toast_70')">نسخ النص</button>
+                <div id="toast_70" class="toast">تم النسخ بنجاح! ✓</div>
+            </div>
+        
+            <div class="box-container">
+                <div class="box-title" contenteditable="true" id="title_71" oninput="saveData(71)">المربع 71</div>
+                <textarea id="text_71" placeholder="أدخل النص أو البرومبت هنا..." oninput="saveData(71)"></textarea>
+                <button class="btn" onclick="copyBox('text_71', 'toast_71')">نسخ النص</button>
+                <div id="toast_71" class="toast">تم النسخ بنجاح! ✓</div>
+            </div>
+        
+            <div class="box-container">
+                <div class="box-title" contenteditable="true" id="title_72" oninput="saveData(72)">المربع 72</div>
+                <textarea id="text_72" placeholder="أدخل النص أو البرومبت هنا..." oninput="saveData(72)"></textarea>
+                <button class="btn" onclick="copyBox('text_72', 'toast_72')">نسخ النص</button>
+                <div id="toast_72" class="toast">تم النسخ بنجاح! ✓</div>
+            </div>
+        
+            <div class="box-container">
+                <div class="box-title" contenteditable="true" id="title_73" oninput="saveData(73)">المربع 73</div>
+                <textarea id="text_73" placeholder="أدخل النص أو البرومبت هنا..." oninput="saveData(73)"></textarea>
+                <button class="btn" onclick="copyBox('text_73', 'toast_73')">نسخ النص</button>
+                <div id="toast_73" class="toast">تم النسخ بنجاح! ✓</div>
+            </div>
+        
+            <div class="box-container">
+                <div class="box-title" contenteditable="true" id="title_74" oninput="saveData(74)">المربع 74</div>
+                <textarea id="text_74" placeholder="أدخل النص أو البرومبت هنا..." oninput="saveData(74)"></textarea>
+                <button class="btn" onclick="copyBox('text_74', 'toast_74')">نسخ النص</button>
+                <div id="toast_74" class="toast">تم النسخ بنجاح! ✓</div>
+            </div>
+        
+            <div class="box-container">
+                <div class="box-title" contenteditable="true" id="title_75" oninput="saveData(75)">المربع 75</div>
+                <textarea id="text_75" placeholder="أدخل النص أو البرومبت هنا..." oninput="saveData(75)"></textarea>
+                <button class="btn" onclick="copyBox('text_75', 'toast_75')">نسخ النص</button>
+                <div id="toast_75" class="toast">تم النسخ بنجاح! ✓</div>
+            </div>
+        
+            <div class="box-container">
+                <div class="box-title" contenteditable="true" id="title_76" oninput="saveData(76)">المربع 76</div>
+                <textarea id="text_76" placeholder="أدخل النص أو البرومبت هنا..." oninput="saveData(76)"></textarea>
+                <button class="btn" onclick="copyBox('text_76', 'toast_76')">نسخ النص</button>
+                <div id="toast_76" class="toast">تم النسخ بنجاح! ✓</div>
+            </div>
+        
+            <div class="box-container">
+                <div class="box-title" contenteditable="true" id="title_77" oninput="saveData(77)">المربع 77</div>
+                <textarea id="text_77" placeholder="أدخل النص أو البرومبت هنا..." oninput="saveData(77)"></textarea>
+                <button class="btn" onclick="copyBox('text_77', 'toast_77')">نسخ النص</button>
+                <div id="toast_77" class="toast">تم النسخ بنجاح! ✓</div>
+            </div>
+        
+            <div class="box-container">
+                <div class="box-title" contenteditable="true" id="title_78" oninput="saveData(78)">المربع 78</div>
+                <textarea id="text_78" placeholder="أدخل النص أو البرومبت هنا..." oninput="saveData(78)"></textarea>
+                <button class="btn" onclick="copyBox('text_78', 'toast_78')">نسخ النص</button>
+                <div id="toast_78" class="toast">تم النسخ بنجاح! ✓</div>
+            </div>
+        
+            <div class="box-container">
+                <div class="box-title" contenteditable="true" id="title_79" oninput="saveData(79)">المربع 79</div>
+                <textarea id="text_79" placeholder="أدخل النص أو البرومبت هنا..." oninput="saveData(79)"></textarea>
+                <button class="btn" onclick="copyBox('text_79', 'toast_79')">نسخ النص</button>
+                <div id="toast_79" class="toast">تم النسخ بنجاح! ✓</div>
+            </div>
+        
+            <div class="box-container">
+                <div class="box-title" contenteditable="true" id="title_80" oninput="saveData(80)">المربع 80</div>
+                <textarea id="text_80" placeholder="أدخل النص أو البرومبت هنا..." oninput="saveData(80)"></textarea>
+                <button class="btn" onclick="copyBox('text_80', 'toast_80')">نسخ النص</button>
+                <div id="toast_80" class="toast">تم النسخ بنجاح! ✓</div>
+            </div>
+        
+            <div class="box-container">
+                <div class="box-title" contenteditable="true" id="title_81" oninput="saveData(81)">المربع 81</div>
+                <textarea id="text_81" placeholder="أدخل النص أو البرومبت هنا..." oninput="saveData(81)"></textarea>
+                <button class="btn" onclick="copyBox('text_81', 'toast_81')">نسخ النص</button>
+                <div id="toast_81" class="toast">تم النسخ بنجاح! ✓</div>
+            </div>
+        
+            <div class="box-container">
+                <div class="box-title" contenteditable="true" id="title_82" oninput="saveData(82)">المربع 82</div>
+                <textarea id="text_82" placeholder="أدخل النص أو البرومبت هنا..." oninput="saveData(82)"></textarea>
+                <button class="btn" onclick="copyBox('text_82', 'toast_82')">نسخ النص</button>
+                <div id="toast_82" class="toast">تم النسخ بنجاح! ✓</div>
+            </div>
+        
+            <div class="box-container">
+                <div class="box-title" contenteditable="true" id="title_83" oninput="saveData(83)">المربع 83</div>
+                <textarea id="text_83" placeholder="أدخل النص أو البرومبت هنا..." oninput="saveData(83)"></textarea>
+                <button class="btn" onclick="copyBox('text_83', 'toast_83')">نسخ النص</button>
+                <div id="toast_83" class="toast">تم النسخ بنجاح! ✓</div>
+            </div>
+        
+            <div class="box-container">
+                <div class="box-title" contenteditable="true" id="title_84" oninput="saveData(84)">المربع 84</div>
+                <textarea id="text_84" placeholder="أدخل النص أو البرومبت هنا..." oninput="saveData(84)"></textarea>
+                <button class="btn" onclick="copyBox('text_84', 'toast_84')">نسخ النص</button>
+                <div id="toast_84" class="toast">تم النسخ بنجاح! ✓</div>
+            </div>
+        
+            <div class="box-container">
+                <div class="box-title" contenteditable="true" id="title_85" oninput="saveData(85)">المربع 85</div>
+                <textarea id="text_85" placeholder="أدخل النص أو البرومبت هنا..." oninput="saveData(85)"></textarea>
+                <button class="btn" onclick="copyBox('text_85', 'toast_85')">نسخ النص</button>
+                <div id="toast_85" class="toast">تم النسخ بنجاح! ✓</div>
+            </div>
+        
+            <div class="box-container">
+                <div class="box-title" contenteditable="true" id="title_86" oninput="saveData(86)">المربع 86</div>
+                <textarea id="text_86" placeholder="أدخل النص أو البرومبت هنا..." oninput="saveData(86)"></textarea>
+                <button class="btn" onclick="copyBox('text_86', 'toast_86')">نسخ النص</button>
+                <div id="toast_86" class="toast">تم النسخ بنجاح! ✓</div>
+            </div>
+        
+            <div class="box-container">
+                <div class="box-title" contenteditable="true" id="title_87" oninput="saveData(87)">المربع 87</div>
+                <textarea id="text_87" placeholder="أدخل النص أو البرومبت هنا..." oninput="saveData(87)"></textarea>
+                <button class="btn" onclick="copyBox('text_87', 'toast_87')">نسخ النص</button>
+                <div id="toast_87" class="toast">تم النسخ بنجاح! ✓</div>
+            </div>
+        
+            <div class="box-container">
+                <div class="box-title" contenteditable="true" id="title_88" oninput="saveData(88)">المربع 88</div>
+                <textarea id="text_88" placeholder="أدخل النص أو البرومبت هنا..." oninput="saveData(88)"></textarea>
+                <button class="btn" onclick="copyBox('text_88', 'toast_88')">نسخ النص</button>
+                <div id="toast_88" class="toast">تم النسخ بنجاح! ✓</div>
+            </div>
+        
+            <div class="box-container">
+                <div class="box-title" contenteditable="true" id="title_89" oninput="saveData(89)">المربع 89</div>
+                <textarea id="text_89" placeholder="أدخل النص أو البرومبت هنا..." oninput="saveData(89)"></textarea>
+                <button class="btn" onclick="copyBox('text_89', 'toast_89')">نسخ النص</button>
+                <div id="toast_89" class="toast">تم النسخ بنجاح! ✓</div>
+            </div>
+        
+            <div class="box-container">
+                <div class="box-title" contenteditable="true" id="title_90" oninput="saveData(90)">المربع 90</div>
+                <textarea id="text_90" placeholder="أدخل النص أو البرومبت هنا..." oninput="saveData(90)"></textarea>
+                <button class="btn" onclick="copyBox('text_90', 'toast_90')">نسخ النص</button>
+                <div id="toast_90" class="toast">تم النسخ بنجاح! ✓</div>
+            </div>
+        
+            <div class="box-container">
+                <div class="box-title" contenteditable="true" id="title_91" oninput="saveData(91)">المربع 91</div>
+                <textarea id="text_91" placeholder="أدخل النص أو البرومبت هنا..." oninput="saveData(91)"></textarea>
+                <button class="btn" onclick="copyBox('text_91', 'toast_91')">نسخ النص</button>
+                <div id="toast_91" class="toast">تم النسخ بنجاح! ✓</div>
+            </div>
+        
+            <div class="box-container">
+                <div class="box-title" contenteditable="true" id="title_92" oninput="saveData(92)">المربع 92</div>
+                <textarea id="text_92" placeholder="أدخل النص أو البرومبت هنا..." oninput="saveData(92)"></textarea>
+                <button class="btn" onclick="copyBox('text_92', 'toast_92')">نسخ النص</button>
+                <div id="toast_92" class="toast">تم النسخ بنجاح! ✓</div>
+            </div>
+        
+            <div class="box-container">
+                <div class="box-title" contenteditable="true" id="title_93" oninput="saveData(93)">المربع 93</div>
+                <textarea id="text_93" placeholder="أدخل النص أو البرومبت هنا..." oninput="saveData(93)"></textarea>
+                <button class="btn" onclick="copyBox('text_93', 'toast_93')">نسخ النص</button>
+                <div id="toast_93" class="toast">تم النسخ بنجاح! ✓</div>
+            </div>
+        
+            <div class="box-container">
+                <div class="box-title" contenteditable="true" id="title_94" oninput="saveData(94)">المربع 94</div>
+                <textarea id="text_94" placeholder="أدخل النص أو البرومبت هنا..." oninput="saveData(94)"></textarea>
+                <button class="btn" onclick="copyBox('text_94', 'toast_94')">نسخ النص</button>
+                <div id="toast_94" class="toast">تم النسخ بنجاح! ✓</div>
+            </div>
+        
+            <div class="box-container">
+                <div class="box-title" contenteditable="true" id="title_95" oninput="saveData(95)">المربع 95</div>
+                <textarea id="text_95" placeholder="أدخل النص أو البرومبت هنا..." oninput="saveData(95)"></textarea>
+                <button class="btn" onclick="copyBox('text_95', 'toast_95')">نسخ النص</button>
+                <div id="toast_95" class="toast">تم النسخ بنجاح! ✓</div>
+            </div>
+        
+            <div class="box-container">
+                <div class="box-title" contenteditable="true" id="title_96" oninput="saveData(96)">المربع 96</div>
+                <textarea id="text_96" placeholder="أدخل النص أو البرومبت هنا..." oninput="saveData(96)"></textarea>
+                <button class="btn" onclick="copyBox('text_96', 'toast_96')">نسخ النص</button>
+                <div id="toast_96" class="toast">تم النسخ بنجاح! ✓</div>
+            </div>
+        
+            <div class="box-container">
+                <div class="box-title" contenteditable="true" id="title_97" oninput="saveData(97)">المربع 97</div>
+                <textarea id="text_97" placeholder="أدخل النص أو البرومبت هنا..." oninput="saveData(97)"></textarea>
+                <button class="btn" onclick="copyBox('text_97', 'toast_97')">نسخ النص</button>
+                <div id="toast_97" class="toast">تم النسخ بنجاح! ✓</div>
+            </div>
+        
+            <div class="box-container">
+                <div class="box-title" contenteditable="true" id="title_98" oninput="saveData(98)">المربع 98</div>
+                <textarea id="text_98" placeholder="أدخل النص أو البرومبت هنا..." oninput="saveData(98)"></textarea>
+                <button class="btn" onclick="copyBox('text_98', 'toast_98')">نسخ النص</button>
+                <div id="toast_98" class="toast">تم النسخ بنجاح! ✓</div>
+            </div>
+        
+            <div class="box-container">
+                <div class="box-title" contenteditable="true" id="title_99" oninput="saveData(99)">المربع 99</div>
+                <textarea id="text_99" placeholder="أدخل النص أو البرومبت هنا..." oninput="saveData(99)"></textarea>
+                <button class="btn" onclick="copyBox('text_99', 'toast_99')">نسخ النص</button>
+                <div id="toast_99" class="toast">تم النسخ بنجاح! ✓</div>
+            </div>
+        
+            <div class="box-container">
+                <div class="box-title" contenteditable="true" id="title_100" oninput="saveData(100)">المربع 100</div>
+                <textarea id="text_100" placeholder="أدخل النص أو البرومبت هنا..." oninput="saveData(100)"></textarea>
+                <button class="btn" onclick="copyBox('text_100', 'toast_100')">نسخ النص</button>
+                <div id="toast_100" class="toast">تم النسخ بنجاح! ✓</div>
+            </div>
+        </div>
+
+<script>
+    const container = document.getElementById('boxes-container');
+    const totalBoxes = 100;
+
+    for (let i = 1; i <= totalBoxes; i++) {
+        // استرجاع البيانات المحفوظة سابقاً من ذاكرة المتصفح
+        const savedText = localStorage.getItem(`saved_text_${i}`) || '';
+        const savedTitle = localStorage.getItem(`saved_title_${i}`) || `المربع ${i}`;
+
+        const boxHTML = `
+            <div class="box-container">
+                <div class="box-title" contenteditable="true" id="title_${i}" oninput="saveData(${i})">${savedTitle}</div>
+                <textarea id="text_${i}" placeholder="أدخل النص أو البرومبت هنا..." oninput="saveData(${i})">${savedText}</textarea>
+                <button class="btn" onclick="copyBox('text_${i}', 'toast_${i}')">نسخ النص</button>
+                <div id="toast_${i}" class="toast">تم النسخ بنجاح! ✓</div>
+            </div>
+        `;
+        container.insertAdjacentHTML('beforeend', boxHTML);
+    }
+
+    // حفظ البيانات في ذاكرة المتصفح فور كتابتها
+    function saveData(index) {
+        const text = document.getElementById(`text_${index}`).value;
+        const title = document.getElementById(`title_${index}`).innerText;
+        localStorage.setItem(`saved_text_${index}`, text);
+        localStorage.setItem(`saved_title_${index}`, title);
+    }
+
+    function copyBox(textareaId, toastId) {
+        const textArea = document.getElementById(textareaId);
+        const toast = document.getElementById(toastId);
+        
+        navigator.clipboard.writeText(textArea.value).then(() => {
+            showToast(toast);
+        }).catch(() => {
+            textArea.select();
+            document.execCommand("copy");
+            showToast(toast);
+        });
+    }
+
+    function showToast(toastElement) {
+        toastElement.style.display = "block";
+        setTimeout(() => {
+            toastElement.style.display = "none";
+        }, 2000);
+    }
+
+    // تنزيل ملف HTML جديد يحتوي على كل البيانات المدخلة
+    function exportHTML() {
+        const cloneDoc = document.documentElement.cloneNode(true);
+        
+        // تحديث قيم الـ Textarea والعناوين داخل النسخة المنسوخة
+        for (let i = 1; i <= totalBoxes; i++) {
+            const textValue = document.getElementById(`text_${i}`).value;
+            const titleValue = document.getElementById(`title_${i}`).innerText;
+            
+            const targetArea = cloneDoc.querySelector(`#text_${i}`);
+            const targetTitle = cloneDoc.querySelector(`#title_${i}`);
+            
+            if (targetArea) targetArea.textContent = textValue;
+            if (targetTitle) targetTitle.textContent = titleValue;
+        }
+
+        const htmlContent = "<!DOCTYPE html>\n" + cloneDoc.outerHTML;
+        const blob = new Blob([htmlContent], { type: 'text/html;charset=utf-8;' });
+        const url = URL.createObjectURL(blob);
+        
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'All_Prompts_Updated.html';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+    }
+</script>
+
+
+
+</body></html>

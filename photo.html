@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>مساعد البحث عن الصور</title>
+  <style>
+    :root { --green: #00ff88; --red: #ff4757; --blue: #3742fa; --purple: #a55eea; --bg: #0a0a0a; --card: #1a1a1a; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--bg); color: #fff; padding: 20px; }
+
+    /* HEADER */
+    header { text-align: center; padding: 30px 0; }
+    header h1 { font-size: 2.5rem; color: var(--green); text-shadow: 0 0 15px rgba(0,255,136,0.3); margin-bottom: 10px; }
+    header p { color: #888; font-size: 1rem; margin-bottom: 20px; }
+
+    /* SEARCH */
+    .search-box { max-width: 500px; margin: 0 auto 30px auto; position: relative; }
+    .search-box input { width: 100%; padding: 15px 20px; border-radius: 50px; border: 2px solid #333; background: #1a1a1a; color: white; font-size: 1rem; outline: none; transition: 0.3s; }
+    .search-box input:focus { border-color: var(--green); }
+    .search-box .count { color: #555; font-size: 0.85rem; margin-top: 8px; text-align: center; }
+
+    /* NAV TABS */
+    .tabs { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-bottom: 30px; }
+    .tab-btn { padding: 10px 25px; border-radius: 50px; border: 2px solid #333; background: transparent; color: #aaa; cursor: pointer; font-weight: bold; transition: 0.3s; font-size: 0.95rem; }
+    .tab-btn:hover { border-color: #666; color: white; }
+    .tab-btn.active-football { border-color: var(--green); color: var(--green); background: rgba(0,255,136,0.1); }
+    .tab-btn.active-anime { border-color: var(--purple); color: var(--purple); background: rgba(165,94,234,0.1); }
+    .tab-btn.active-series { border-color: var(--red); color: var(--red); background: rgba(255,71,87,0.1); }
+    .tab-btn.active-all { border-color: var(--blue); color: var(--blue); background: rgba(55,66,250,0.1); }
+
+    /* SECTIONS */
+    .section { margin-bottom: 50px; }
+    .section-title { font-size: 1.8rem; padding: 15px 0; border-bottom: 3px solid; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+    .section-title .badge { font-size: 0.9rem; padding: 4px 12px; border-radius: 20px; }
+    .football-title { border-color: var(--green); color: var(--green); }
+    .football-title .badge { background: rgba(0,255,136,0.2); color: var(--green); }
+    .anime-title { border-color: var(--purple); color: var(--purple); }
+    .anime-title .badge { background: rgba(165,94,234,0.2); color: var(--purple); }
+    .series-title { border-color: var(--red); color: var(--red); }
+    .series-title .badge { background: rgba(255,71,87,0.2); color: var(--red); }
+
+    /* GRID */
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 12px; }
+    .card { background: var(--card); padding: 18px; border-radius: 10px; cursor: pointer; transition: 0.3s; border: 1px solid #2a2a2a; display: flex; align-items: center; gap: 12px; position: relative; overflow: hidden; }
+    .card:hover { transform: translateY(-3px); }
+    .card .num { font-size: 1.4rem; font-weight: 900; min-width: 35px; text-align: center; }
+    .card .name { font-weight: 600; font-size: 0.95rem; }
+    .card .search-icon { position: absolute; right: 15px; opacity: 0; transition: 0.3s; font-size: 0.75rem; }
+    .card:hover .search-icon { opacity: 1; }
+
+    /* FOOTBALL CARDS */
+    .card-football:hover { border-color: var(--green); box-shadow: 0 5px 15px rgba(0,255,136,0.15); }
+    .card-football .num { color: var(--green); }
+    .card-football .search-icon { color: var(--green); }
+
+    /* ANIME CARDS */
+    .card-anime:hover { border-color: var(--purple); box-shadow: 0 5px 15px rgba(165,94,234,0.15); }
+    .card-anime .num { color: var(--purple); }
+    .card-anime .search-icon { color: var(--purple); }
+
+    /* SERIES CARDS */
+    .card-series:hover { border-color: var(--red); box-shadow: 0 5px 15px rgba(255,71,87,0.15); }
+    .card-series .num { color: var(--red); }
+    .card-series .search-icon { color: var(--red); }
+
+    /* OPEN ALL BUTTON */
+    .open-all-btn { padding: 8px 20px; border-radius: 50px; border: none; cursor: pointer; font-weight: bold; font-size: 0.85rem; transition: 0.3s; margin-left: 10px; }
+    .open-all-btn:hover { transform: scale(1.05); }
+    .open-football { background: var(--green); color: black; }
+    .open-anime { background: var(--purple); color: white; }
+    .open-series { background: var(--red); color: white; }
+
+    /* BACK TO TOP */
+    .back-top { position: fixed; bottom: 30px; left: 30px; background: var(--green); color: black; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 1.5rem; font-weight: bold; box-shadow: 0 5px 15px rgba(0,0,0,0.5); transition: 0.3s; z-index: 999; }
+    .back-top:hover { transform: scale(1.1); }
+
+    .hidden { display: none !important; }
+
+    @media (max-width: 600px) {
+      header h1 { font-size: 1.5rem; }
+      .grid { grid-template-columns: 1fr 1fr; gap: 8px; }
+      .card { padding: 12px; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>⚡ مساعد البحث عن الصور</h1>
+  <p>اضغط على أي اسم → يفتح لك صور جوجل ببحث جاهز ودقيق</p>
+</header>
+
+<div class="search-box">
+  <input type="text" id="searchInput" placeholder="🔍 ابحث عن اسم..." oninput="filterCards()">
+  <div class="count" id="resultCount"></div>
+</div>
+
+<div class="tabs">
+  <div class="tab-btn active-all" onclick="showSection('all')">الكل</div>
+  <div class="tab-btn" onclick="showSection('football')">⚽ كرة قدم</div>
+  <div class="tab-btn" onclick="showSection('anime')">🎌 أنمي</div>
+  <div class="tab-btn" onclick="showSection('series')">🎬 مسلسلات</div>
+</div>
+
+<div id="footballSection" class="section">
+  <div class="section-title football-title">
+    ⚽ كرة القدم <span class="badge" id="footballCount"></span>
+    <button class="open-all-btn open-football" onclick="openAllInCategory('football')">فتح الكل</button>
+  </div>
+  <div class="grid" id="footballGrid"></div>
+</div>
+
+<div id="animeSection" class="section">
+  <div class="section-title anime-title">
+    🎌 أنمي <span class="badge" id="animeCount"></span>
+    <button class="open-all-btn open-anime" onclick="openAllInCategory('anime')">فتح الكل</button>
+  </div>
+  <div class="grid" id="animeGrid"></div>
+</div>
+
+<div id="seriesSection" class="section">
+  <div class="section-title series-title">
+    🎬 مسلسلات <span class="badge" id="seriesCount"></span>
+    <button class="open-all-btn open-series" onclick="openAllInCategory('series')">فتح الكل</button>
+  </div>
+  <div class="grid" id="seriesGrid"></div>
+</div>
+
+<div class="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</div>
+
+<script>
+const footballPlayers = [
+  "Lionel Messi","Cristiano Ronaldo","Pelé","Diego Maradona","Johan Cruyff",
+  "Zinedine Zidane","Ronaldo Nazário","Ronaldinho","Neymar Jr.","Kylian Mbappé",
+  "Erling Haaland","Luka Modrić","Andrés Iniesta","Xavi Hernández","Thierry Henry",
+  "Dennis Bergkamp","Steven Gerrard","Frank Lampard","John Terry","Didier Drogba",
+  "Wayne Rooney","David Beckham","Paul Scholes","Ryan Giggs","Eric Cantona",
+  "George Best","Bobby Charlton","Bobby Moore","Alan Shearer","Harry Kane",
+  "Mohamed Salah","Sadio Mané","Virgil van Dijk","Kevin De Bruyne","Sergio Agüero",
+  "Vincent Kompany","Yaya Touré","Eden Hazard","Gareth Bale","Karim Benzema",
+  "Sergio Ramos","Marcelo","Iker Casillas","Raúl González","Luís Figo",
+  "Roberto Carlos","Kaká","Paolo Maldini","Andrea Pirlo","Gianluigi Buffon",
+  "Alessandro Del Piero","Francesco Totti","Fabio Cannavaro","Gennaro Gattuso","Clarence Seedorf",
+  "Ruud Gullit","Marco van Basten","Frank Rijkaard","Ruud van Nistelrooy","Arjen Robben",
+  "Robin van Persie","Wesley Sneijder","Edwin van der Sar","Manuel Neuer","Thomas Müller",
+  "Miroslav Klose","Philipp Lahm","Bastian Schweinsteiger","Oliver Kahn","Franz Beckenbauer",
+  "Gerd Müller","Lothar Matthäus","Michael Ballack","Rivaldo","Romário",
+  "Zico","Sócrates","Cafu","Roberto Firmino","Luis Suárez",
+  "Edinson Cavani","Diego Forlán","Alexis Sánchez","Arturo Vidal","Son Heung-min",
+  "Park Ji-sung","George Weah","Samuel Eto'o","Didier Deschamps","Michel Platini",
+  "Eusébio","Ferenc Puskás","Lev Yashin","Dino Zoff","Gianluca Vialli",
+  "Roberto Baggio","Hristo Stoichkov","Pavel Nedvěd","Zlatan Ibrahimović","David Villa"
+];
+
+const animeCharacters = [
+  "Monkey D. Luffy (One Piece)","Roronoa Zoro (One Piece)","Portgas D. Ace (One Piece)",
+  "Trafalgar Law (One Piece)","Shanks (One Piece)","Gol D. Roger (One Piece)",
+  "Whitebeard (One Piece)","Kaido (One Piece)","Sanji (One Piece)","Sabo (One Piece)",
+  "Son Goku (Dragon Ball Super)","Vegeta (Dragon Ball Super)","Gohan (Dragon Ball Super)",
+  "Broly (Dragon Ball Super)","Future Trunks (Dragon Ball Super)","Gogeta (Dragon Ball Super)",
+  "Frieza (Dragon Ball Super)","Vegito (Dragon Ball Super)","Beerus (Dragon Ball Super)",
+  "Jiren (Dragon Ball Super)",
+  "Naruto Uzumaki (Naruto Shippuden)","Sasuke Uchiha (Naruto Shippuden)","Itachi Uchiha (Naruto)",
+  "Madara Uchiha (Naruto Shippuden)","Kakashi Hatake (Naruto Shippuden)","Minato Namikaze (Naruto)",
+  "Pain (Naruto Shippuden)","Obito Uchiha (Naruto Shippuden)","Rock Lee (Naruto)","Gaara (Naruto)",
+  "Ichigo Kurosaki (Bleach)","Sosuke Aizen (Bleach)","Kenpachi Zaraki (Bleach)",
+  "Byakuya Kuchiki (Bleach)","Toshiro Hitsugaya (Bleach)",
+  "Tanjiro Kamado (Demon Slayer)","Nezuko Kamado (Demon Slayer)","Rengoku (Demon Slayer)",
+  "Tengen Uzui (Demon Slayer)","Muichiro Tokito (Demon Slayer)",
+  "Gojo Satoru (Jujutsu Kaisen)","Ryomen Sukuna (Jujutsu Kaisen)","Yuji Itadori (Jujutsu Kaisen)",
+  "Toji Fushiguro (Jujutsu Kaisen)","Yuta Okkotsu (Jujutsu Kaisen)",
+  "Levi Ackerman (Attack on Titan)","Eren Yeager (Attack on Titan)","Mikasa Ackerman (Attack on Titan)",
+  "Erwin Smith (Attack on Titan)","Armin Arlert (Attack on Titan)",
+  "Edward Elric (Fullmetal Alchemist)","Roy Mustang (Fullmetal Alchemist)","Alphonse Elric (Fullmetal Alchemist)",
+  "Light Yagami (Death Note)","L (Death Note)",
+  "Killua Zoldyck (Hunter × Hunter)","Gon Freecss (Hunter × Hunter)","Hisoka (Hunter × Hunter)",
+  "Chrollo Lucilfer (Hunter × Hunter)","Meruem (Hunter × Hunter)",
+  "Saitama (One Punch Man)","Genos (One Punch Man)",
+  "Mob (Mob Psycho 100)","Reigen (Mob Psycho 100)",
+  "Denji (Chainsaw Man)","Makima (Chainsaw Man)","Power (Chainsaw Man)","Aki Hayakawa (Chainsaw Man)",
+  "Frieren (Frieren)","Fern (Frieren)",
+  "Sung Jin-Woo (Solo Leveling)","Beru (Solo Leveling)",
+  "Rimuru Tempest (Tensura)","Anos Voldigoad (Misfit of Demon King Academy)",
+  "Cid Kagenou (Eminence in Shadow)",
+  "Asta (Black Clover)","Yuno (Black Clover)","Yami Sukehiro (Black Clover)",
+  "Natsu Dragneel (Fairy Tail)","Erza Scarlet (Fairy Tail)","Gray Fullbuster (Fairy Tail)",
+  "Meliodas (Seven Deadly Sins)","Escanor (Seven Deadly Sins)","Ban (Seven Deadly Sins)",
+  "Guts (Berserk)","Griffith (Berserk)",
+  "Thorfinn (Vinland Saga)","Askeladd (Vinland Saga)",
+  "Johan Liebert (Monster)","Ken Kaneki (Tokyo Ghoul)",
+  "Accelerator (A Certain Magical Index)","Lelouch Lamperouge (Code Geass)",
+  "Spike Spiegel (Cowboy Bebop)","Vash the Stampede (Trigun)","Alucard (Hellsing Ultimate)",
+  "Shinra Kusakabe (Fire Force)","Arthur Boyle (Fire Force)",
+  "Izuku Midoriya (My Hero Academia)","Katsuki Bakugo (My Hero Academia)","Shoto Todoroki (My Hero Academia)"
+];
+
+const seriesCharacters = [
+  "Walter White (Breaking Bad)","Jesse Pinkman (Breaking Bad)","Saul Goodman (Better Call Saul)",
+  "Jon Snow (Game of Thrones)","Daenerys Targaryen (Game of Thrones)","Tyrion Lannister (Game of Thrones)",
+  "Arya Stark (Game of Thrones)","Cersei Lannister (Game of Thrones)",
+  "Thomas Shelby (Peaky Blinders)","Arthur Shelby (Peaky Blinders)",
+  "Michael Scofield (Prison Break)","Lincoln Burrows (Prison Break)",
+  "Rick Grimes (The Walking Dead)","Daryl Dixon (The Walking Dead)",
+  "Homelander (The Boys)","Billy Butcher (The Boys)",
+  "Eleven (Stranger Things)","Jim Hopper (Stranger Things)","Vecna (Stranger Things)",
+  "Wednesday Addams (Wednesday)",
+  "Sherlock Holmes (Sherlock)","John Watson (Sherlock)",
+  "Geralt of Rivia (The Witcher)","Ragnar Lothbrok (Vikings)","Bjorn Ironside (Vikings)",
+  "Gregory House (House M.D.)","Dexter Morgan (Dexter)","Lucifer Morningstar (Lucifer)",
+  "Harvey Specter (Suits)","Mike Ross (Suits)",
+  "The Professor (Money Heist)","Berlin (Money Heist)","Tokyo (Money Heist)",
+  "Seong Gi-hun (Squid Game)","Front Man (Squid Game)",
+  "Jonas Kahnwald (Dark)","Jack Shephard (Lost)","John Locke (Lost)",
+  "Ross Geller (Friends)","Rachel Green (Friends)","Joey Tribbiani (Friends)",
+  "Chandler Bing (Friends)","Monica Geller (Friends)","Phoebe Buffay (Friends)",
+  "Michael Scott (The Office)","Dwight Schrute (The Office)",
+  "Din Djarin (The Mandalorian)","Grogu (The Mandalorian)",
+  "Matt Murdock (Daredevil)","Frank Castle (The Punisher)",
+  "Loki (Loki)","Wanda Maximoff (WandaVision)","Marc Spector (Moon Knight)","Kate Bishop (Hawkeye)",
+  "Clark Kent (Smallville)","Dean Winchester (Supernatural)","Sam Winchester (Supernatural)",
+  "Oliver Queen (Arrow)","Barry Allen (The Flash)",
+  "Oswald Cobblepot (Gotham)","Bruce Wayne (Gotham)",
+  "Daemon Targaryen (House of the Dragon)","Rhaenyra Targaryen (House of the Dragon)",
+  "Joel Miller (The Last of Us)","Ellie (The Last of Us)",
+  "Rust Cohle (True Detective)","Hannibal Lecter (Hannibal)","Elliot Alderson (Mr. Robot)",
+  "Pablo Escobar (Narcos)","Javier Peña (Narcos)",
+  "Queen Elizabeth II (The Crown)","Princess Diana (The Crown)",
+  "Marty Byrde (Ozark)","Jax Teller (Sons of Anarchy)","Tony Soprano (The Sopranos)",
+  "Don Draper (Mad Men)","Nucky Thompson (Boardwalk Empire)",
+  "Dolores (Westworld)","Man in Black (Westworld)",
+  "Fox Mulder (The X-Files)","Dana Scully (The X-Files)",
+  "Buffy Summers (Buffy the Vampire Slayer)",
+  "Damon Salvatore (The Vampire Diaries)","Stefan Salvatore (The Vampire Diaries)",
+  "Merlin (Merlin)","Arthur Pendragon (Merlin)",
+  "Tenth Doctor (Doctor Who)","Eleventh Doctor (Doctor Who)",
+  "Five (The Umbrella Academy)","Cooper (Black Mirror)",
+  "Valery Legasov (Chernobyl)","Richard Winters (Band of Brothers)",
+  "Jack Reacher (Reacher)","Harry Bosch (Bosch)",
+  "John Reese (Person of Interest)","Harold Finch (Person of Interest)",
+  "Patrick Jane (The Mentalist)","Olivia Dunham (Fringe)",
+  "Richard Castle (Castle)","Jack Bauer (24)"
+];
+
+// Search queries optimized per category
+function getSearchQuery(name, category) {
+  if (category === 'football') return name + " face portrait photo";
+  if (category === 'anime') return name + " anime face close up";
+  if (category === 'series') return name + " TV character face portrait";
+  return name + " face portrait";
+}
+
+function openSearch(name, category) {
+  const query = encodeURIComponent(getSearchQuery(name, category));
+  window.open("https://www.google.com/search?q=" + query + "&tbm=isch", "_blank");
+}
+
+function buildGrid(names, gridId, cardClass, category) {
+  const grid = document.getElementById(gridId);
+  grid.innerHTML = "";
+  names.forEach((name, i) => {
+    const card = document.createElement('div');
+    card.className = "card " + cardClass;
+    card.setAttribute("data-name", name.toLowerCase());
+    card.setAttribute("data-category", category);
+    card.onclick = () => openSearch(name, category);
+    card.innerHTML = `
+      <span class="num">${i + 1}</span>
+      <span class="name">${name}</span>
+      <span class="search-icon">🔍 بحث</span>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+buildGrid(footballPlayers, "footballGrid", "card-football", "football");
+buildGrid(animeCharacters, "animeGrid", "card-anime", "anime");
+buildGrid(seriesCharacters, "seriesGrid", "card-series", "series");
+
+document.getElementById("footballCount").textContent = footballPlayers.length + " لاعب";
+document.getElementById("animeCount").textContent = animeCharacters.length + " شخصية";
+document.getElementById("seriesCount").textContent = seriesCharacters.length + " شخصية";
+
+const totalCount = footballPlayers.length + animeCharacters.length + seriesCharacters.length;
+document.getElementById("resultCount").textContent = "إجمالي: " + totalCount + " اسم";
+
+// FILTER
+function filterCards() {
+  const query = document.getElementById("searchInput").value.toLowerCase().trim();
+  const allCards = document.querySelectorAll(".card");
+  let visible = 0;
+  allCards.forEach(card => {
+    const name = card.getAttribute("data-name");
+    if (name.includes(query)) { card.style.display = "flex"; visible++; }
+    else { card.style.display = "none"; }
+  });
+  document.getElementById("resultCount").textContent = visible + " نتيجة من أصل " + totalCount;
+}
+
+// SHOW SECTIONS
+function showSection(type) {
+  const f = document.getElementById("footballSection");
+  const a = document.getElementById("animeSection");
+  const s = document.getElementById("seriesSection");
+  const tabs = document.querySelectorAll(".tab-btn");
+
+  tabs.forEach(t => t.className = "tab-btn");
+
+  if (type === "all") { f.classList.remove("hidden"); a.classList.remove("hidden"); s.classList.remove("hidden"); tabs[0].classList.add("active-all"); }
+  else if (type === "football") { f.classList.remove("hidden"); a.classList.add("hidden"); s.classList.add("hidden"); tabs[1].classList.add("active-football"); }
+  else if (type === "anime") { f.classList.add("hidden"); a.classList.remove("hidden"); s.classList.add("hidden"); tabs[2].classList.add("active-anime"); }
+  else if (type === "series") { f.classList.add("hidden"); a.classList.add("hidden"); s.classList.remove("hidden"); tabs[3].classList.add("active-series"); }
+}
+
+// OPEN ALL IN CATEGORY
+function openAllInCategory(category) {
+  let list;
+  if (category === "football") list = footballPlayers;
+  else if (category === "anime") list = animeCharacters;
+  else list = seriesCharacters;
+
+  if (confirm("سيتم فتح " + list.length + " تبويب! متأكد؟")) {
+    list.forEach((name, i) => {
+      setTimeout(() => openSearch(name, category), i * 500);
+    });
+  }
+}
+</script>
+
+</body>
+</html>

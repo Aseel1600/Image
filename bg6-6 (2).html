@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>🚀 Rocket — Ultra Clean Final</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+--bg:#0a0e12;--card:#12181f;--card2:#1a222c;--border:#253040;
+--text:#e8edf3;--muted:#7a8ba0;--accent:#00c96e;--accent2:#00e87e;
+--danger:#ff4466;--warn:#ffaa22;--blue:#00b4d8;--purple:#a064ff;
+--shadow:0 8px 32px rgba(0,0,0,.4);--r:16px;--rs:10px
+}
+body{background:var(--bg);color:var(--text);font-family:'Segoe UI',Tahoma,sans-serif;min-height:100vh}
+.app{max-width:1200px;margin:0 auto;padding:20px}
+.header{text-align:center;padding:24px 0 18px}
+.header h1{font-size:32px;background:linear-gradient(135deg,var(--accent),var(--accent2),#00b4d8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:6px}
+.header p{color:var(--muted);font-size:14px;line-height:1.8}
+.badge{display:inline-block;background:var(--accent);color:#000;font-size:11px;font-weight:800;padding:3px 10px;border-radius:20px;margin-bottom:8px;letter-spacing:1px}
+
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:18px;margin-bottom:14px;box-shadow:var(--shadow)}
+.ct{font-size:15px;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.ico{width:26px;height:26px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:13px}
+.ig{background:rgba(0,201,110,.15);color:var(--accent)}
+.ib{background:rgba(0,180,216,.15);color:#00b4d8}
+.io{background:rgba(255,170,34,.15);color:var(--warn)}
+.ip{background:rgba(160,100,255,.15);color:#a064ff}
+
+.folder-btn{width:100%;padding:18px;font-size:15px;font-weight:700;border:2px dashed var(--border);border-radius:var(--r);background:var(--card2);color:var(--text);cursor:pointer;transition:.3s;text-align:center}
+.folder-btn:hover{border-color:var(--accent);background:rgba(0,201,110,.04)}
+.folder-btn.selected{border-color:var(--accent);border-style:solid;background:rgba(0,201,110,.06)}
+
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+@media(max-width:768px){.g2,.g3{grid-template-columns:1fr}}
+
+.sg{background:var(--card2);border:1px solid var(--border);border-radius:var(--rs);padding:14px}
+.sl{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;font-size:13px;font-weight:600}
+.sv{background:var(--accent);color:#000;font-size:11px;font-weight:800;padding:2px 7px;border-radius:5px;min-width:32px;text-align:center}
+input[type=range]{-webkit-appearance:none;width:100%;height:5px;border-radius:3px;background:#253040;outline:none;cursor:pointer}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--accent);cursor:pointer;box-shadow:0 0 6px rgba(0,201,110,.4)}
+
+.fd{background:var(--card2);border:1px solid var(--border);border-radius:var(--rs);padding:12px}
+.fd label{display:block;font-size:12px;font-weight:600;margin-bottom:6px;color:var(--muted)}
+.fd select,.fd input[type=number]{width:100%;background:var(--bg);color:var(--text);border:1px solid var(--border);border-radius:7px;padding:9px 10px;font-size:13px;outline:none}
+
+.br{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.btn{border:none;border-radius:var(--rs);padding:13px 18px;font-size:14px;font-weight:700;cursor:pointer;transition:.2s;display:flex;align-items:center;justify-content:center;gap:6px;flex:1;min-width:130px}
+.btn:hover:not(:disabled){transform:translateY(-2px)}
+.btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.bp{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#000}
+.bs{background:var(--card2);color:var(--text);border:1px solid var(--border)}
+.bd{background:var(--danger);color:#fff}
+.bw{background:var(--warn);color:#000}
+
+.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:14px}
+@media(max-width:600px){.stats{grid-template-columns:repeat(3,1fr)}}
+.stat{background:var(--card2);border:1px solid var(--border);border-radius:var(--rs);padding:12px;text-align:center}
+.sn{font-size:24px;font-weight:800;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.slb{font-size:11px;color:var(--muted);margin-top:3px}
+
+.bar{height:9px;background:var(--card2);border-radius:99px;overflow:hidden}
+.fill{height:100%;border-radius:99px;transition:width .3s;background:linear-gradient(90deg,var(--accent),var(--accent2),#00b4d8)}
+.si{display:flex;gap:14px;margin-top:8px;flex-wrap:wrap;font-size:12px;color:var(--muted)}
+.si b{color:var(--text)}
+
+.pvg{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:10px;margin-top:10px}
+.pvc{background:var(--card2);border:1px solid var(--border);border-radius:var(--rs);overflow:hidden;cursor:pointer;transition:.3s}
+.pvc:hover{border-color:var(--accent);transform:scale(1.02)}
+.pvi{position:relative;aspect-ratio:1;display:flex;align-items:center;justify-content:center;background-image:linear-gradient(45deg,#1a1a2a 25%,transparent 25%),linear-gradient(-45deg,#1a1a2a 25%,transparent 25%),linear-gradient(45deg,transparent 75%,#1a1a2a 75%),linear-gradient(-45deg,transparent 75%,#1a1a2a 75%);background-size:14px 14px;background-position:0 0,0 7px,7px -7px,-7px 0}
+.pvi img{max-width:100%;max-height:100%;object-fit:contain}
+.pvb{position:absolute;top:5px;right:5px;background:rgba(0,0,0,.7);color:var(--accent);font-size:9px;padding:2px 5px;border-radius:4px;font-weight:700}
+.pvn{padding:6px 8px;font-size:10px;color:var(--muted);text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+.tabs{display:flex;gap:3px;margin-bottom:12px;flex-wrap:wrap}
+.tab{padding:7px 15px;border-radius:7px;font-size:12px;font-weight:600;cursor:pointer;background:var(--card2);color:var(--muted);border:1px solid transparent;transition:.2s}
+.tab:hover{color:var(--text)}
+.tab.a{background:rgba(0,201,110,.1);color:var(--accent);border-color:var(--accent)}
+.tc{display:none}.tc.a{display:block}
+
+.ib2{background:rgba(0,201,110,.06);border:1px solid rgba(0,201,110,.18);border-radius:var(--rs);padding:12px;margin-top:12px;font-size:12px;line-height:1.9;color:#b0ddc8}
+.ib2 b{color:var(--accent)}
+
+.color-preview{display:inline-block;width:22px;height:22px;border-radius:5px;border:2px solid #fff;vertical-align:middle;margin:0 4px}
+
+.log{background:#080c10;border:1px solid var(--border);border-radius:var(--rs);padding:12px;min-height:180px;max-height:300px;overflow:auto;white-space:pre-wrap;line-height:1.6;font-size:11px;margin-top:12px;font-family:Consolas,monospace;color:#7a8ba0}
+
+.tree{background:var(--card2);border:1px solid var(--border);border-radius:var(--rs);padding:12px;margin-top:10px;font-size:12px;color:var(--muted);max-height:200px;overflow:auto;font-family:Consolas,monospace;line-height:1.6}
+
+.tw{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:9999;display:flex;flex-direction:column;gap:6px;align-items:center}
+.toast{padding:10px 20px;border-radius:9px;font-size:13px;font-weight:600;box-shadow:0 6px 24px rgba(0,0,0,.4);animation:si .25s ease}
+.tok{background:var(--accent);color:#000}
+.terr{background:var(--danger);color:#fff}
+.tinf{background:#00b4d8;color:#000}
+@keyframes si{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+.mo{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:9998;display:none;align-items:center;justify-content:center;padding:20px}
+.mo.show{display:flex}
+.modal{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:20px;max-width:700px;width:100%;max-height:85vh;overflow-y:auto}
+.mc{float:left;background:none;border:none;color:var(--muted);font-size:22px;cursor:pointer;line-height:1}
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+</style>
+</head>
+<body>
+<div class="app">
+
+<div class="header">
+<div class="badge">🚀 ROCKET — ULTRA CLEAN FINAL</div>
+<h1>🎬 Green Screen Remover</h1>
+<p>نفس اسم الملف · نفس ترتيب المجلدات · حواف نظيفة 100% · WebP بامتداد .png</p>
+</div>
+
+<!-- FOLDERS -->
+<div class="card">
+<div class="ct"><div class="ico ig">📂</div>المجلدات</div>
+<div class="g2">
+<div>
+<button class="folder-btn" id="btnSrc">📂 اختر مجلد الصور المصدر</button>
+<div id="srcInfo" style="margin-top:8px;font-size:12px;color:var(--muted)">لم يتم الاختيار</div>
+</div>
+<div>
+<button class="folder-btn" id="btnDst">📁 اختر مجلد الحفظ (الوجهة)</button>
+<div id="dstInfo" style="margin-top:8px;font-size:12px;color:var(--muted)">لم يتم الاختيار</div>
+</div>
+</div>
+<div id="treeBox" class="tree" style="display:none"></div>
+<div class="ib2">
+📂 <b>كيف يعمل:</b><br>
+1️⃣ اختر مجلد الصور المصدر (فيه المجلدات الفرعية والصور)<br>
+2️⃣ اختر مجلد الحفظ (فارغ أو موجود — سيُنشئ نفس البنية تلقائياً)<br>
+3️⃣ كل صورة تُحفظ <b>بنفس اسمها الأصلي</b> وفي <b>نفس المجلد الفرعي</b>
+</div>
+</div>
+
+<!-- SETTINGS -->
+<div class="card">
+<div class="ct"><div class="ico ib">⚙️</div>الإعدادات</div>
+<div class="tabs">
+<div class="tab a" data-tab="main">إزالة اللون</div>
+<div class="tab" data-tab="clean">تنظيف الحواف</div>
+<div class="tab" data-tab="out">الإخراج</div>
+<div class="tab" data-tab="turbo">🔥 تيربو</div>
+</div>
+
+<div class="tc a" id="tab-main">
+<div class="g2">
+<div class="sg">
+<div class="sl"><span>🎯 تطابق اللون</span><span class="sv" id="tolV">35</span></div>
+<input type="range" id="tolerance" min="5" max="80" value="35"/>
+<div style="font-size:10px;color:var(--muted);margin-top:4px">كم درجة قريبة من لون الخلفية تُزال</div>
+</div>
+<div class="sg">
+<div class="sl"><span>🔮 النعومة</span><span class="sv" id="smV">100</span></div>
+<input type="range" id="smooth" min="0" max="100" value="100"/>
+<div style="font-size:10px;color:var(--muted);margin-top:4px">تدرج الإزالة على الحواف</div>
+</div>
+</div>
+</div>
+
+<div class="tc" id="tab-clean">
+<div class="g3">
+<div class="sg"><div class="sl"><span>💫 إزالة الهالة</span><span class="sv" id="despillV">80</span></div><input type="range" id="despill" min="0" max="100" value="80"/><div style="font-size:10px;color:var(--muted);margin-top:4px">يزيل التسرب الأخضر من الحواف</div></div>
+<div class="sg"><div class="sl"><span>🧹 تنظيف بيكسلات</span><span class="sv" id="cleanV">70</span></div><input type="range" id="cleanup" min="0" max="100" value="70"/><div style="font-size:10px;color:var(--muted);margin-top:4px">يزيل البيكسلات الوحيدة</div></div>
+<div class="sg"><div class="sl"><span>🌫️ تنعيم الحواف</span><span class="sv" id="edgeSmoothV">50</span></div><input type="range" id="edgeSmooth" min="0" max="100" value="50"/><div style="font-size:10px;color:var(--muted);margin-top:4px">ينعّم الحواف المسننة</div></div>
+</div>
+<div class="g2" style="margin-top:12px">
+<div class="sg"><div class="sl"><span>✂️ تقليص الحافة</span><span class="sv" id="shrinkV">1</span></div><input type="range" id="shrink" min="0" max="5" value="1"/><div style="font-size:10px;color:var(--muted);margin-top:4px">يقص px من الحافة</div></div>
+<div class="sg"><div class="sl"><span>🔍 عتبة شفافية</span><span class="sv" id="alphaThreshV">15</span></div><input type="range" id="alphaThresh" min="0" max="50" value="15"/><div style="font-size:10px;color:var(--muted);margin-top:4px">أقل شفافية مقبولة</div></div>
+</div>
+</div>
+
+<div class="tc" id="tab-out">
+<div class="g3">
+<div class="fd"><label>📐 أقل بُعد (px)</label><input type="number" id="minPx" value="5000"/></div>
+<div class="fd"><label>🎯 أقصى حجم (KB)</label><input type="number" id="maxKb" value="1000"/></div>
+<div class="fd"><label>🔧 جودة WebP</label><input type="number" id="startQ" value="95"/></div>
+</div>
+</div>
+
+<div class="tc" id="tab-turbo">
+<div class="g2">
+<div class="fd"><label>🧵 Workers</label><select id="wCount"><option value="1">1 مستقر</option><option value="2" selected>2 سريع</option><option value="4">4 تيربو</option><option value="8">8 ماكس</option></select></div>
+<div class="fd"><label>📦 Pre-fetch</label><select id="pfCount"><option value="2">2</option><option value="5" selected>5</option><option value="10">10</option></select></div>
+</div>
+</div>
+</div>
+
+<!-- ACTIONS -->
+<div class="card">
+<div class="ct"><div class="ico io">🚀</div>التشغيل</div>
+<div class="br">
+<button class="btn bp" id="btnStart" disabled>▶️ ابدأ المعالجة</button>
+<button class="btn bw" id="btnPause" disabled>⏸️ إيقاف</button>
+<button class="btn bd" id="btnStop" disabled>⏹️ إلغاء</button>
+</div>
+</div>
+
+<!-- STATS -->
+<div class="stats">
+<div class="stat"><div class="sn" id="sTotal">0</div><div class="slb">إجمالي</div></div>
+<div class="stat"><div class="sn" id="sDone">0</div><div class="slb">تمت</div></div>
+<div class="stat"><div class="sn" id="sFail">0</div><div class="slb">فشل</div></div>
+<div class="stat"><div class="sn" id="sAvg">—</div><div class="slb">متوسط</div></div>
+<div class="stat"><div class="sn" id="sTime">0s</div><div class="slb">وقت</div></div>
+</div>
+
+<!-- PROGRESS -->
+<div class="card">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;font-size:13px;font-weight:600">
+<span id="stTxt">جاهز</span><span id="pcTxt">0%</span></div>
+<div class="bar"><div class="fill" id="pFill"></div></div>
+<div class="si">
+<div>⚡ <b id="mSpd">—</b></div><div>⏱️ <b id="mEta">—</b></div>
+<div>📦 <b id="mSz">—</b></div><div>🧵 <b id="mAct">0</b></div>
+<div>🎨 <span id="bgC" class="color-preview" style="background:#0b0"></span></div>
+</div>
+
+<div style="margin-top:14px;display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap">
+<div class="ct" style="margin:0"><div class="ico ig">👁️</div>معاينة</div>
+<label style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--muted);cursor:pointer"><input type="checkbox" id="prevTog" checked style="accent-color:var(--accent)"/>تفعيل</label>
+</div>
+<div class="pvg" id="prevGrid"></div>
+
+<div style="margin-top:14px;display:flex;justify-content:space-between;align-items:center;gap:8px">
+<div class="ct" style="margin:0"><div class="ico ib">📋</div>السجل</div>
+<button class="btn bs" style="flex:0;min-width:auto;padding:6px 12px;font-size:11px" id="btnClear">🗑️</button>
+</div>
+<div class="log" id="logBox">🚀 Ultra Clean Final — جاهز\n</div>
+</div>
+
+</div>
+<div class="tw" id="tw"></div>
+<div class="mo" id="modal"><div class="modal"><button class="mc" id="mClose">&times;</button><h3 id="mTitle"></h3><div class="pvi" style="aspect-ratio:auto;min-height:280px;max-height:60vh"><img id="mImg" style="max-width:100%;max-height:60vh"/></div></div></div>
+
+<script>
+(()=>{
+'use strict';
+
+// ═══════════════════════════════════════
+// WORKER — 7-step ultra clean
+// ═══════════════════════════════════════
+const WK=`
+'use strict';
+self.onmessage=async function(e){
+const{id,buf,w,h,settings:S}=e.data;
+try{
+const d=new Uint8ClampedArray(buf);
+const total=w*h;
+
+// STEP 1: Sample background color
+const margin=Math.max(3,Math.min(20,(Math.min(w,h)*0.02)|0));
+const samples=[];
+for(let y=0;y<margin;y++)for(let x=0;x<margin;x++){
+  samples.push((y*w+x)*4);samples.push((y*w+(w-1-x))*4);
+  samples.push(((h-1-y)*w+x)*4);samples.push(((h-1-y)*w+(w-1-x))*4);
+}
+const midX=(w/2)|0,midY=(h/2)|0;
+for(let i=0;i<margin;i++){
+  samples.push((i*w+midX)*4);samples.push(((h-1-i)*w+midX)*4);
+  samples.push((midY*w+i)*4);samples.push((midY*w+(w-1-i))*4);
+}
+const rs=[],gs=[],bs=[];
+for(const p of samples){if(p>=0&&p+3<d.length&&d[p+3]>200){rs.push(d[p]);gs.push(d[p+1]);bs.push(d[p+2])}}
+rs.sort((a,b)=>a-b);gs.sort((a,b)=>a-b);bs.sort((a,b)=>a-b);
+const med=a=>a.length?a[(a.length/2)|0]:0;
+const bgR=med(rs),bgG=med(gs),bgB=med(bs);
+
+// STEP 2: Color-match removal
+const tol=S.tolerance||35;const soft=S.smooth/100;
+const tolSq=tol*tol;const fR=tol*0.6;const outerSq=(tol+fR)*(tol+fR);
+for(let i=0;i<total;i++){
+  const p=i*4;const r=d[p],g=d[p+1],b=d[p+2],a=d[p+3];
+  if(a===0)continue;
+  const dr=r-bgR,dg=g-bgG,db=b-bgB;const dSq=dr*dr+dg*dg+db*db;
+  if(dSq>outerSq)continue;
+  let rm;
+  if(dSq<=tolSq){rm=1}else{rm=1-((Math.sqrt(dSq)-Math.sqrt(tolSq))/(Math.sqrt(outerSq)-Math.sqrt(tolSq)));if(rm<0)rm=0;if(rm>1)rm=1}
+  rm=Math.pow(rm,0.6+((1-soft)*0.8));
+  if(rm>0.005)d[p+3]=Math.round(a*(1-rm));
+}
+
+// STEP 3: Green Despill
+const despillStr=S.despill/100;
+if(despillStr>0){
+  for(let i=0;i<total;i++){
+    const p=i*4;const a=d[p+3];if(a===0||a>=250)continue;
+    const r=d[p],g=d[p+1],b=d[p+2];
+    const gx=g-((r+b)/2);if(gx<=0)continue;
+    const bgGx=bgG-((bgR+bgB)/2);if(bgGx<=0)continue;
+    const sp=Math.min(gx,bgGx)*despillStr;
+    d[p+1]=Math.max(0,Math.round(g-sp));
+    d[p]=Math.min(255,Math.round(r+sp*0.15));
+    d[p+2]=Math.min(255,Math.round(b+sp*0.15));
+  }
+  const isEdge=new Uint8Array(total);
+  for(let y=1;y<h-1;y++)for(let x=1;x<w-1;x++){
+    const i=y*w+x;if(d[i*4+3]>=250){
+      const nb=[i-1,i+1,i-w,i+w];
+      for(const ni of nb){if(d[ni*4+3]<200){isEdge[i]=1;break}}
+    }
+  }
+  for(let i=0;i<total;i++){
+    if(!isEdge[i])continue;const p=i*4;
+    const r=d[p],g=d[p+1],b=d[p+2];
+    const gx=g-((r+b)/2);if(gx<=5)continue;
+    const sp=gx*despillStr*0.7;
+    d[p+1]=Math.max(0,Math.round(g-sp));
+    d[p]=Math.min(255,Math.round(r+sp*0.1));
+    d[p+2]=Math.min(255,Math.round(b+sp*0.1));
+  }
+}
+
+// STEP 4: Alpha threshold
+const aT=S.alphaThresh||15;
+if(aT>0)for(let i=0;i<total;i++)if(d[i*4+3]>0&&d[i*4+3]<aT)d[i*4+3]=0;
+
+// STEP 5: Small pixel cleanup
+const clStr=S.cleanup/100;
+if(clStr>0.1){
+  const minN=Math.round(2+(1-clStr)*3);
+  const tmp=new Uint8Array(total);for(let i=0;i<total;i++)tmp[i]=d[i*4+3];
+  for(let y=1;y<h-1;y++)for(let x=1;x<w-1;x++){
+    const i=y*w+x;if(tmp[i]===0||tmp[i]>=200)continue;
+    let oN=0;const nb=[i-1,i+1,i-w,i+w,i-w-1,i-w+1,i+w-1,i+w+1];
+    for(const ni of nb)if(tmp[ni]>=200)oN++;
+    if(oN<minN)d[i*4+3]=0;
+  }
+}
+
+// STEP 6: Edge shrink
+const sPx=S.shrink||0;
+if(sPx>0)for(let pass=0;pass<sPx;pass++){
+  const tmp=new Uint8Array(total);for(let i=0;i<total;i++)tmp[i]=d[i*4+3];
+  for(let y=1;y<h-1;y++)for(let x=1;x<w-1;x++){
+    const i=y*w+x;if(tmp[i]===0)continue;
+    const nb=[i-1,i+1,i-w,i+w];
+    for(const ni of nb)if(tmp[ni]===0){d[i*4+3]=0;break}
+  }
+}
+
+// STEP 7: Edge smoothing
+const esStr=S.edgeSmooth/100;
+if(esStr>0.05){
+  const rad=Math.max(1,Math.round(esStr*2.5));
+  const aArr=new Uint8Array(total);for(let i=0;i<total;i++)aArr[i]=d[i*4+3];
+  for(let y=rad;y<h-rad;y++)for(let x=rad;x<w-rad;x++){
+    const i=y*w+x;const a=aArr[i];if(a===0)continue;
+    let isE=false;const nb4=[i-1,i+1,i-w,i+w];
+    for(const ni of nb4)if(aArr[ni]===0){isE=true;break}
+    if(!isE&&a>=250)continue;
+    let sum=0,cnt=0;
+    for(let dy=-rad;dy<=rad;dy++)for(let dx=-rad;dx<=rad;dx++){sum+=aArr[(y+dy)*w+(x+dx)];cnt++}
+    d[i*4+3]=Math.round(sum/cnt);
+  }
+}
+
+self.postMessage({id,buf:d.buffer,w,h,bgR,bgG,bgB},[d.buffer]);
+}catch(err){self.postMessage({id,error:err?.message||String(err)})}
+};
+`;
+
+const wUrl=URL.createObjectURL(new Blob([WK],{type:'application/javascript'}));
+const $=id=>document.getElementById(id);
+
+let srcDir=null,dstDir=null,entries=[],wSlots=[];
+let running=false,paused=false,cancelled=false;
+let qi=0,done=0,fail=0,totB=0,t0=0,tmr=null;
+let pfCache=new Map(),pfIdx=0,prevUrls=[];
+
+// Tabs
+document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>{
+  document.querySelectorAll('.tab').forEach(x=>x.classList.remove('a'));
+  document.querySelectorAll('.tc').forEach(x=>x.classList.remove('a'));
+  t.classList.add('a');$('tab-'+t.dataset.tab).classList.add('a');
+});
+
+// Sliders
+[['tolerance','tolV'],['smooth','smV'],['despill','despillV'],['cleanup','cleanV'],
+ ['edgeSmooth','edgeSmoothV'],['shrink','shrinkV'],['alphaThresh','alphaThreshV']
+].forEach(([s,v])=>$(s).oninput=()=>$(v).textContent=$(s).value);
+
+// ═══════════════════════════════════════
+// FOLDER SELECTION — Direct Access API
+// ═══════════════════════════════════════
+$('btnSrc').onclick=async()=>{
+  try{
+    srcDir=await window.showDirectoryPicker();
+    $('btnSrc').classList.add('selected');
+    $('srcInfo').innerHTML=`✅ <b>${srcDir.name}</b>`;
+    log(`📂 مجلد المصدر: ${srcDir.name}`);
+    toast('جاري فحص المجلد...','inf');
+
+    entries=[];
+    await scanDir(srcDir,'');
+    entries.sort((a,b)=>a.path.localeCompare(b.path,undefined,{numeric:true,sensitivity:'base'}));
+// Assign names: folderName(1), folderName(2), ...
+const groups=new Map();
+for(const e of entries){
+  const key=e.subPath||'.';
+  if(!groups.has(key))groups.set(key,[]);
+  groups.get(key).push(e);
+}
+for(const[,items]of groups){
+  items.forEach((item,i)=>{
+    item.outName=`${item.folderName}(${i+1}).png`;
+  });
+}
+
+    $('sTotal').textContent=entries.length;
+    $('srcInfo').innerHTML=`✅ <b>${srcDir.name}</b> — ${entries.length} صورة`;
+
+    // Show tree
+    const tree=$('treeBox');tree.style.display='block';tree.textContent='';
+    const folders=new Map();
+    for(const e of entries){
+      const f=e.subPath||'.';
+      if(!folders.has(f))folders.set(f,[]);
+      folders.get(f).push(e.name);
+    }
+    let treeStr=`📂 ${srcDir.name}/ (${entries.length} صورة)\n`;
+    for(const[f,files]of[...folders.entries()].sort()){
+      treeStr+=`  📁 ${f||'.'} (${files.length})\n`;
+      const show=files.slice(0,3);
+      for(const fn of show)treeStr+=`    📄 ${fn}\n`;
+      if(files.length>3)treeStr+=`    ... و ${files.length-3} أخرى\n`;
+    }
+    tree.textContent=treeStr;
+
+    log(`📊 ${entries.length} صورة في ${folders.size} مجلد`);
+    toast(`${entries.length} صورة`,'ok');
+    updBtns();
+  }catch(e){if(e.name!=='AbortError')log('❌ '+e.message)}
+};
+
+async function scanDir(dir,path){
+  for await(const[name,entry]of dir.entries()){
+    const full=path?path+'/'+name:name;
+    if(entry.kind==='file'&&/\.(png|jpe?g|webp|bmp|gif|tiff?)$/i.test(name)){
+      entries.push({
+        handle:entry,
+        path:full,
+        name:name,
+        subPath:path,
+        folderName: path ? path.split('/').pop() : 'images'
+      });
+    }else if(entry.kind==='directory'){
+      await scanDir(entry,full);
+    }
+  }
+}
+
+$('btnDst').onclick=async()=>{
+  try{
+    dstDir=await window.showDirectoryPicker({mode:'readwrite'});
+    $('btnDst').classList.add('selected');
+    $('dstInfo').innerHTML=`✅ <b>${dstDir.name}</b>`;
+    log(`📁 مجلد الوجهة: ${dstDir.name}`);
+    toast('تم','ok');
+    updBtns();
+  }catch(e){}
+};
+
+// Save
+async function ensDir(root,sub){let c=root;if(!sub)return c;for(const p of sub.split('/').filter(Boolean))c=await c.getDirectoryHandle(p,{create:true});return c}
+async function saveBlob(sub,name,blob){const d=await ensDir(dstDir,sub);const fh=await d.getFileHandle(name,{create:true});const w=await fh.createWritable();await w.write(blob);await w.close()}
+
+// Workers
+function createPool(n){destroyPool();wSlots=[];for(let i=0;i<n;i++){const w=new Worker(wUrl);const s={id:i+1,w,busy:false,entry:null};w.onmessage=ev=>onMsg(s,ev.data);w.onerror=()=>onErr(s);wSlots.push(s)}}
+function destroyPool(){for(const s of wSlots)try{s.w.terminate()}catch(e){};wSlots=[]}
+
+// Prefetch
+function startPf(){pfIdx=0;pfCache.clear();feedPf()}
+async function feedPf(){const max=+$('pfCount').value||5;while(pfCache.size<max&&pfIdx<entries.length){const idx=pfIdx++;try{const file=await entries[idx].handle.getFile();pfCache.set(idx,await file.arrayBuffer())}catch(e){pfCache.set(idx,null)}}}
+
+// Dispatch
+let curSet={};
+function dispatch(){
+  if(!running||paused||cancelled){checkEnd();return}
+  for(const slot of wSlots){
+    if(slot.busy||qi>=entries.length)continue;
+    const idx=qi++;const entry=entries[idx];slot.busy=true;slot.entry=entry;
+    $('mAct').textContent=String(wSlots.filter(s=>s.busy).length);
+    const cached=pfCache.get(idx);pfCache.delete(idx);feedPf();
+    if(cached){sendWork(slot,idx,cached)}
+    else{entry.handle.getFile().then(f=>f.arrayBuffer()).then(buf=>sendWork(slot,idx,buf)).catch(()=>{
+      fail++;$('sFail').textContent=fail;log(`❌ ${entry.name} — قراءة`);slot.busy=false;slot.entry=null;dispatch()})}
+  }
+  checkEnd();
+}
+
+function sendWork(slot,idx,buf){
+  const blob=new Blob([buf]);
+  createImageBitmap(blob).then(bmp=>{
+    const c=new OffscreenCanvas(bmp.width,bmp.height);
+    const ctx=c.getContext('2d',{alpha:true,willReadFrequently:true});
+    ctx.drawImage(bmp,0,0);bmp.close();
+    const imgData=ctx.getImageData(0,0,c.width,c.height);c.width=1;c.height=1;
+    slot.w.postMessage({id:idx,buf:imgData.data.buffer,w:imgData.width,h:imgData.height,settings:curSet},[imgData.data.buffer]);
+  }).catch(()=>{fail++;$('sFail').textContent=fail;log(`❌ ${slot.entry?.name}`);slot.busy=false;slot.entry=null;dispatch()});
+}
+
+async function onMsg(slot,data){
+  const entry=slot.entry;if(!entry){slot.busy=false;dispatch();return}
+  try{
+    if(data.error){fail++;$('sFail').textContent=fail;log(`❌ ${entry.path} — ${data.error}`)}
+    else{
+      if(done===0&&data.bgR!==undefined){$('bgC').style.background=`rgb(${data.bgR},${data.bgG},${data.bgB})`;log(`🎨 لون الخلفية: RGB(${data.bgR},${data.bgG},${data.bgB})`)}
+      const arr=new Uint8ClampedArray(data.buf);
+      const c=document.createElement('canvas');c.width=data.w;c.height=data.h;
+      c.getContext('2d',{alpha:true}).putImageData(new ImageData(arr,data.w,data.h),0,0);
+
+      // Upscale
+      const long=Math.max(c.width,c.height);let outC=c;
+      if(long<curSet.minSize){
+        const sc=curSet.minSize/long;const nw=Math.round(c.width*sc),nh=Math.round(c.height*sc);
+        outC=document.createElement('canvas');outC.width=nw;outC.height=nh;
+        const ctx2=outC.getContext('2d',{alpha:true});ctx2.imageSmoothingEnabled=true;ctx2.imageSmoothingQuality='high';
+        ctx2.drawImage(c,0,0,nw,nh);c.width=0;c.height=0;
+      }
+
+      // WebP encode → save as .png name
+      const blob=await fitWebp(outC,curSet.maxBytes,curSet.startQ);
+      outC.width=0;outC.height=0;
+
+      // Save with SAME folder structure and SAME file name (.png)
+      await saveBlob(entry.subPath,entry.outName,blob);
+
+      done++;totB+=blob.size;
+      $('sDone').textContent=done;$('sAvg').textContent=fmtB(totB/done);
+      const ok=blob.size<=curSet.maxBytes;
+      log(`${ok?'✅':'⚠️'} ${entry.subPath?entry.subPath+'/':''}${entry.outName} — ${fmtB(blob.size)}`);
+      if($('prevTog').checked&&(done<=3||done%Math.max(1,Math.round(entries.length/20))===0))addPrev(entry.outName,blob);
+    }
+  }catch(err){fail++;$('sFail').textContent=fail;log(`❌ ${entry.path} — ${err.message}`)}
+  finally{slot.busy=false;slot.entry=null;$('mAct').textContent=String(wSlots.filter(s=>s.busy).length);dispatch()}
+}
+
+function onErr(slot){fail++;$('sFail').textContent=fail;slot.busy=false;slot.entry=null;dispatch()}
+function checkEnd(){if(!running)return;const proc=done+fail;const nb=wSlots.every(s=>!s.busy);if((cancelled&&nb)||(proc>=entries.length&&nb))finish()}
+
+// Start
+$('btnStart').onclick=()=>{
+  if(!entries.length||!dstDir){toast('اختر المجلدين','err');return}
+  running=true;paused=false;cancelled=false;qi=0;done=0;fail=0;totB=0;
+  pfCache.clear();pfIdx=0;prevUrls.forEach(u=>{try{URL.revokeObjectURL(u)}catch(e){}});prevUrls=[];
+  $('prevGrid').innerHTML='';t0=performance.now();
+
+  curSet={smooth:+$('smooth').value,tolerance:+$('tolerance').value,despill:+$('despill').value,
+    cleanup:+$('cleanup').value,edgeSmooth:+$('edgeSmooth').value,shrink:+$('shrink').value,
+    alphaThresh:+$('alphaThresh').value,minSize:Math.max(500,+$('minPx').value||5000),
+    maxBytes:Math.max(102400,(+$('maxKb').value||1000)*1024),startQ:(+$('startQ').value||95)/100};
+
+  const wc=Math.min(+$('wCount').value||2,8);
+  $('sDone').textContent='0';$('sFail').textContent='0';$('sAvg').textContent='—';
+  $('pFill').style.width='0%';$('pcTxt').textContent='0%';$('stTxt').textContent='جاري...';
+
+  log('═══════════════════════════════════════');
+  log(`🚀 بدأت — ${entries.length} صورة — ${wc} Workers`);
+  log(`🎯 تطابق:${curSet.tolerance} 💫 هالة:${curSet.despill} 🧹 تنظيف:${curSet.cleanup} ✂️ تقليص:${curSet.shrink}px`);
+  log(`📂 المصدر: ${srcDir.name} → 📁 الوجهة: ${dstDir.name}`);
+  log('═══════════════════════════════════════');
+
+  createPool(wc);startPf();startTimer();updBtns();dispatch();
+};
+
+$('btnPause').onclick=()=>{if(!running)return;paused=!paused;$('btnPause').innerHTML=paused?'▶️ استكمال':'⏸️ إيقاف';log(paused?'⏸️':'▶️');if(!paused)dispatch()};
+$('btnStop').onclick=()=>{if(!running)return;cancelled=true;paused=false;log('⏹️ إلغاء...')};
+
+function finish(){stopTimer();running=false;destroyPool();pfCache.clear();
+  const sec=((performance.now()-t0)/1000).toFixed(1);
+  const pct=entries.length?Math.round((done+fail)/entries.length*100):0;
+  $('pFill').style.width=pct+'%';$('pcTxt').textContent=pct+'%';
+  if(cancelled){$('stTxt').textContent='إلغاء';log('⏹️ تم الإلغاء');toast('إلغاء','err')}
+  else{$('stTxt').textContent='✨ اكتمل';log(`✨ ${done} ناجح | ${fail} فشل | ${fmtB(totB)} | ${sec}s`);toast(`✨ ${done} صورة في ${sec}s`,'ok')}
+  updBtns();
+}
+
+// WebP encode with size limit
+async function fitWebp(c,maxB,sq){
+  let blob=await toWp(c,sq);if(blob.size<=maxB)return blob;
+  for(const q of[.85,.75,.65]){blob=await toWp(c,q);if(blob.size<=maxB)return blob}
+  let sc=.9;for(let i=0;i<5;i++){
+    const nw=Math.round(c.width*sc),nh=Math.round(c.height*sc);
+    const c2=document.createElement('canvas');c2.width=nw;c2.height=nh;
+    const x=c2.getContext('2d',{alpha:true});x.imageSmoothingEnabled=true;x.imageSmoothingQuality='high';
+    x.drawImage(c,0,0,nw,nh);blob=await toWp(c2,.72);c2.width=0;c2.height=0;
+    if(blob.size<=maxB)return blob;sc-=.05}return blob}
+function toWp(c,q){return new Promise((r,j)=>c.toBlob(b=>b?r(b):j(new Error('!')),'image/webp',q))}
+
+// Timer
+function startTimer(){stopTimer();const s=performance.now();tmr=setInterval(()=>{
+  const proc=done+fail;const elapsed=(performance.now()-s)/1000;
+  const pct=entries.length?(proc/entries.length*100):0;const ips=proc>0?proc/elapsed:0;const rem=(entries.length-proc)/(ips||1);
+  $('pFill').style.width=pct.toFixed(1)+'%';$('pcTxt').textContent=pct.toFixed(0)+'%';
+  $('stTxt').textContent=proc<entries.length?`${proc}/${entries.length}`:'✨';
+  $('mSpd').textContent=ips?ips.toFixed(2)+' ص/ث':'—';$('mEta').textContent=ips?fmtD(rem):'—';
+  $('mSz').textContent=fmtB(totB);$('sTime').textContent=fmtD(elapsed)},500)}
+function stopTimer(){clearInterval(tmr)}
+
+function updBtns(){const ok=srcDir&&dstDir&&entries.length>0&&!running;$('btnStart').disabled=!ok;$('btnPause').disabled=!running;$('btnStop').disabled=!running}
+
+function addPrev(name,blob){
+  const url=URL.createObjectURL(blob);prevUrls.unshift(url);
+  const card=document.createElement('div');card.className='pvc';
+  card.innerHTML=`<div class="pvi"><img src="${url}" loading="lazy"><div class="pvb">${fmtB(blob.size)}</div></div><div class="pvn">${name}</div>`;
+  card.onclick=()=>{$('mImg').src=url;$('mTitle').textContent=name+' — '+fmtB(blob.size);$('modal').classList.add('show')};
+  $('prevGrid').prepend(card);
+  while($('prevGrid').children.length>6)$('prevGrid').removeChild($('prevGrid').lastChild);
+  while(prevUrls.length>6){try{URL.revokeObjectURL(prevUrls.pop())}catch(e){}}
+}
+
+function log(t){$('logBox').textContent+=t+'\n';const l=$('logBox').textContent.split('\n');if(l.length>200)$('logBox').textContent=l.slice(-200).join('\n');$('logBox').scrollTop=$('logBox').scrollHeight}
+function toast(m,ty='inf'){const el=document.createElement('div');el.className='toast '+(ty==='ok'?'tok':ty==='err'?'terr':'tinf');el.textContent=m;$('tw').appendChild(el);setTimeout(()=>el.remove(),3000)}
+function fmtB(b){if(!isFinite(b)||b<=0)return'0';if(b<1024)return Math.round(b)+'B';if(b<1048576)return(b/1024|0)+'KB';return(b/1048576).toFixed(1)+'MB'}
+function fmtD(s){s=Math.max(0,Math.round(s));const m=s/60|0;return m?m+'د '+(s%60)+'ث':s+'ث'}
+
+$('btnClear').onclick=()=>{$('logBox').textContent=''};
+$('mClose').onclick=()=>$('modal').classList.remove('show');
+$('modal').onclick=e=>{if(e.target===$('modal'))$('modal').classList.remove('show')};
+window.addEventListener('beforeunload',()=>{destroyPool();pfCache.clear();prevUrls.forEach(u=>{try{URL.revokeObjectURL(u)}catch(e){}})});
+})();
+</script>
+</body>
+</html>

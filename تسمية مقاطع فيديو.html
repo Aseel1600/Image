@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منظم الفيديوهات - Video Organizer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            min-height: 100vh;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            padding: 40px 20px 30px;
+        }
+
+        .header h1 {
+            font-size: 2.2em;
+            background: linear-gradient(90deg, #00d2ff, #7b2ff7, #ff6b6b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #aaa;
+            font-size: 1.05em;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            border-color: rgba(123, 47, 247, 0.3);
+            box-shadow: 0 8px 32px rgba(123, 47, 247, 0.15);
+        }
+
+        .card h2 {
+            font-size: 1.3em;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .step-number {
+            background: linear-gradient(135deg, #7b2ff7, #00d2ff);
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9em;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .upload-zone {
+            border: 2px dashed rgba(123, 47, 247, 0.4);
+            border-radius: 15px;
+            padding: 40px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .upload-zone:hover,
+        .upload-zone.drag-over {
+            border-color: #7b2ff7;
+            background: rgba(123, 47, 247, 0.1);
+            transform: scale(1.01);
+        }
+
+        .upload-zone input[type="file"] {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .upload-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+
+        .upload-zone p {
+            color: #bbb;
+            font-size: 1em;
+        }
+
+        .upload-zone .main-text {
+            color: #fff;
+            font-size: 1.15em;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .file-count {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 8px 20px;
+            background: linear-gradient(135deg, #7b2ff7, #00d2ff);
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 0.95em;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 250px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            color: #fff;
+            padding: 15px;
+            font-size: 0.95em;
+            font-family: 'Courier New', monospace;
+            resize: vertical;
+            line-height: 1.8;
+            transition: border-color 0.3s;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #7b2ff7;
+        }
+
+        textarea::placeholder {
+            color: #555;
+        }
+
+        .names-info {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+            color: #888;
+            font-size: 0.85em;
+        }
+
+        .names-count {
+            color: #00d2ff;
+            font-weight: bold;
+        }
+
+        .settings-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .setting-item {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 12px;
+            padding: 15px;
+        }
+
+        .setting-item label {
+            display: block;
+            margin-bottom: 8px;
+            color: #ccc;
+            font-size: 0.9em;
+        }
+
+        .setting-item input[type="number"],
+        .setting-item input[type="text"] {
+            width: 100%;
+            padding: 10px 12px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 8px;
+            color: #fff;
+            font-size: 1em;
+            text-align: center;
+        }
+
+        .setting-item input:focus {
+            outline: none;
+            border-color: #7b2ff7;
+        }
+
+        .preview-section {
+            margin-top: 15px;
+        }
+
+        .preview-title {
+            color: #aaa;
+            font-size: 0.9em;
+            margin-bottom: 10px;
+        }
+
+        .preview-tree {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 12px;
+            padding: 15px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85em;
+            max-height: 300px;
+            overflow-y: auto;
+            line-height: 1.6;
+        }
+
+        .preview-tree::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .preview-tree::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .preview-tree::-webkit-scrollbar-thumb {
+            background: #7b2ff7;
+            border-radius: 3px;
+        }
+
+        .tree-folder {
+            color: #ffd700;
+        }
+
+        .tree-subfolder {
+            color: #00d2ff;
+            padding-right: 20px;
+        }
+
+        .tree-file {
+            color: #aaa;
+            padding-right: 40px;
+        }
+
+        .btn-generate {
+            width: 100%;
+            padding: 18px;
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #fff;
+            background: linear-gradient(135deg, #7b2ff7, #00d2ff);
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .btn-generate:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(123, 47, 247, 0.4);
+        }
+
+        .btn-generate:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        .progress-container {
+            display: none;
+            margin-top: 20px;
+        }
+
+        .progress-bar-bg {
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #7b2ff7, #00d2ff);
+            border-radius: 4px;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .progress-text {
+            text-align: center;
+            margin-top: 10px;
+            color: #aaa;
+            font-size: 0.9em;
+        }
+
+        .status-message {
+            text-align: center;
+            padding: 15px;
+            border-radius: 12px;
+            margin-top: 15px;
+            display: none;
+            font-weight: 600;
+        }
+
+        .status-success {
+            display: block;
+            background: rgba(0, 255, 136, 0.1);
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            color: #00ff88;
+        }
+
+        .status-error {
+            display: block;
+            background: rgba(255, 68, 68, 0.1);
+            border: 1px solid rgba(255, 68, 68, 0.3);
+            color: #ff4444;
+        }
+
+        .file-list-container {
+            margin-top: 15px;
+            display: none;
+        }
+
+        .file-list-toggle {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #ccc;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9em;
+            width: 100%;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .file-list-toggle:hover {
+            background: rgba(255, 255, 255, 0.12);
+        }
+
+        .file-list {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            padding: 10px;
+            margin-top: 10px;
+            max-height: 200px;
+            overflow-y: auto;
+            display: none;
+        }
+
+        .file-list.show {
+            display: block;
+        }
+
+        .file-item {
+            padding: 6px 10px;
+            color: #aaa;
+            font-size: 0.85em;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .file-item:last-child {
+            border-bottom: none;
+        }
+
+        .file-item .file-num {
+            color: #7b2ff7;
+            font-weight: bold;
+            min-width: 30px;
+        }
+
+        .file-item .file-name {
+            flex: 1;
+            text-align: right;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .warning-box {
+            background: rgba(255, 193, 7, 0.1);
+            border: 1px solid rgba(255, 193, 7, 0.3);
+            border-radius: 10px;
+            padding: 12px 15px;
+            color: #ffc107;
+            font-size: 0.9em;
+            margin-top: 15px;
+            display: none;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 30px;
+            color: #555;
+            font-size: 0.85em;
+        }
+
+        @media (max-width: 600px) {
+            .header h1 {
+                font-size: 1.6em;
+            }
+
+            .settings-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .card {
+                padding: 20px;
+            }
+
+            .upload-zone {
+                padding: 30px 15px;
+            }
+        }
+
+        .switch-btn {
+            display: block;
+            margin: 15px auto 0;
+            padding: 8px 16px;
+            border-radius: 8px;
+            border: 1px solid rgba(0, 210, 255, 0.4);
+            background: rgba(0, 210, 255, 0.1);
+            color: #00d2ff;
+            cursor: pointer;
+            font-size: 0.85em;
+            transition: all 0.3s;
+        }
+
+        .switch-btn:hover {
+            background: rgba(0, 210, 255, 0.2);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="header">
+            <h1>📁 منظم الفيديوهات</h1>
+            <p>ارفع الفيديوهات، اكتب الأسماء الجديدة، وحمّلهم كملف ZIP منظم</p>
+        </div>
+
+        <!-- Step 1 -->
+        <div class="card">
+            <h2><span class="step-number">1</span> ارفع الفيديوهات</h2>
+            <div class="upload-zone" id="uploadZone">
+                <input type="file" id="fileInput" multiple accept="video/*" webkitdirectory>
+                <div class="upload-icon">🎬</div>
+                <p class="main-text">اضغط هنا لاختيار مجلد كامل</p>
+                <p>أو اسحب وأفلت الملفات هنا</p>
+            </div>
+
+            <button class="switch-btn" onclick="switchToFiles()">
+                🔄 أو اختر ملفات فردية بدون مجلد
+            </button>
+
+            <div id="fileCountDisplay" style="display:none; text-align:center; margin-top:15px;">
+                <span class="file-count" id="fileCount">0 ملف</span>
+            </div>
+
+            <div class="file-list-container" id="fileListContainer">
+                <button class="file-list-toggle" id="fileListToggle" onclick="toggleFileList()">
+                    📋 عرض قائمة الملفات المرفوعة
+                </button>
+                <div class="file-list" id="fileList"></div>
+            </div>
+
+            <div class="warning-box" id="warningBox"></div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="card">
+            <h2><span class="step-number">2</span> اكتب الأسماء الجديدة</h2>
+            <textarea id="namesInput" placeholder="اكتب اسم كل فيديو في سطر...
+
+مثال:
+الدرس الأول - المقدمة
+الدرس الثاني - الأساسيات
+الدرس الثالث - التطبيق
+..."></textarea>
+            <div class="names-info">
+                <span>كل سطر = اسم فيديو واحد</span>
+                <span>عدد الأسماء: <span class="names-count" id="namesCount">0</span></span>
+            </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="card">
+            <h2><span class="step-number">3</span> إعدادات التنظيم</h2>
+            <div class="settings-grid">
+                <div class="setting-item">
+                    <label>📁 اسم المجلد الرئيسي</label>
+                    <input type="text" id="mainFolder" value="V" placeholder="V">
+                </div>
+                <div class="setting-item">
+                    <label>📂 بادئة المجلدات الفرعية</label>
+                    <input type="text" id="subPrefix" value="V" placeholder="V">
+                </div>
+                <div class="setting-item">
+                    <label>🔢 عدد المجلدات الفرعية</label>
+                    <input type="number" id="subCount" value="7" min="1" max="50">
+                </div>
+                <div class="setting-item">
+                    <label>📄 عدد الفيديوهات في كل مجلد</label>
+                    <input type="number" id="filesPerFolder" value="12" min="1" max="100">
+                </div>
+            </div>
+
+            <div class="preview-section">
+                <p class="preview-title">👁️ معاينة هيكل المجلدات:</p>
+                <div class="preview-tree" id="previewTree"></div>
+            </div>
+        </div>
+
+        <!-- Generate -->
+        <button class="btn-generate" id="generateBtn" onclick="generateZip()" disabled>
+            <span>⚡</span>
+            <span>إنشاء ملف ZIP</span>
+        </button>
+
+        <div class="progress-container" id="progressContainer">
+            <div class="progress-bar-bg">
+                <div class="progress-bar-fill" id="progressBar"></div>
+            </div>
+            <p class="progress-text" id="progressText">جاري التحضير...</p>
+        </div>
+
+        <div class="status-message" id="statusMessage"></div>
+
+        <div class="footer">
+            <p>يعمل بالكامل من المتصفح - لا يتم رفع أي ملف لأي سيرفر 🔒</p>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+
+    <script>
+        let uploadedFiles = [];
+
+        const fileInput = document.getElementById('fileInput');
+        const uploadZone = document.getElementById('uploadZone');
+        const namesInput = document.getElementById('namesInput');
+        const generateBtn = document.getElementById('generateBtn');
+
+        // Natural sort
+        function naturalSort(a, b) {
+            const ax = [], bx = [];
+            a.replace(/(\d+)|(\D+)/g, (_, $1, $2) => { ax.push([$1 || Infinity, $2 || ""]) });
+            b.replace(/(\d+)|(\D+)/g, (_, $1, $2) => { bx.push([$1 || Infinity, $2 || ""]) });
+            while (ax.length && bx.length) {
+                const an = ax.shift();
+                const bn = bx.shift();
+                const nn = (an[0] - bn[0]) || an[1].localeCompare(bn[1]);
+                if (nn) return nn;
+            }
+            return ax.length - bx.length;
+        }
+
+        function switchToFiles() {
+            const newInput = document.createElement('input');
+            newInput.type = 'file';
+            newInput.multiple = true;
+            newInput.accept = 'video/*';
+            newInput.addEventListener('change', (e) => handleFiles(e.target.files));
+            newInput.click();
+        }
+
+        // Drag and drop
+        uploadZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadZone.classList.add('drag-over');
+        });
+
+        uploadZone.addEventListener('dragleave', () => {
+            uploadZone.classList.remove('drag-over');
+        });
+
+        uploadZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadZone.classList.remove('drag-over');
+            handleFiles(e.dataTransfer.files);
+        });
+
+        fileInput.addEventListener('change', (e) => {
+            handleFiles(e.target.files);
+        });
+
+        function handleFiles(fileList) {
+            let files = Array.from(fileList).filter(f => {
+                const ext = f.name.split('.').pop().toLowerCase();
+                const videoExts = ['mp4', 'mkv', 'avi', 'mov', 'wmv', 'flv', 'webm', 'm4v', '3gp', 'ts', 'mts'];
+                return videoExts.includes(ext) || f.type.startsWith('video/');
+            });
+
+            files.sort((a, b) => naturalSort(a.name, b.name));
+            uploadedFiles = files;
+
+            document.getElementById('fileCountDisplay').style.display = 'block';
+            document.getElementById('fileCount').textContent = `${files.length} فيديو`;
+
+            const listContainer = document.getElementById('fileListContainer');
+            const listEl = document.getElementById('fileList');
+            listContainer.style.display = 'block';
+
+            listEl.innerHTML = '';
+            files.forEach((f, i) => {
+                const item = document.createElement('div');
+                item.className = 'file-item';
+                item.innerHTML = `<span class="file-num">${i + 1}</span><span class="file-name">${f.name}</span>`;
+                listEl.appendChild(item);
+            });
+
+            checkMatch();
+            updatePreview();
+            updateButtonState();
+        }
+
+        function toggleFileList() {
+            const list = document.getElementById('fileList');
+            list.classList.toggle('show');
+            document.getElementById('fileListToggle').textContent =
+                list.classList.contains('show') ? '📋 إخفاء القائمة' : '📋 عرض قائمة الملفات المرفوعة';
+        }
+
+        namesInput.addEventListener('input', () => {
+            document.getElementById('namesCount').textContent = getNames().length;
+            checkMatch();
+            updatePreview();
+            updateButtonState();
+        });
+
+        document.querySelectorAll('#mainFolder, #subPrefix, #subCount, #filesPerFolder').forEach(el => {
+            el.addEventListener('input', () => {
+                updatePreview();
+                checkMatch();
+            });
+        });
+
+        function getNames() {
+            return namesInput.value.split('\n').filter(n => n.trim() !== '');
+        }
+
+        function checkMatch() {
+            const names = getNames();
+            const warning = document.getElementById('warningBox');
+            const subCount = parseInt(document.getElementById('subCount').value) || 7;
+            const perFolder = parseInt(document.getElementById('filesPerFolder').value) || 12;
+            const totalExpected = subCount * perFolder;
+            let messages = [];
+
+            if (uploadedFiles.length > 0 && names.length > 0 && uploadedFiles.length !== names.length) {
+                messages.push(`⚠️ عدد الفيديوهات (${uploadedFiles.length}) لا يساوي عدد الأسماء (${names.length})`);
+            }
+            if (uploadedFiles.length > 0 && uploadedFiles.length !== totalExpected) {
+                messages.push(`📊 عدد الفيديوهات (${uploadedFiles.length}) لا يساوي المتوقع (${subCount} × ${perFolder} = ${totalExpected})`);
+            }
+
+            if (messages.length > 0) {
+                warning.style.display = 'block';
+                warning.innerHTML = messages.join('<br>');
+            } else {
+                warning.style.display = 'none';
+            }
+        }
+
+        function updatePreview() {
+            const mainFolder = document.getElementById('mainFolder').value || 'V';
+            const subPrefix = document.getElementById('subPrefix').value || 'V';
+            const subCount = parseInt(document.getElementById('subCount').value) || 7;
+            const perFolder = parseInt(document.getElementById('filesPerFolder').value) || 12;
+            const names = getNames();
+
+            let html = `<div class="tree-folder">📁 ${mainFolder}/</div>`;
+            let fileIndex = 0;
+
+            for (let i = 1; i <= subCount; i++) {
+                html += `<div class="tree-subfolder">├── 📂 ${subPrefix}${i}/</div>`;
+                for (let j = 0; j < perFolder; j++) {
+                    let fileName = '';
+                    if (names[fileIndex]) {
+                        fileName = names[fileIndex];
+                        if (uploadedFiles[fileIndex]) {
+                            fileName += '.' + uploadedFiles[fileIndex].name.split('.').pop();
+                        } else {
+                            fileName += '.mp4';
+                        }
+                    } else {
+                        fileName = `فيديو ${fileIndex + 1}.mp4`;
+                    }
+                    const connector = (j === perFolder - 1) ? '└──' : '├──';
+                    html += `<div class="tree-file">│   ${connector} 🎬 ${fileName}</div>`;
+                    fileIndex++;
+                }
+            }
+
+            document.getElementById('previewTree').innerHTML = html;
+        }
+
+        function updateButtonState() {
+            generateBtn.disabled = !(uploadedFiles.length > 0 && getNames().length > 0);
+        }
+
+        async function generateZip() {
+            const names = getNames();
+            const mainFolder = document.getElementById('mainFolder').value || 'V';
+            const subPrefix = document.getElementById('subPrefix').value || 'V';
+            const subCount = parseInt(document.getElementById('subCount').value) || 7;
+            const perFolder = parseInt(document.getElementById('filesPerFolder').value) || 12;
+            const totalNeeded = Math.min(uploadedFiles.length, names.length);
+
+            if (totalNeeded === 0) {
+                showStatus('❌ لا يوجد ملفات أو أسماء!', 'error');
+                return;
+            }
+
+            const progressContainer = document.getElementById('progressContainer');
+            const progressBar = document.getElementById('progressBar');
+            const progressText = document.getElementById('progressText');
+            progressContainer.style.display = 'block';
+            progressBar.style.width = '0%';
+            generateBtn.disabled = true;
+            document.getElementById('statusMessage').style.display = 'none';
+
+            try {
+                const zip = new JSZip();
+                const mainFolderZip = zip.folder(mainFolder);
+                let fileIndex = 0;
+
+                for (let i = 1; i <= subCount; i++) {
+                    const subFolder = mainFolderZip.folder(`${subPrefix}${i}`);
+
+                    for (let j = 0; j < perFolder; j++) {
+                        if (fileIndex >= totalNeeded) break;
+
+                        const file = uploadedFiles[fileIndex];
+                        const ext = file.name.split('.').pop();
+                        const newName = names[fileIndex].trim() + '.' + ext;
+
+                        progressText.textContent = `جاري قراءة: ${file.name} (${fileIndex + 1}/${totalNeeded})`;
+                        progressBar.style.width = ((fileIndex + 1) / totalNeeded * 70) + '%';
+
+                        const fileData = await readFileAsync(file);
+                        subFolder.file(newName, fileData);
+                        fileIndex++;
+                    }
+                    if (fileIndex >= totalNeeded) break;
+                }
+
+                progressText.textContent = '📦 جاري ضغط الملفات... انتظر قليلاً';
+                progressBar.style.width = '75%';
+
+                const content = await zip.generateAsync(
+                    {
+                        type: 'blob',
+                        compression: 'DEFLATE',
+                        compressionOptions: { level: 1 }
+                    },
+                    function (metadata) {
+                        const percent = 75 + (metadata.percent * 0.25);
+                        progressBar.style.width = percent.toFixed(0) + '%';
+                        progressText.textContent = `📦 جاري الضغط... ${metadata.percent.toFixed(0)}%`;
+                    }
+                );
+
+                saveAs(content, `${mainFolder}.zip`);
+
+                progressBar.style.width = '100%';
+                progressText.textContent = '✅ تم بنجاح!';
+                showStatus(`✅ تم إنشاء ${mainFolder}.zip بنجاح! (${totalNeeded} فيديو في ${Math.min(subCount, Math.ceil(totalNeeded / perFolder))} مجلد)`, 'success');
+
+            } catch (error) {
+                console.error(error);
+                showStatus('❌ حدث خطأ: ' + error.message, 'error');
+            }
+
+            generateBtn.disabled = false;
+        }
+
+        function readFileAsync(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = reject;
+                reader.readAsArrayBuffer(file);
+            });
+        }
+
+        function showStatus(message, type) {
+            const el = document.getElementById('statusMessage');
+            el.textContent = message;
+            el.className = 'status-message';
+            el.classList.add(type === 'error' ? 'status-error' : 'status-success');
+        }
+
+        updatePreview();
+    </script>
+</body>
+</html>

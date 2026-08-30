@@ -1,0 +1,3086 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anime Product Manager</title>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:'Segoe UI',Tahoma,sans-serif;background:linear-gradient(135deg,#0a0a2e,#1a1a4e,#0a0a2e);color:#fff;min-height:100vh;padding:20px}
+        h1{text-align:center;font-size:2.5em;margin-bottom:10px;background:linear-gradient(45deg,#ff6b6b,#ffd93d,#6bcb77,#4d96ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+        .subtitle{text-align:center;color:#aaa;margin-bottom:30px;font-size:1.1em}
+        .controls{display:flex;justify-content:center;gap:15px;margin-bottom:30px;flex-wrap:wrap}
+        .search-bar{display:flex;justify-content:center;margin-bottom:20px}
+        .search-bar input{width:400px;max-width:90%;padding:12px 20px;border-radius:25px;border:2px solid #4d96ff;background:#0d0d2b;color:#fff;font-size:1.1em;outline:none}
+        .search-bar input::placeholder{color:#666}
+        .category-tabs{display:flex;justify-content:center;gap:10px;margin-bottom:25px;flex-wrap:wrap}
+        .category-tab{padding:8px 20px;border-radius:20px;border:2px solid #333;background:transparent;color:#aaa;cursor:pointer;transition:all .3s;font-size:.95em}
+        .category-tab.active{border-color:#4d96ff;color:#fff;background:rgba(77,150,255,.2)}
+        .category-tab:hover{border-color:#4d96ff;color:#fff}
+        .characters-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(350px,1fr));gap:15px;max-width:1400px;margin:0 auto}
+        .character-card{background:linear-gradient(145deg,#141432,#1e1e4a);border-radius:15px;padding:15px;border:1px solid #2a2a5a;transition:all .3s}
+        .character-card:hover{border-color:#4d96ff;transform:translateY(-2px);box-shadow:0 5px 20px rgba(77,150,255,.2)}
+        .char-name{font-size:1em;font-weight:bold;color:#ffd93d}
+        .char-anime{font-size:.8em;color:#888}
+        .boxes-row{display:flex;gap:5px;flex-wrap:wrap;margin-top:10px}
+        .num-box{width:35px;height:35px;border-radius:8px;border:2px solid #3a3a6a;display:flex;align-items:center;justify-content:center;font-size:.85em;font-weight:bold;cursor:pointer;transition:all .2s;background:#0d0d2b;color:#ccc}
+        .num-box:hover{border-color:#ff6b6b;background:rgba(255,107,107,.2);color:#fff;transform:scale(1.1)}
+        .modal-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.8);z-index:1000;justify-content:center;align-items:center}
+        .modal-overlay.active{display:flex}
+        .modal-content{background:#1a1a3e;border-radius:20px;padding:30px;width:550px;max-width:95%;max-height:90vh;overflow-y:auto;border:2px solid #4d96ff}
+        .modal-content h2{text-align:center;margin-bottom:5px;color:#ffd93d;font-size:1.4em}
+        .modal-content .modal-subtitle{text-align:center;color:#888;margin-bottom:20px}
+        .date-input-group{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:25px;flex-wrap:wrap}
+        .date-input-group label{color:#aaa;font-size:.95em}
+        .date-input-group input{padding:8px 15px;border-radius:10px;border:1px solid #444;background:#0d0d2b;color:#fff;font-size:1em}
+        .task-row{display:flex;align-items:center;gap:10px;padding:10px 12px;margin-bottom:6px;background:#0d0d2b;border-radius:10px;border:1px solid #2a2a5a}
+        .task-row input[type="checkbox"]{width:20px;height:20px;cursor:pointer;accent-color:#6bcb77;flex-shrink:0}
+        .task-day{font-weight:bold;color:#4d96ff;min-width:35px;flex-shrink:0;font-size:.9em}
+        .task-desc{flex:1;color:#ddd;font-size:.85em}
+        .task-date{color:#ff6b6b;font-size:.8em;font-weight:bold;flex-shrink:0}
+        .task-row.completed{opacity:.5}
+        .task-row.completed .task-desc{text-decoration:line-through}
+        .modal-buttons{display:flex;gap:10px;margin-top:20px;justify-content:center;flex-wrap:wrap}
+        .btn{padding:10px 25px;border-radius:10px;border:none;font-size:1em;font-weight:bold;cursor:pointer;transition:transform .2s}
+        .btn:hover{transform:scale(1.05)}
+        .btn-download{background:linear-gradient(45deg,#6bcb77,#4d96ff);color:#fff}
+        .btn-close{background:#333;color:#fff}
+        .btn-schedule{background:linear-gradient(45deg,#ff6b6b,#ffd93d);color:#000;font-size:1.1em;padding:12px 30px}
+        .btn-clear{background:linear-gradient(45deg,#ff0040,#ff4444);color:#fff;font-size:1.1em;padding:12px 30px}
+        .btn-project{background:linear-gradient(45deg,#9b59b6,#3498db);color:#fff;font-size:1.1em;padding:12px 30px}
+        .schedule-modal{width:750px;max-width:95%}
+        .period-group{background:#0d0d2b;border-radius:15px;padding:20px;margin-bottom:15px;border:1px solid #2a2a5a}
+        .period-group h3{color:#ffd93d;margin-bottom:10px}
+        .period-dates{display:flex;gap:15px;margin-bottom:15px;flex-wrap:wrap;align-items:center}
+        .period-dates label{color:#aaa}
+        .period-dates input[type="date"]{padding:8px 12px;border-radius:8px;border:1px solid #444;background:#1a1a3e;color:#fff}
+        .product-search{width:100%;padding:10px 15px;border-radius:10px;border:2px solid #4d96ff;background:#0d0d2b;color:#fff;font-size:.95em;outline:none;margin-bottom:10px}
+        .product-search::placeholder{color:#555}
+        .product-select-area{max-height:200px;overflow-y:auto;background:#141432;border-radius:10px;padding:10px}
+        .product-checkbox{display:flex;align-items:center;gap:8px;padding:6px 8px;cursor:pointer;border-radius:6px;transition:background .2s}
+        .product-checkbox:hover{background:rgba(77,150,255,.15)}
+        .product-checkbox input{accent-color:#6bcb77;width:18px;height:18px;cursor:pointer}
+        .product-checkbox label{cursor:pointer;color:#ccc;font-size:.9em;flex:1}
+        .product-checkbox.hidden{display:none}
+        .select-buttons{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap;align-items:center}
+        .select-all-btn{padding:5px 15px;border-radius:8px;border:1px solid #4d96ff;background:transparent;color:#4d96ff;cursor:pointer;font-size:.85em}
+        .select-all-btn:hover{background:rgba(77,150,255,.2)}
+        .selected-count{color:#6bcb77;font-size:.85em;padding:5px 10px}
+        #hiddenCanvas{display:none}
+        .confirm-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.85);z-index:2000;justify-content:center;align-items:center}
+        .confirm-overlay.active{display:flex}
+        .confirm-box{background:#1a1a3e;border:3px solid #ff0040;border-radius:20px;padding:40px;text-align:center;max-width:450px;width:90%}
+        .confirm-box h2{color:#ff4444;margin-bottom:15px}
+        .confirm-box p{color:#ccc;margin-bottom:25px;line-height:1.6}
+        .confirm-box .confirm-buttons{display:flex;gap:15px;justify-content:center}
+        .confirm-box .btn-confirm-yes{background:linear-gradient(45deg,#ff0040,#ff4444);color:#fff;padding:12px 35px;border:none;border-radius:10px;font-size:1.1em;font-weight:bold;cursor:pointer}
+        .confirm-box .btn-confirm-no{background:#333;color:#fff;padding:12px 35px;border:none;border-radius:10px;font-size:1.1em;font-weight:bold;cursor:pointer}
+        .project-modal{width:550px}
+        .info-box{background:#0d0d2b;border-radius:12px;padding:15px;margin:15px 0;border:1px solid #2a2a5a;line-height:1.8;color:#bbb;font-size:.85em}
+        .info-box strong{color:#ffd93d}
+        .info-box .hl{color:#4d96ff}
+        .loading-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.9);z-index:3000;justify-content:center;align-items:center;flex-direction:column;gap:20px}
+        .loading-overlay.active{display:flex}
+        .loading-spinner{width:60px;height:60px;border:5px solid #333;border-top:5px solid #4d96ff;border-radius:50%;animation:spin 1s linear infinite}
+        @keyframes spin{to{transform:rotate(360deg)}}
+        .loading-text{color:#fff;font-size:1.3em}
+        .loading-progress{color:#6bcb77;font-size:1em}
+        .stats{text-align:center;color:#888;margin-bottom:15px;font-size:.9em}
+        @media(max-width:768px){.characters-grid{grid-template-columns:1fr}h1{font-size:1.5em}}
+    </style>
+</head>
+
+<body>
+
+<h1>🎌 Anime Product Manager</h1>
+<p class="subtitle">100 Characters • 2 Categories • 1000 Products • 7000 Tasks</p>
+
+<div class="stats">
+    Total: 100 Characters | 1000 Products | 10 Rounds
+</div>
+
+<div class="search-bar">
+    <input type="text" id="searchInput" placeholder="🔍 Search character..." oninput="filterCharacters()">
+</div>
+
+<div class="category-tabs" id="categoryTabs">
+    <button class="category-tab active" onclick="filterByCategory('all',this)">
+        All (100)
+    </button>
+</div>
+
+<div class="controls">
+    <button class="btn btn-project" onclick="openProjectModal()">
+        🚀 Download Full Project
+    </button>
+
+    <button class="btn btn-schedule" onclick="openScheduleModal()">
+        📅 Custom Schedule
+    </button>
+
+    <button class="btn btn-clear" onclick="showClearConfirm()">
+        🗑️ Clear Data
+    </button>
+</div>
+
+<div class="characters-grid" id="charactersGrid"></div>
+
+<!-- TASK MODAL -->
+<div class="modal-overlay" id="taskModal">
+    <div class="modal-content">
+        <h2 id="modalTitle"></h2>
+        <p class="modal-subtitle" id="modalSubtitle"></p>
+
+        <div class="date-input-group">
+            <label>📅 Launch Date:</label>
+            <input type="date" id="launchDateInput" onchange="updateTaskDates()">
+        </div>
+
+        <div id="tasksContainer"></div>
+
+        <div class="modal-buttons">
+            <button class="btn btn-download" onclick="downloadTaskImage()">📥 PNG</button>
+            <button class="btn btn-close" onclick="closeTaskModal()">Close</button>
+        </div>
+    </div>
+</div>
+
+<!-- CUSTOM SCHEDULE -->
+<div class="modal-overlay" id="scheduleModal">
+    <div class="modal-content schedule-modal">
+
+        <h2>📅 Custom Schedule</h2>
+        <p class="modal-subtitle">Select periods and products</p>
+
+        <div class="period-group">
+            <h3>🔴 Period 1 (Previous)</h3>
+
+            <input type="text"
+                   class="product-search"
+                   id="search1"
+                   placeholder="🔍 Search..."
+                   oninput="filterProducts(1)">
+
+            <div class="select-buttons">
+                <button class="select-all-btn" onclick="selectAllProducts(1)">✅</button>
+                <button class="select-all-btn" onclick="deselectAllProducts(1)">❌</button>
+                <button class="select-all-btn" onclick="toggleVisibleProducts(1)">🔍</button>
+                <span class="selected-count" id="count1">0</span>
+            </div>
+
+            <div class="product-select-area" id="products1"></div>
+        </div>
+
+        <div class="period-group">
+            <h3>🔵 Period 2 (Images)</h3>
+
+            <div class="period-dates">
+                <label>From:</label>
+                <input type="date" id="period2From">
+
+                <label>To:</label>
+                <input type="date" id="period2To">
+            </div>
+
+            <input type="text"
+                   class="product-search"
+                   id="search2"
+                   placeholder="🔍 Search..."
+                   oninput="filterProducts(2)">
+
+            <div class="select-buttons">
+                <button class="select-all-btn" onclick="selectAllProducts(2)">✅</button>
+                <button class="select-all-btn" onclick="deselectAllProducts(2)">❌</button>
+                <button class="select-all-btn" onclick="toggleVisibleProducts(2)">🔍</button>
+                <span class="selected-count" id="count2">0</span>
+            </div>
+
+            <div class="product-select-area" id="products2"></div>
+        </div>
+
+        <div class="modal-buttons">
+            <button class="btn btn-download" onclick="generateScheduleZip()">📥 ZIP</button>
+            <button class="btn btn-close" onclick="closeScheduleModal()">Close</button>
+        </div>
+    </div>
+</div>
+
+<!-- FULL PROJECT -->
+<div class="modal-overlay" id="projectModal">
+    <div class="modal-content project-modal">
+
+        <h2>🚀 Full Project</h2>
+        <p class="modal-subtitle">1000 Launches × 7 Tasks</p>
+
+        <div class="info-box">
+            <strong>How it works:</strong><br>
+
+            1. Pick a start date → finds next
+            <span class="hl">Saturday & Tuesday</span><br>
+
+            2. Tuesday → <span class="hl">Fan Favorites (50)</span><br>
+
+            3. Saturday → <span class="hl">Headliners (50)</span><br>
+
+            4. 1 Round = 50 weeks |
+            <strong>10 Rounds = 500 weeks</strong><br><br>
+
+            <strong>📦 ZIP Contents:</strong><br>
+
+            📁 <span class="hl">all_images/</span> → All images flat<br>
+            📁 <span class="hl">organized/</span> → Year→Month→Week (Sat-Fri)<br>
+            📄 <span class="hl">month_report.txt</span> → Heavy/Light days<br>
+            📄 <span class="hl">calendar.csv</span> → Full spreadsheet
+        </div>
+
+        <div class="date-input-group">
+            <label>📅 Start Date:</label>
+            <input type="date" id="projectStartDate" onchange="calcProjectInfo()">
+        </div>
+
+        <div id="projectInfo"
+             style="color:#6bcb77;text-align:center;margin:10px 0;font-size:.9em;min-height:60px;line-height:1.8">
+        </div>
+
+        <div class="modal-buttons">
+            <button class="btn btn-download" onclick="generateFullProject()">
+                📥 Download ZIP
+            </button>
+
+            <button class="btn btn-close" onclick="closeProjectModal()">
+                Close
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- CLEAR CONFIRM -->
+<div class="confirm-overlay" id="confirmClear">
+    <div class="confirm-box">
+
+        <h2>⚠️ Confirm</h2>
+
+        <p>
+            Delete <strong>all saved data</strong>?
+            ⛔ No undo!
+        </p>
+
+        <div class="confirm-buttons">
+            <button class="btn-confirm-yes" onclick="clearAllData()">Yes</button>
+            <button class="btn-confirm-no" onclick="hideClearConfirm()">No</button>
+        </div>
+
+    </div>
+</div>
+
+<!-- LOADING -->
+<div class="loading-overlay" id="loadingOverlay">
+    <div class="loading-spinner"></div>
+    <div class="loading-text" id="loadingText">Creating...</div>
+    <div class="loading-progress" id="loadingProgress"></div>
+</div>
+
+<canvas id="hiddenCanvas"></canvas>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+
+<script>
+
+/* =========================================================
+   CHARACTER DATABASE
+   ========================================================= */
+
+/*
+    FINAL CATEGORY DISTRIBUTION
+
+    FAN FAVORITES
+    Tuesday
+    #1 → #50
+
+    HEADLINERS
+    Saturday
+    #51 → #100
+
+    Note:
+    Lelouch appears in BOTH categories exactly as supplied.
+*/
+
+const characters = [
+
+    /* =========================
+       FAN FAVORITES — TUESDAY
+       ========================= */
+
+    {name:"Roronoa Zoro",anime:"One Piece",category:"Fan Favorites"},
+    {name:"Itachi Uchiha",anime:"Naruto",category:"Fan Favorites"},
+    {name:"Levi Ackerman",anime:"Attack on Titan",category:"Fan Favorites"},
+    {name:"Portgas D. Ace",anime:"One Piece",category:"Fan Favorites"},
+    {name:"Killua Zoldyck",anime:"Hunter × Hunter",category:"Fan Favorites"},
+    {name:"Madara Uchiha",anime:"Naruto Shippuden",category:"Fan Favorites"},
+    {name:"Trafalgar Law",anime:"One Piece",category:"Fan Favorites"},
+    {name:"Toji Fushiguro",anime:"Jujutsu Kaisen",category:"Fan Favorites"},
+    {name:"Rengoku",anime:"Demon Slayer",category:"Fan Favorites"},
+    {name:"Hisoka",anime:"Hunter × Hunter",category:"Fan Favorites"},
+    {name:"Escanor",anime:"Seven Deadly Sins",category:"Fan Favorites"},
+    {name:"Kenpachi Zaraki",anime:"Bleach",category:"Fan Favorites"},
+    {name:"Shanks",anime:"One Piece",category:"Fan Favorites"},
+    {name:"Kakashi Hatake",anime:"Naruto Shippuden",category:"Fan Favorites"},
+    {name:"Gol D. Roger",anime:"One Piece",category:"Fan Favorites"},
+    {name:"Sasuke Uchiha",anime:"Naruto Shippuden",category:"Fan Favorites"},
+    {name:"Minato Namikaze",anime:"Naruto",category:"Fan Favorites"},
+    {name:"Whitebeard",anime:"One Piece",category:"Fan Favorites"},
+    {name:"Pain",anime:"Naruto Shippuden",category:"Fan Favorites"},
+    {name:"Obito Uchiha",anime:"Naruto Shippuden",category:"Fan Favorites"},
+    {name:"Kaido",anime:"One Piece",category:"Fan Favorites"},
+    {name:"Sanji",anime:"One Piece",category:"Fan Favorites"},
+    {name:"Sabo",anime:"One Piece",category:"Fan Favorites"},
+    {name:"Vegeta",anime:"Dragon Ball Super",category:"Fan Favorites"},
+    {name:"Future Trunks",anime:"Dragon Ball Super",category:"Fan Favorites"},
+    {name:"Broly",anime:"Dragon Ball Super",category:"Fan Favorites"},
+    {name:"Gogeta",anime:"Dragon Ball Super",category:"Fan Favorites"},
+    {name:"Vegito",anime:"Dragon Ball Super",category:"Fan Favorites"},
+    {name:"Frieza",anime:"Dragon Ball Super",category:"Fan Favorites"},
+    {name:"Rock Lee",anime:"Naruto",category:"Fan Favorites"},
+    {name:"Gaara",anime:"Naruto",category:"Fan Favorites"},
+    {name:"Byakuya Kuchiki",anime:"Bleach",category:"Fan Favorites"},
+    {name:"Toshiro Hitsugaya",anime:"Bleach",category:"Fan Favorites"},
+    {name:"Spike Spiegel",anime:"Cowboy Bebop",category:"Fan Favorites"},
+    {name:"Mob",anime:"Mob Psycho 100",category:"Fan Favorites"},
+    {name:"Frieren",anime:"Frieren",category:"Fan Favorites"},
+    {name:"Alucard",anime:"Hellsing Ultimate",category:"Fan Favorites"},
+    {name:"Vash the Stampede",anime:"Trigun",category:"Fan Favorites"},
+    {name:"Johan Liebert",anime:"Monster",category:"Fan Favorites"},
+    {name:"Lelouch Lamperouge",anime:"Code Geass",category:"Fan Favorites"},
+    {name:"Accelerator",anime:"A Certain Magical Index",category:"Fan Favorites"},
+    {name:"Arthur Boyle",anime:"Fire Force",category:"Fan Favorites"},
+    {name:"Alphonse Elric",anime:"Fullmetal Alchemist",category:"Fan Favorites"},
+    {name:"Reigen",anime:"Mob Psycho 100",category:"Fan Favorites"},
+    {name:"Fern",anime:"Frieren",category:"Fan Favorites"},
+    {name:"Ban",anime:"Seven Deadly Sins",category:"Fan Favorites"},
+    {name:"Griffith",anime:"Berserk",category:"Fan Favorites"},
+    {name:"Askeladd",anime:"Vinland Saga",category:"Fan Favorites"},
+    {name:"Katsuki Bakugo",anime:"My Hero Academia",category:"Fan Favorites"},
+    {name:"Shoto Todoroki",anime:"My Hero Academia",category:"Fan Favorites"},
+
+
+    /* =========================
+       HEADLINERS — SATURDAY
+       ========================= */
+
+    {name:"Monkey D. Luffy",anime:"One Piece",category:"Headliners"},
+    {name:"Naruto Uzumaki",anime:"Naruto Shippuden",category:"Headliners"},
+    {name:"Gojo Satoru",anime:"Jujutsu Kaisen",category:"Headliners"},
+    {name:"Son Goku",anime:"Dragon Ball Super",category:"Headliners"},
+    {name:"Ichigo Kurosaki",anime:"Bleach",category:"Headliners"},
+    {name:"Eren Yeager",anime:"Attack on Titan",category:"Headliners"},
+    {name:"Tanjiro Kamado",anime:"Demon Slayer",category:"Headliners"},
+    {name:"Sung Jin-Woo",anime:"Solo Leveling",category:"Headliners"},
+    {name:"Yuji Itadori",anime:"Jujutsu Kaisen",category:"Headliners"},
+    {name:"Gon Freecss",anime:"Hunter × Hunter",category:"Headliners"},
+    {name:"Meliodas",anime:"Seven Deadly Sins",category:"Headliners"},
+    {name:"Guts",anime:"Berserk",category:"Headliners"},
+    {name:"Lelouch Lamperouge",anime:"Code Geass",category:"Headliners"},
+    {name:"Light Yagami",anime:"Death Note",category:"Headliners"},
+    {name:"L",anime:"Death Note",category:"Headliners"},
+    {name:"Edward Elric",anime:"Fullmetal Alchemist",category:"Headliners"},
+    {name:"Saitama",anime:"One Punch Man",category:"Headliners"},
+    {name:"Denji",anime:"Chainsaw Man",category:"Headliners"},
+    {name:"Rimuru Tempest",anime:"Tensura",category:"Headliners"},
+    {name:"Anos Voldigoad",anime:"Misfit of Demon King Academy",category:"Headliners"},
+    {name:"Cid Kagenou",anime:"Eminence in Shadow",category:"Headliners"},
+    {name:"Asta",anime:"Black Clover",category:"Headliners"},
+    {name:"Yuno",anime:"Black Clover",category:"Headliners"},
+    {name:"Natsu Dragneel",anime:"Fairy Tail",category:"Headliners"},
+    {name:"Thorfinn",anime:"Vinland Saga",category:"Headliners"},
+    {name:"Ken Kaneki",anime:"Tokyo Ghoul",category:"Headliners"},
+    {name:"Izuku Midoriya",anime:"My Hero Academia",category:"Headliners"},
+    {name:"Shinra Kusakabe",anime:"Fire Force",category:"Headliners"},
+    {name:"Gohan",anime:"Dragon Ball Super",category:"Headliners"},
+    {name:"Beerus",anime:"Dragon Ball Super",category:"Headliners"},
+    {name:"Jiren",anime:"Dragon Ball Super",category:"Headliners"},
+    {name:"Sosuke Aizen",anime:"Bleach",category:"Headliners"},
+    {name:"Nezuko Kamado",anime:"Demon Slayer",category:"Headliners"},
+    {name:"Tengen Uzui",anime:"Demon Slayer",category:"Headliners"},
+    {name:"Muichiro Tokito",anime:"Demon Slayer",category:"Headliners"},
+    {name:"Ryomen Sukuna",anime:"Jujutsu Kaisen",category:"Headliners"},
+    {name:"Yuta Okkotsu",anime:"Jujutsu Kaisen",category:"Headliners"},
+    {name:"Mikasa Ackerman",anime:"Attack on Titan",category:"Headliners"},
+    {name:"Erwin Smith",anime:"Attack on Titan",category:"Headliners"},
+    {name:"Roy Mustang",anime:"Fullmetal Alchemist",category:"Headliners"},
+    {name:"Chrollo Lucilfer",anime:"Hunter × Hunter",category:"Headliners"},
+    {name:"Meruem",anime:"Hunter × Hunter",category:"Headliners"},
+    {name:"Genos",anime:"One Punch Man",category:"Headliners"},
+    {name:"Makima",anime:"Chainsaw Man",category:"Headliners"},
+    {name:"Power",anime:"Chainsaw Man",category:"Headliners"},
+    {name:"Aki Hayakawa",anime:"Chainsaw Man",category:"Headliners"},
+    {name:"Beru",anime:"Solo Leveling",category:"Headliners"},
+    {name:"Yami Sukehiro",anime:"Black Clover",category:"Headliners"},
+    {name:"Erza Scarlet",anime:"Fairy Tail",category:"Headliners"},
+    {name:"Gray Fullbuster",anime:"Fairy Tail",category:"Headliners"}
+];
+
+
+/* =========================================================
+   TASK SYSTEM
+   ========================================================= */
+
+const tasks = [
+    {day:-3,desc:"V1"},
+    {day:-1,desc:"V2"},
+    {day:0,desc:"V3"},
+    {day:0,desc:"V4"},
+    {day:1,desc:"V5"},
+    {day:5,desc:"V6"},
+    {day:12,desc:"V7"}
+];
+
+
+/* =========================================================
+   FINAL LAUNCH DISTRIBUTION
+   ========================================================= */
+
+/*
+    TUESDAY = FAN FAVORITES
+    SATURDAY = HEADLINERS
+*/
+
+const TUESDAY_CHARS = [
+
+    "Roronoa Zoro",
+    "Itachi Uchiha",
+    "Levi Ackerman",
+    "Portgas D. Ace",
+    "Killua Zoldyck",
+    "Madara Uchiha",
+    "Trafalgar Law",
+    "Toji Fushiguro",
+    "Rengoku",
+    "Hisoka",
+    "Escanor",
+    "Kenpachi Zaraki",
+    "Shanks",
+    "Kakashi Hatake",
+    "Gol D. Roger",
+    "Sasuke Uchiha",
+    "Minato Namikaze",
+    "Whitebeard",
+    "Pain",
+    "Obito Uchiha",
+    "Kaido",
+    "Sanji",
+    "Sabo",
+    "Vegeta",
+    "Future Trunks",
+    "Broly",
+    "Gogeta",
+    "Vegito",
+    "Frieza",
+    "Rock Lee",
+    "Gaara",
+    "Byakuya Kuchiki",
+    "Toshiro Hitsugaya",
+    "Spike Spiegel",
+    "Mob",
+    "Frieren",
+    "Alucard",
+    "Vash the Stampede",
+    "Johan Liebert",
+    "Lelouch Lamperouge",
+    "Accelerator",
+    "Arthur Boyle",
+    "Alphonse Elric",
+    "Reigen",
+    "Fern",
+    "Ban",
+    "Griffith",
+    "Askeladd",
+    "Katsuki Bakugo",
+    "Shoto Todoroki"
+];
+
+
+const SATURDAY_CHARS = [
+
+    "Monkey D. Luffy",
+    "Naruto Uzumaki",
+    "Gojo Satoru",
+    "Son Goku",
+    "Ichigo Kurosaki",
+    "Eren Yeager",
+    "Tanjiro Kamado",
+    "Sung Jin-Woo",
+    "Yuji Itadori",
+    "Gon Freecss",
+    "Meliodas",
+    "Guts",
+    "Lelouch Lamperouge",
+    "Light Yagami",
+    "L",
+    "Edward Elric",
+    "Saitama",
+    "Denji",
+    "Rimuru Tempest",
+    "Anos Voldigoad",
+    "Cid Kagenou",
+    "Asta",
+    "Yuno",
+    "Natsu Dragneel",
+    "Thorfinn",
+    "Ken Kaneki",
+    "Izuku Midoriya",
+    "Shinra Kusakabe",
+    "Gohan",
+    "Beerus",
+    "Jiren",
+    "Sosuke Aizen",
+    "Nezuko Kamado",
+    "Tengen Uzui",
+    "Muichiro Tokito",
+    "Ryomen Sukuna",
+    "Yuta Okkotsu",
+    "Mikasa Ackerman",
+    "Erwin Smith",
+    "Roy Mustang",
+    "Chrollo Lucilfer",
+    "Meruem",
+    "Genos",
+    "Makima",
+    "Power",
+    "Aki Hayakawa",
+    "Beru",
+    "Yami Sukehiro",
+    "Erza Scarlet",
+    "Gray Fullbuster"
+];
+
+
+const DAYS_EN = [
+    'Sun','Mon','Tue','Wed','Thu','Fri','Sat'
+];
+
+const DAYS_FULL = [
+    'Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'
+];
+
+const MONTHS_EN = [
+    'January','February','March','April','May','June',
+    'July','August','September','October','November','December'
+];
+
+
+let currentModal = {
+    charName:'',
+    charAnime:'',
+    boxNum:0
+};
+
+let savedData = JSON.parse(
+    localStorage.getItem('animeProductManager') || '{}'
+);
+
+const categories = [
+    ...new Set(characters.map(c=>c.category))
+];
+
+
+/* =========================================================
+   DATE FUNCTIONS
+   ========================================================= */
+
+function fmtDateDMY(date) {
+
+    const d = new Date(date);
+
+    const day = String(d.getDate()).padStart(2,'0');
+    const month = String(d.getMonth()+1).padStart(2,'0');
+    const year = d.getFullYear();
+
+    return `${day}/${month}/${year}`;
+}
+
+
+function fmtDateEn(d) {
+
+    return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+
+}
+
+
+function getDayEN(d) {
+
+    return DAYS_EN[d.getDay()].toLowerCase();
+
+}
+
+
+function getDayFull(d) {
+
+    return DAYS_FULL[d.getDay()];
+
+}
+
+
+function getMonthEN(d) {
+
+    return MONTHS_EN[d.getMonth()];
+
+}
+
+
+/* =========================================================
+   CATEGORY / CHARACTER UI
+   ========================================================= */
+
+function initCategoryTabs(){
+
+    const t = document.getElementById('categoryTabs');
+
+    categories.forEach(cat=>{
+
+        const b = document.createElement('button');
+
+        b.className = 'category-tab';
+
+        b.textContent =
+            `${cat} (${characters.filter(c=>c.category===cat).length})`;
+
+        b.onclick = () => filterByCategory(cat,b);
+
+        t.appendChild(b);
+
+    });
+
+}
+
+
+function filterByCategory(cat,btn){
+
+    document
+        .querySelectorAll('.category-tab')
+        .forEach(t=>t.classList.remove('active'));
+
+    btn.classList.add('active');
+
+    renderCharacters(
+        cat === 'all' ? null : cat
+    );
+
+}
+
+
+function filterCharacters(){
+
+    const q =
+        document.getElementById('searchInput')
+        .value
+        .toLowerCase();
+
+    document
+        .querySelectorAll('.character-card')
+        .forEach(c=>{
+
+            c.style.display =
+                (
+                    c.dataset.name.toLowerCase().includes(q) ||
+                    c.dataset.anime.toLowerCase().includes(q)
+                )
+                ? ''
+                : 'none';
+
+        });
+
+}
+
+
+function renderCharacters(cf){
+
+    const g = document.getElementById('charactersGrid');
+
+    g.innerHTML = '';
+
+    (
+        cf
+        ? characters.filter(c=>c.category===cf)
+        : characters
+    ).forEach(ch=>{
+
+        const card = document.createElement('div');
+
+        card.className = 'character-card';
+
+        card.dataset.name = ch.name;
+        card.dataset.anime = ch.anime;
+
+        let bx = '';
+
+        for(let i=1;i<=10;i++){
+
+            bx += `
+                <div
+                    class="num-box"
+                    onclick="openTaskModal(
+                        '${ch.name.replace(/'/g,"\\'")}',
+                        '${ch.anime.replace(/'/g,"\\'")}',
+                        ${i}
+                    )"
+                >
+                    ${i}
+                </div>
+            `;
+
+        }
+
+        card.innerHTML = `
+            <div>
+                <span class="char-name">${ch.name}</span><br>
+                <span class="char-anime">${ch.anime}</span>
+            </div>
+
+            <div class="boxes-row">
+                ${bx}
+            </div>
+        `;
+
+        g.appendChild(card);
+
+    });
+
+}
+
+
+/* =========================================================
+   PRODUCT / TASK MODAL
+   ========================================================= */
+
+function getKey(n,b){
+
+    return `${n}_${b}`;
+
+}
+
+
+function openTaskModal(cn,ca,bn){
+
+    currentModal = {
+        charName:cn,
+        charAnime:ca,
+        boxNum:bn
+    };
+
+    document.getElementById('modalTitle').textContent =
+        `${cn} - #${bn}`;
+
+    document.getElementById('modalSubtitle').textContent =
+        ca;
+
+    const d =
+        savedData[getKey(cn,bn)] || {};
+
+    document.getElementById('launchDateInput').value =
+        d.launchDate || '';
+
+    renderTasks(d);
+
+    document
+        .getElementById('taskModal')
+        .classList.add('active');
+
+}
+
+
+function renderTasks(data){
+
+    const c = document.getElementById('tasksContainer');
+
+    c.innerHTML = '';
+
+    const ld =
+        document.getElementById('launchDateInput').value;
+
+    tasks.forEach((t,i)=>{
+
+        const comp =
+            data.tasks
+            ? data.tasks[i]
+            : false;
+
+        let ds = '';
+
+        if(ld){
+
+            const dd = new Date(ld);
+
+            dd.setDate(
+                dd.getDate()+t.day
+            );
+
+            ds = fmtDateDMY(dd);
+
+        }
+
+        const r = document.createElement('div');
+
+        r.className =
+            `task-row ${comp?'completed':''}`;
+
+        r.innerHTML = `
+            <input
+                type="checkbox"
+                ${comp?'checked':''}
+                onchange="toggleTask(${i},this.checked)"
+            >
+
+            <span class="task-day">
+                ${t.day>=0?'+'+t.day:t.day}
+            </span>
+
+            <span class="task-desc">
+                ${t.desc}
+            </span>
+
+            <span class="task-date">
+                ${ds}
+            </span>
+        `;
+
+        c.appendChild(r);
+
+    });
+
+}
+
+
+function updateTaskDates(){
+
+    const k =
+        getKey(
+            currentModal.charName,
+            currentModal.boxNum
+        );
+
+    if(!savedData[k]){
+
+        savedData[k] = {
+            tasks:new Array(7).fill(false)
+        };
+
+    }
+
+    savedData[k].launchDate =
+        document.getElementById('launchDateInput').value;
+
+    localStorage.setItem(
+        'animeProductManager',
+        JSON.stringify(savedData)
+    );
+
+    renderTasks(savedData[k]);
+
+}
+
+
+function toggleTask(i,ch){
+
+    const k =
+        getKey(
+            currentModal.charName,
+            currentModal.boxNum
+        );
+
+    if(!savedData[k]){
+
+        savedData[k] = {
+            tasks:new Array(7).fill(false),
+            launchDate:''
+        };
+
+    }
+
+    if(!savedData[k].tasks){
+
+        savedData[k].tasks =
+            new Array(7).fill(false);
+
+    }
+
+    savedData[k].tasks[i] = ch;
+
+    localStorage.setItem(
+        'animeProductManager',
+        JSON.stringify(savedData)
+    );
+
+    renderTasks(savedData[k]);
+
+}
+
+
+function closeTaskModal(){
+
+    document
+        .getElementById('taskModal')
+        .classList.remove('active');
+
+}
+
+
+/* =========================================================
+   SINGLE TASK PNG
+   ========================================================= */
+
+function downloadTaskImage(){
+
+    const canvas =
+        document.getElementById('hiddenCanvas');
+
+    const ctx =
+        canvas.getContext('2d');
+
+    const S = 1080;
+
+    canvas.width = S;
+    canvas.height = S;
+
+    const gr =
+        ctx.createLinearGradient(0,0,S,S);
+
+    gr.addColorStop(0,'#0a0a2e');
+    gr.addColorStop(.5,'#1a1a4e');
+    gr.addColorStop(1,'#0a0a2e');
+
+    ctx.fillStyle = gr;
+    ctx.fillRect(0,0,S,S);
+
+    ctx.strokeStyle = '#4d96ff';
+    ctx.lineWidth = 4;
+    ctx.strokeRect(20,20,S-40,S-40);
+
+    ctx.fillStyle = '#ffd93d';
+    ctx.font = 'bold 36px Segoe UI';
+    ctx.textAlign = 'center';
+
+    ctx.fillText(
+        currentModal.charName,
+        S/2,
+        70
+    );
+
+    ctx.fillStyle = '#888';
+    ctx.font = '22px Segoe UI';
+
+    ctx.fillText(
+        `${currentModal.charAnime} | #${currentModal.boxNum}`,
+        S/2,
+        100
+    );
+
+    const ld =
+        document.getElementById('launchDateInput').value;
+
+    if(ld){
+
+        ctx.fillStyle = '#ff6b6b';
+        ctx.font = 'bold 20px Segoe UI';
+
+        ctx.fillText(
+            `Launch: ${fmtDateDMY(new Date(ld))}`,
+            S/2,
+            130
+        );
+
+    }
+
+    ctx.strokeStyle = '#333';
+    ctx.lineWidth = 1;
+
+    ctx.beginPath();
+    ctx.moveTo(50,148);
+    ctx.lineTo(S-50,148);
+    ctx.stroke();
+
+    const key =
+        getKey(
+            currentModal.charName,
+            currentModal.boxNum
+        );
+
+    const data =
+        savedData[key] || {};
+
+    const startY = 170;
+    const rowH = 120;
+
+    tasks.forEach((t,i)=>{
+
+        const y =
+            startY+i*rowH;
+
+        const comp =
+            data.tasks
+            ? data.tasks[i]
+            : false;
+
+        ctx.fillStyle =
+            comp
+            ? 'rgba(107,203,119,.12)'
+            : 'rgba(13,13,43,.8)';
+
+        ctx.beginPath();
+        ctx.roundRect(
+            45,
+            y,
+            S-90,
+            110,
+            10
+        );
+        ctx.fill();
+
+        ctx.strokeStyle =
+            comp
+            ? '#6bcb77'
+            : '#2a2a5a';
+
+        ctx.lineWidth = 1.5;
+
+        ctx.beginPath();
+        ctx.roundRect(
+            45,
+            y,
+            S-90,
+            110,
+            10
+        );
+        ctx.stroke();
+
+        const cx = 60;
+        const cy = y+18;
+
+        ctx.strokeStyle =
+            comp
+            ? '#6bcb77'
+            : '#555';
+
+        ctx.lineWidth = 2;
+
+        ctx.strokeRect(
+            cx,
+            cy,
+            24,
+            24
+        );
+
+        if(comp){
+
+            ctx.fillStyle = '#6bcb77';
+
+            ctx.fillRect(
+                cx+3,
+                cy+3,
+                18,
+                18
+            );
+
+            ctx.fillStyle = '#fff';
+            ctx.font = 'bold 14px Segoe UI';
+            ctx.textAlign = 'center';
+
+            ctx.fillText(
+                '✓',
+                cx+12,
+                cy+18
+            );
+
+        }
+
+        ctx.fillStyle = '#4d96ff';
+        ctx.font = 'bold 24px Segoe UI';
+        ctx.textAlign = 'left';
+
+        ctx.fillText(
+            t.day>=0
+            ? `+${t.day}`
+            : `${t.day}`,
+            cx+35,
+            y+36
+        );
+
+        ctx.fillStyle =
+            comp
+            ? '#666'
+            : '#ffd93d';
+
+        ctx.font = 'bold 24px Segoe UI';
+
+        ctx.fillText(
+            t.desc,
+            cx+90,
+            y+36
+        );
+
+        if(ld){
+
+            const dd = new Date(ld);
+
+            dd.setDate(
+                dd.getDate()+t.day
+            );
+
+            ctx.fillStyle = '#ff6b6b';
+            ctx.font = '18px Segoe UI';
+            ctx.textAlign = 'right';
+
+            ctx.fillText(
+                fmtDateDMY(dd),
+                S-65,
+                y+36
+            );
+
+        }
+
+        ctx.fillStyle = '#888';
+        ctx.font = '16px Segoe UI';
+        ctx.textAlign = 'left';
+
+        ctx.fillText(
+            'YouTube:',
+            80,
+            y+72
+        );
+
+        ctx.fillText(
+            'TikTok:',
+            380,
+            y+72
+        );
+
+        ctx.fillText(
+            'Instagram:',
+            640,
+            y+72
+        );
+
+    });
+
+    ctx.fillStyle = '#333';
+    ctx.font = '13px Segoe UI';
+    ctx.textAlign = 'center';
+
+    ctx.fillText(
+        'Anime Product Manager',
+        S/2,
+        S-25
+    );
+
+    const link =
+        document.createElement('a');
+
+    link.download =
+        `${currentModal.charName}_#${currentModal.boxNum}.png`;
+
+    link.href =
+        canvas.toDataURL('image/png');
+
+    link.click();
+
+}
+
+
+/* =========================================================
+   CLEAR DATA
+   ========================================================= */
+
+function showClearConfirm(){
+
+    document
+        .getElementById('confirmClear')
+        .classList.add('active');
+
+}
+
+
+function hideClearConfirm(){
+
+    document
+        .getElementById('confirmClear')
+        .classList.remove('active');
+
+}
+
+
+function clearAllData(){
+
+    localStorage.removeItem(
+        'animeProductManager'
+    );
+
+    savedData = {};
+
+    hideClearConfirm();
+
+    closeTaskModal();
+    closeScheduleModal();
+    closeProjectModal();
+
+    alert('✅ Done!');
+
+}
+
+
+/* =========================================================
+   CUSTOM SCHEDULE
+   ========================================================= */
+
+function openScheduleModal(){
+
+    populateProductSelectors();
+
+    document
+        .getElementById('scheduleModal')
+        .classList.add('active');
+
+}
+
+
+function closeScheduleModal(){
+
+    document
+        .getElementById('scheduleModal')
+        .classList.remove('active');
+
+}
+
+
+function populateProductSelectors(){
+
+    [1,2].forEach(p=>{
+
+        const c =
+            document.getElementById(`products${p}`);
+
+        c.innerHTML = '';
+
+        const si =
+            document.getElementById(`search${p}`);
+
+        if(si) si.value = '';
+
+        characters.forEach(ch=>{
+
+            for(let i=1;i<=10;i++){
+
+                const k =
+                    getKey(ch.name,i);
+
+                const d =
+                    savedData[k];
+
+                if(d && d.launchDate){
+
+                    const div =
+                        document.createElement('div');
+
+                    div.className =
+                        'product-checkbox';
+
+                    div.dataset.searchtext =
+                        `${ch.name} ${ch.anime} #${i} ${fmtDateDMY(new Date(d.launchDate))}`
+                        .toLowerCase();
+
+                    const id =
+                        `p${p}_${k.replace(/[^a-zA-Z0-9]/g,'_')}_${i}`;
+
+                    div.innerHTML = `
+                        <input
+                            type="checkbox"
+                            id="${id}"
+                            value="${k}"
+                            onchange="updateSelectedCount(${p})"
+                        >
+
+                        <label for="${id}">
+                            ${ch.name} #${i}
+                            (${fmtDateDMY(new Date(d.launchDate))})
+                        </label>
+                    `;
+
+                    c.appendChild(div);
+
+                }
+
+            }
+
+        });
+
+        if(!c.children.length){
+
+            c.innerHTML =
+                '<p style="color:#666;text-align:center;padding:20px;">No products.</p>';
+
+        }
+
+        updateSelectedCount(p);
+
+    });
+
+}
+
+
+function filterProducts(p){
+
+    const q =
+        document
+        .getElementById(`search${p}`)
+        .value
+        .toLowerCase();
+
+    document
+        .querySelectorAll(
+            `#products${p} .product-checkbox`
+        )
+        .forEach(it=>{
+
+            it.classList.toggle(
+                'hidden',
+                q !== '' &&
+                !(it.dataset.searchtext || '').includes(q)
+            );
+
+        });
+
+}
+
+
+function selectAllProducts(p){
+
+    document
+        .querySelectorAll(
+            `#products${p} .product-checkbox:not(.hidden) input`
+        )
+        .forEach(c=>c.checked=true);
+
+    updateSelectedCount(p);
+
+}
+
+
+function deselectAllProducts(p){
+
+    document
+        .querySelectorAll(
+            `#products${p} input[type="checkbox"]`
+        )
+        .forEach(c=>c.checked=false);
+
+    updateSelectedCount(p);
+
+}
+
+
+function toggleVisibleProducts(p){
+
+    const cbs = [
+        ...document.querySelectorAll(
+            `#products${p} .product-checkbox:not(.hidden) input`
+        )
+    ];
+
+    const all =
+        cbs.every(c=>c.checked);
+
+    cbs.forEach(c=>c.checked=!all);
+
+    updateSelectedCount(p);
+
+}
+
+
+function updateSelectedCount(p){
+
+    const ch =
+        document.querySelectorAll(
+            `#products${p} input:checked`
+        ).length;
+
+    const t =
+        document.querySelectorAll(
+            `#products${p} input[type="checkbox"]`
+        ).length;
+
+    document.getElementById(`count${p}`)
+        .textContent = `${ch}/${t}`;
+
+}
+
+
+function getSelectedProducts(p){
+
+    return [
+        ...document.querySelectorAll(
+            `#products${p} input:checked`
+        )
+    ].map(c=>c.value);
+
+}
+
+
+/* =========================================================
+   DATE RANGE
+   ========================================================= */
+
+function getDateRange(f,t){
+
+    const dates = [];
+
+    const s = new Date(f);
+    s.setHours(12,0,0,0);
+
+    const e = new Date(t);
+    e.setHours(12,0,0,0);
+
+    for(
+        let d = new Date(s);
+        d <= e;
+        d.setDate(d.getDate()+1)
+    ){
+
+        dates.push(new Date(d));
+
+    }
+
+    return dates;
+
+}
+
+
+/* =========================================================
+   CUSTOM SCHEDULE TASK CALCULATION
+   ========================================================= */
+
+function getTasksForDate(date,p1P,p2P){
+
+    const result = [];
+
+    const td2 = new Date(date);
+
+    td2.setHours(12,0,0,0);
+
+    [
+        ...new Set([
+            ...p1P,
+            ...p2P
+        ])
+    ].forEach(key=>{
+
+        const data =
+            savedData[key];
+
+        if(!data || !data.launchDate)
+            return;
+
+        const launch =
+            new Date(data.launchDate);
+
+        launch.setHours(12,0,0,0);
+
+        const parts =
+            key.split('_');
+
+        const boxNum =
+            parseInt(
+                parts[parts.length-1]
+            );
+
+        const charName =
+            parts
+            .slice(0,parts.length-1)
+            .join('_');
+
+        const inP1 =
+            p1P.includes(key);
+
+        const inP2 =
+            p2P.includes(key);
+
+        let source =
+            inP1 && inP2
+            ? 'both'
+            : inP1
+            ? 'period1'
+            : 'period2';
+
+        tasks.forEach((task,idx)=>{
+
+            const td =
+                new Date(launch);
+
+            td.setDate(
+                td.getDate()+task.day
+            );
+
+            if(
+                td.toDateString() ===
+                td2.toDateString()
+            ){
+
+                result.push({
+                    charName,
+                    boxNum,
+                    day:task.day,
+                    desc:task.desc,
+                    completed:data.tasks
+                        ? data.tasks[idx]
+                        : false,
+                    source,
+                    launchDateStr:
+                        fmtDateDMY(launch)
+                });
+
+            }
+
+        });
+
+    });
+
+    return result;
+
+}
+
+
+/* =========================================================
+   DRAW DAILY IMAGE
+   ========================================================= */
+
+function drawDayImage(ctx,canvas,date,dayTasks){
+
+    const W = 1080;
+    const PAD = 30;
+    const HEADER_H = 130;
+
+    const ROW_H = 115;
+    const ROW_GAP = 5;
+
+    const totalH =
+        Math.max(
+            W,
+            HEADER_H +
+            Math.max(1,dayTasks.length) *
+            (ROW_H+ROW_GAP) +
+            50
+        );
+
+    canvas.width = W;
+    canvas.height = totalH;
+
+    const gr =
+        ctx.createLinearGradient(
+            0,
+            0,
+            W,
+            totalH
+        );
+
+    gr.addColorStop(0,'#0a0a2e');
+    gr.addColorStop(.5,'#1a1a4e');
+    gr.addColorStop(1,'#0a0a2e');
+
+    ctx.fillStyle = gr;
+    ctx.fillRect(
+        0,
+        0,
+        W,
+        totalH
+    );
+
+    ctx.strokeStyle = '#ffd93d';
+    ctx.lineWidth = 3;
+
+    ctx.strokeRect(
+        8,
+        8,
+        W-16,
+        totalH-16
+    );
+
+    const dateEn =
+        fmtDateDMY(date);
+
+    const dayFull =
+        getDayFull(date);
+
+    ctx.fillStyle = '#ffd93d';
+    ctx.font = 'bold 28px Segoe UI';
+    ctx.textAlign = 'center';
+
+    ctx.fillText(
+        `${dayFull}, ${date.getDate()} ${getMonthEN(date)} ${date.getFullYear()}`,
+        W/2,
+        40
+    );
+
+    ctx.fillStyle = '#666';
+    ctx.font = '16px Segoe UI';
+
+    ctx.fillText(
+        dateEn,
+        W/2,
+        62
+    );
+
+    ctx.fillStyle = '#4d96ff';
+    ctx.font = 'bold 18px Segoe UI';
+
+    ctx.fillText(
+        `Tasks: ${dayTasks.length}`,
+        W/2,
+        86
+    );
+
+    ctx.strokeStyle = '#333';
+    ctx.lineWidth = 1;
+
+    ctx.beginPath();
+    ctx.moveTo(PAD,100);
+    ctx.lineTo(W-PAD,100);
+    ctx.stroke();
+
+    if(!dayTasks.length){
+
+        ctx.fillStyle = '#555';
+        ctx.font = '28px Segoe UI';
+        ctx.textAlign = 'center';
+
+        ctx.fillText(
+            'No tasks today ✨',
+            W/2,
+            totalH/2
+        );
+
+    }
+
+    else{
+
+        dayTasks.forEach((task,idx)=>{
+
+            const y =
+                HEADER_H +
+                idx*(ROW_H+ROW_GAP);
+
+            let srcColor =
+                task.source === 'period1'
+                ? '#ff6b6b'
+                : task.source === 'both'
+                ? '#6bcb77'
+                : '#4d96ff';
+
+            ctx.fillStyle =
+                task.completed
+                ? 'rgba(107,203,119,.1)'
+                : 'rgba(10,10,30,.7)';
+
+            ctx.beginPath();
+
+            ctx.roundRect(
+                PAD,
+                y,
+                W-PAD*2,
+                ROW_H,
+                10
+            );
+
+            ctx.fill();
+
+            ctx.strokeStyle =
+                task.completed
+                ? '#6bcb77'
+                : srcColor;
+
+            ctx.lineWidth = 1.5;
+
+            ctx.beginPath();
+
+            ctx.roundRect(
+                PAD,
+                y,
+                W-PAD*2,
+                ROW_H,
+                10
+            );
+
+            ctx.stroke();
+
+            ctx.fillStyle = srcColor;
+
+            ctx.fillRect(
+                W-PAD-4,
+                y+6,
+                3,
+                ROW_H-12
+            );
+
+            const R =
+                W-PAD-18;
+
+            const L =
+                PAD+18;
+
+            const y1 =
+                y+24;
+
+            ctx.textAlign = 'left';
+
+            const cbS = 20;
+            const cbX = L;
+            const cbY = y1-14;
+
+            ctx.strokeStyle =
+                task.completed
+                ? '#6bcb77'
+                : '#555';
+
+            ctx.lineWidth = 2;
+
+            ctx.strokeRect(
+                cbX,
+                cbY,
+                cbS,
+                cbS
+            );
+
+            if(task.completed){
+
+                ctx.fillStyle = '#6bcb77';
+
+                ctx.fillRect(
+                    cbX+3,
+                    cbY+3,
+                    cbS-6,
+                    cbS-6
+                );
+
+                ctx.fillStyle = '#fff';
+                ctx.font = 'bold 13px Segoe UI';
+                ctx.textAlign = 'center';
+
+                ctx.fillText(
+                    '✓',
+                    cbX+cbS/2,
+                    cbY+cbS-4
+                );
+
+            }
+
+            ctx.textAlign = 'left';
+
+            ctx.fillStyle = srcColor;
+            ctx.font = 'bold 17px Segoe UI';
+
+            ctx.fillText(
+                `[${task.day>=0?'+'+task.day:task.day}]`,
+                cbX+28,
+                y1
+            );
+
+            ctx.fillStyle = '#ffd93d';
+            ctx.font = 'bold 17px Segoe UI';
+
+            ctx.fillText(
+                task.desc,
+                cbX+80,
+                y1
+            );
+
+            ctx.textAlign = 'right';
+            ctx.fillStyle = '#ffd93d';
+            ctx.font = 'bold 16px Segoe UI';
+
+            ctx.fillText(
+                `${task.charName}  #${task.boxNum}`,
+                R,
+                y1
+            );
+
+            const y2 =
+                y+50;
+
+            ctx.textAlign = 'right';
+            ctx.fillStyle = '#555';
+            ctx.font = '14px Segoe UI';
+
+            ctx.fillText(
+                `Launch: ${task.launchDateStr}`,
+                R,
+                y2
+            );
+
+            const y3 =
+                y+80;
+
+            ctx.fillStyle = '#777';
+            ctx.font = '15px Segoe UI';
+            ctx.textAlign = 'left';
+
+            ctx.fillText(
+                'YouTube:',
+                L+5,
+                y3
+            );
+
+            ctx.fillText(
+                'TikTok:',
+                L+280,
+                y3
+            );
+
+            ctx.fillText(
+                'Instagram:',
+                L+520,
+                y3
+            );
+
+        });
+
+    }
+
+    ctx.fillStyle = '#222';
+    ctx.font = '12px Segoe UI';
+    ctx.textAlign = 'center';
+
+    ctx.fillText(
+        'Anime Product Manager',
+        W/2,
+        totalH-14
+    );
+
+    return dateEn.replace(/\//g,'-');
+
+}
+
+
+/* =========================================================
+   LOADING
+   ========================================================= */
+
+function showLoading(t,p){
+
+    document
+        .getElementById('loadingOverlay')
+        .classList.add('active');
+
+    document.getElementById('loadingText')
+        .textContent = t || '';
+
+    document.getElementById('loadingProgress')
+        .textContent = p || '';
+
+}
+
+
+function hideLoading(){
+
+    document
+        .getElementById('loadingOverlay')
+        .classList.remove('active');
+
+}
+
+
+/* =========================================================
+   CUSTOM SCHEDULE ZIP
+   ========================================================= */
+
+async function generateScheduleZip(){
+
+    const p1P =
+        getSelectedProducts(1);
+
+    const p2P =
+        getSelectedProducts(2);
+
+    const p2F =
+        document.getElementById('period2From').value;
+
+    const p2T =
+        document.getElementById('period2To').value;
+
+    if(!p2F || !p2T){
+
+        alert('Set dates');
+        return;
+
+    }
+
+    if(
+        ![
+            ...new Set([
+                ...p1P,
+                ...p2P
+            ])
+        ].length
+    ){
+
+        alert('Select a product');
+        return;
+
+    }
+
+    const dates =
+        getDateRange(p2F,p2T);
+
+    if(!dates.length){
+
+        alert('No days');
+        return;
+
+    }
+
+    if(typeof JSZip === 'undefined'){
+
+        alert('Wait...');
+        return;
+
+    }
+
+    showLoading(
+        'Creating...',
+        `0/${dates.length}`
+    );
+
+    await new Promise(
+        r=>setTimeout(r,100)
+    );
+
+    const zip =
+        new JSZip();
+
+    const canvas =
+        document.getElementById('hiddenCanvas');
+
+    const ctx =
+        canvas.getContext('2d');
+
+    for(let i=0;i<dates.length;i++){
+
+        const dt =
+            dates[i];
+
+        const dayTasks =
+            getTasksForDate(
+                dt,
+                p1P,
+                p2P
+            );
+
+        if(dayTasks.length > 0){
+
+            const fn =
+                drawDayImage(
+                    ctx,
+                    canvas,
+                    dt,
+                    dayTasks
+                );
+
+            const smartName =
+                `${fn}__${getDayEN(dt)}__${dayTasks.length}tasks.png`;
+
+            zip.file(
+                smartName,
+                canvas
+                    .toDataURL('image/png')
+                    .split(',')[1],
+                {
+                    base64:true
+                }
+            );
+
+        }
+
+        if(i%5===0){
+
+            document.getElementById(
+                'loadingProgress'
+            ).textContent =
+                `${i+1}/${dates.length}`;
+
+            await new Promise(
+                r=>setTimeout(r,1)
+            );
+
+        }
+
+    }
+
+    document.getElementById(
+        'loadingText'
+    ).textContent =
+        'Compressing...';
+
+    const content =
+        await zip.generateAsync({
+            type:'blob'
+        });
+
+    const link =
+        document.createElement('a');
+
+    link.href =
+        URL.createObjectURL(content);
+
+    link.download =
+        `schedule_${p2F}_${p2T}.zip`;
+
+    link.click();
+
+    URL.revokeObjectURL(link.href);
+
+    hideLoading();
+
+}
+
+
+/* =========================================================
+   FULL PROJECT
+   ========================================================= */
+
+function openProjectModal(){
+
+    document
+        .getElementById('projectModal')
+        .classList.add('active');
+
+    calcProjectInfo();
+
+}
+
+
+function closeProjectModal(){
+
+    document
+        .getElementById('projectModal')
+        .classList.remove('active');
+
+}
+
+
+function getNextDayOfWeek(from,dow){
+
+    const d =
+        new Date(from);
+
+    d.setHours(12,0,0,0);
+
+    while(
+        d.getDay() !== dow
+    ){
+
+        d.setDate(
+            d.getDate()+1
+        );
+
+    }
+
+    return d;
+
+}
+
+
+/* =========================================================
+   BUILD FULL SCHEDULE
+   ========================================================= */
+
+function buildFullSchedule(startStr){
+
+    const userDate =
+        new Date(startStr);
+
+    userDate.setHours(
+        12,0,0,0
+    );
+
+    /*
+        Tuesday = Fan Favorites
+    */
+
+    const firstTuesday =
+        getNextDayOfWeek(
+            userDate,
+            2
+        );
+
+    /*
+        Saturday = Headliners
+    */
+
+    const firstSaturday =
+        getNextDayOfWeek(
+            userDate,
+            6
+        );
+
+    const WEEKS_PER_ROUND =
+        Math.max(
+            TUESDAY_CHARS.length,
+            SATURDAY_CHARS.length
+        );
+
+    const launches = [];
+
+    /*
+        10 rounds
+        50 weeks per round
+    */
+
+    for(
+        let round=0;
+        round<10;
+        round++
+    ){
+
+        const boxNum =
+            round+1;
+
+        for(
+            let week=0;
+            week<WEEKS_PER_ROUND;
+            week++
+        ){
+
+            const wo =
+                (
+                    round *
+                    WEEKS_PER_ROUND +
+                    week
+                ) * 7;
+
+
+            /* =========================
+               TUESDAY — FAN FAVORITES
+               ========================= */
+
+            if(
+                week <
+                TUESDAY_CHARS.length
+            ){
+
+                const d =
+                    new Date(firstTuesday);
+
+                d.setDate(
+                    d.getDate()+wo
+                );
+
+                launches.push({
+                    charName:
+                        TUESDAY_CHARS[week],
+
+                    boxNum,
+
+                    launchDate:
+                        new Date(d),
+
+                    category:
+                        'Fan Favorites',
+
+                    launchDay:
+                        'Tuesday'
+                });
+
+            }
+
+
+            /* =========================
+               SATURDAY — HEADLINERS
+               ========================= */
+
+            if(
+                week <
+                SATURDAY_CHARS.length
+            ){
+
+                const d =
+                    new Date(firstSaturday);
+
+                d.setDate(
+                    d.getDate()+wo
+                );
+
+                launches.push({
+                    charName:
+                        SATURDAY_CHARS[week],
+
+                    boxNum,
+
+                    launchDate:
+                        new Date(d),
+
+                    category:
+                        'Headliners',
+
+                    launchDay:
+                        'Saturday'
+                });
+
+            }
+
+        }
+
+    }
+
+    let minD = null;
+    let maxD = null;
+
+    launches.forEach(l=>{
+
+        tasks.forEach(t=>{
+
+            const td =
+                new Date(
+                    l.launchDate
+                );
+
+            td.setDate(
+                td.getDate()+t.day
+            );
+
+            if(
+                !minD ||
+                td < minD
+            )
+                minD = new Date(td);
+
+            if(
+                !maxD ||
+                td > maxD
+            )
+                maxD = new Date(td);
+
+        });
+
+    });
+
+    return {
+        launches,
+        minTaskDate:minD,
+        maxTaskDate:maxD
+    };
+
+}
+
+
+/* =========================================================
+   PROJECT INFO
+   ========================================================= */
+
+function calcProjectInfo(){
+
+    const s =
+        document.getElementById(
+            'projectStartDate'
+        ).value;
+
+    const info =
+        document.getElementById(
+            'projectInfo'
+        );
+
+    if(!s){
+
+        info.textContent = '';
+        return;
+
+    }
+
+    const {
+        launches,
+        minTaskDate,
+        maxTaskDate
+    } =
+        buildFullSchedule(s);
+
+    const totalDays =
+        Math.round(
+            (
+                maxTaskDate -
+                minTaskDate
+            ) / 864e5
+        ) + 1;
+
+    info.innerHTML = `
+        📅 First task:
+        <strong>
+            ${fmtDateDMY(minTaskDate)}
+        </strong>
+        <br>
+
+        📅 Last task:
+        <strong>
+            ${fmtDateDMY(maxTaskDate)}
+        </strong>
+        <br>
+
+        📦 <strong>${launches.length}</strong>
+        launches |
+        <strong>${totalDays}</strong>
+        days |
+        ~<strong>${(totalDays/365).toFixed(1)}</strong>
+        years
+        <br>
+
+        🔁 First launch:
+        ${launches[0].charName}
+        #${launches[0].boxNum}
+        (${launches[0].launchDay})
+    `;
+
+}
+
+
+/* =========================================================
+   TASKS FROM FULL PROJECT
+   ========================================================= */
+
+function getTasksForDateFromLaunches(
+    date,
+    launches
+){
+
+    const result = [];
+
+    const td2 =
+        new Date(date);
+
+    td2.setHours(
+        12,0,0,0
+    );
+
+    launches.forEach(launch=>{
+
+        tasks.forEach(task=>{
+
+            const td =
+                new Date(
+                    launch.launchDate
+                );
+
+            td.setHours(
+                12,0,0,0
+            );
+
+            td.setDate(
+                td.getDate()+task.day
+            );
+
+            if(
+                td.toDateString() ===
+                td2.toDateString()
+            ){
+
+                result.push({
+
+                    charName:
+                        launch.charName,
+
+                    boxNum:
+                        launch.boxNum,
+
+                    day:
+                        task.day,
+
+                    desc:
+                        task.desc,
+
+                    completed:false,
+
+                    source:'period2',
+
+                    launchDateStr:
+                        fmtDateDMY(
+                            launch.launchDate
+                        )
+
+                });
+
+            }
+
+        });
+
+    });
+
+    return result;
+
+}
+
+
+/* =========================================================
+   WEEK ORGANIZATION
+   ========================================================= */
+
+function getSaturdayWeekStart(date){
+
+    const d =
+        new Date(date);
+
+    d.setHours(
+        12,0,0,0
+    );
+
+    const day =
+        d.getDay();
+
+    const diff =
+        day === 6
+        ? 0
+        : day+1;
+
+    d.setDate(
+        d.getDate()-diff
+    );
+
+    return d;
+
+}
+
+
+function getWeekLabel(date){
+
+    const sat =
+        getSaturdayWeekStart(date);
+
+    const fri =
+        new Date(sat);
+
+    fri.setDate(
+        fri.getDate()+6
+    );
+
+    return `
+        week_${fmtDateDMY(sat).replace(/\//g,'-')}
+        _to_
+        ${fmtDateDMY(fri).replace(/\//g,'-')}
+    `.replace(/\s/g,'');
+
+}
+
+
+/* =========================================================
+   MONTH REPORT
+   ========================================================= */
+
+function buildMonthReport(
+    year,
+    month,
+    monthData
+){
+
+    const monthName =
+        MONTHS_EN[month];
+
+    let totalTasks = 0;
+    let daysWithTasks = 0;
+
+    let maxDay = {
+        date:'',
+        count:0
+    };
+
+    let minDay = {
+        date:'',
+        count:999
+    };
+
+    const details = [];
+
+    const sorted =
+        Object.keys(monthData).sort();
+
+    sorted.forEach(ds=>{
+
+        const count =
+            monthData[ds];
+
+        totalTasks += count;
+
+        if(count > 0){
+
+            daysWithTasks++;
+
+            const d =
+                new Date(ds);
+
+            d.setHours(
+                12,0,0,0
+            );
+
+            const dn =
+                getDayFull(d);
+
+            const formattedDateStr =
+                fmtDateDMY(d);
+
+            if(
+                count >
+                maxDay.count
+            ){
+
+                maxDay = {
+                    date:
+                        formattedDateStr,
+                    count,
+                    dayName:
+                        dn
+                };
+
+            }
+
+            if(
+                count <
+                minDay.count
+            ){
+
+                minDay = {
+                    date:
+                        formattedDateStr,
+                    count,
+                    dayName:
+                        dn
+                };
+
+            }
+
+            let level =
+                '🟢 Light';
+
+            if(count >= 8)
+                level =
+                    '🔴 Very Heavy!';
+
+            else if(count >= 5)
+                level =
+                    'orange Heavy';
+
+            else if(count >= 3)
+                level =
+                    '🟡 Medium';
+
+            details.push(
+                `   ${level}  ${formattedDateStr} (${dn}) - ${count} tasks`
+            );
+
+        }
+
+    });
+
+    const totalDaysInMonth =
+        new Date(
+            year,
+            month+1,
+            0
+        ).getDate();
+
+    let report =
+        `═══════════════════════════════════════════════\n`;
+
+    report +=
+        `   📊 Monthly Report: ${monthName} ${year}\n`;
+
+    report +=
+        `═══════════════════════════════════════════════\n\n`;
+
+    report +=
+        `   Total Tasks: ${totalTasks}\n`;
+
+    report +=
+        `   Days with Tasks: ${daysWithTasks}\n`;
+
+    report +=
+        `   Empty Days: ${totalDaysInMonth-daysWithTasks}\n`;
+
+    if(maxDay.count > 0){
+
+        report +=
+            `   🔴 Heaviest Day: ${maxDay.date} (${maxDay.dayName}) - ${maxDay.count} tasks\n`;
+
+    }
+
+    if(minDay.count < 999){
+
+        report +=
+            `   🟢 Lightest Day: ${minDay.date} (${minDay.dayName}) - ${minDay.count} tasks\n`;
+
+    }
+
+    report +=
+        `\n───────────────────────────────────────────────\n`;
+
+    report +=
+        `   📅 Daily Breakdown (sorted by load):\n`;
+
+    report +=
+        `───────────────────────────────────────────────\n`;
+
+    details.sort((a,b)=>{
+
+        const ca =
+            parseInt(
+                a.match(/(\d+) tasks/)[1]
+            );
+
+        const cb =
+            parseInt(
+                b.match(/(\d+) tasks/)[1]
+            );
+
+        return cb-ca;
+
+    });
+
+    report +=
+        details.join('\n')+'\n';
+
+    return report;
+
+}
+
+
+/* =========================================================
+   CSV
+   ========================================================= */
+
+function buildCSV(allDaysData){
+
+    let csv = '\uFEFF';
+
+    csv +=
+        'Date,Day,Character,Product,Task Day,Task\n';
+
+    Object.keys(allDaysData)
+        .sort()
+        .forEach(ds=>{
+
+            const dayTasks =
+                allDaysData[ds];
+
+            if(
+                dayTasks &&
+                dayTasks.length > 0
+            ){
+
+                const d =
+                    new Date(ds);
+
+                d.setHours(
+                    12,0,0,0
+                );
+
+                const dn =
+                    getDayFull(d);
+
+                const dateFormatted =
+                    fmtDateDMY(d);
+
+                dayTasks.forEach(t=>{
+
+                    csv +=
+                        `${dateFormatted},${dn},${t.charName},#${t.boxNum},${t.day>=0?'+'+t.day:t.day},${t.desc}\n`;
+
+                });
+
+            }
+
+        });
+
+    return csv;
+
+}
+
+
+/* =========================================================
+   GENERATE FULL PROJECT
+   ========================================================= */
+
+async function generateFullProject(){
+
+    const startStr =
+        document.getElementById(
+            'projectStartDate'
+        ).value;
+
+    if(!startStr){
+
+        alert('Pick a date');
+        return;
+
+    }
+
+    if(typeof JSZip === 'undefined'){
+
+        alert('Wait...');
+        return;
+
+    }
+
+    showLoading(
+        'Calculating schedule...'
+    );
+
+    await new Promise(
+        r=>setTimeout(r,100)
+    );
+
+    const {
+        launches,
+        minTaskDate,
+        maxTaskDate
+    } =
+        buildFullSchedule(
+            startStr
+        );
+
+
+    /* =====================================================
+       SAVE LAUNCH DATES
+       ===================================================== */
+
+    launches.forEach(l=>{
+
+        const key =
+            getKey(
+                l.charName,
+                l.boxNum
+            );
+
+        if(!savedData[key]){
+
+            savedData[key] = {
+                tasks:
+                    new Array(7).fill(false)
+            };
+
+        }
+
+        savedData[key].launchDate =
+            fmtDateEn(
+                l.launchDate
+            );
+
+    });
+
+
+    localStorage.setItem(
+        'animeProductManager',
+        JSON.stringify(savedData)
+    );
+
+
+    /* =====================================================
+       CALCULATE ALL DAYS
+       ===================================================== */
+
+    const allDates =
+        getDateRange(
+            fmtDateEn(minTaskDate),
+            fmtDateEn(maxTaskDate)
+        );
+
+    showLoading(
+        `Processing ${allDates.length} days...`,
+        'Phase 1: Calculating tasks'
+    );
+
+    await new Promise(
+        r=>setTimeout(r,50)
+    );
+
+    const allDaysData = {};
+    const monthsData = {};
+
+    for(
+        let i=0;
+        i<allDates.length;
+        i++
+    ){
+
+        const date =
+            allDates[i];
+
+        const ds =
+            fmtDateEn(date);
+
+        const dayTasks =
+            getTasksForDateFromLaunches(
+                date,
+                launches
+            );
+
+        allDaysData[ds] =
+            dayTasks;
+
+        const mk =
+            ds.substring(0,7);
+
+        if(!monthsData[mk])
+            monthsData[mk] = {};
+
+        monthsData[mk][ds] =
+            dayTasks.length;
+
+        if(i%100===0){
+
+            document.getElementById(
+                'loadingProgress'
+            ).textContent =
+                `Calc: ${i+1}/${allDates.length}`;
+
+            await new Promise(
+                r=>setTimeout(r,1)
+            );
+
+        }
+
+    }
+
+
+    /* =====================================================
+       CREATE IMAGES
+       ===================================================== */
+
+    showLoading(
+        'Creating images...',
+        'Phase 2'
+    );
+
+    await new Promise(
+        r=>setTimeout(r,50)
+    );
+
+    const zip =
+        new JSZip();
+
+    const canvas =
+        document.getElementById(
+            'hiddenCanvas'
+        );
+
+    const ctx =
+        canvas.getContext('2d');
+
+    let imgCount = 0;
+
+    const allImagesFolder =
+        zip.folder('all_images');
+
+    const organizedFolder =
+        zip.folder('organized');
+
+
+    for(
+        let i=0;
+        i<allDates.length;
+        i++
+    ){
+
+        const date =
+            allDates[i];
+
+        const ds =
+            fmtDateEn(date);
+
+        const dayTasks =
+            allDaysData[ds];
+
+        if(dayTasks.length > 0){
+
+            const fileDateName =
+                drawDayImage(
+                    ctx,
+                    canvas,
+                    date,
+                    dayTasks
+                );
+
+            const imgData =
+                canvas
+                    .toDataURL('image/png')
+                    .split(',')[1];
+
+            const smartName =
+                `${fileDateName}__${getDayEN(date)}__${dayTasks.length}tasks.png`;
+
+
+            allImagesFolder.file(
+                smartName,
+                imgData,
+                {
+                    base64:true
+                }
+            );
+
+
+            const year =
+                date.getFullYear();
+
+            const monthNum =
+                String(
+                    date.getMonth()+1
+                ).padStart(2,'0');
+
+            const monthLabel =
+                `${monthNum}-${getMonthEN(date)}`;
+
+            const weekLabel =
+                getWeekLabel(date);
+
+
+            organizedFolder
+                .folder(String(year))
+                .folder(monthLabel)
+                .folder(weekLabel)
+                .file(
+                    smartName,
+                    imgData,
+                    {
+                        base64:true
+                    }
+                );
+
+            imgCount++;
+
+        }
+
+        if(i%15===0){
+
+            document.getElementById(
+                'loadingProgress'
+            ).textContent =
+                `Image ${imgCount} | Day ${i+1}/${allDates.length}`;
+
+            await new Promise(
+                r=>setTimeout(r,1)
+            );
+
+        }
+
+    }
+
+
+    /* =====================================================
+       MONTHLY REPORTS
+       ===================================================== */
+
+    showLoading(
+        'Creating reports...',
+        'Phase 3'
+    );
+
+    await new Promise(
+        r=>setTimeout(r,50)
+    );
+
+    Object.keys(monthsData)
+        .sort()
+        .forEach(mk=>{
+
+            const [
+                ys,
+                ms
+            ] =
+                mk.split('-');
+
+            const year =
+                parseInt(ys);
+
+            const month =
+                parseInt(ms)-1;
+
+            const monthLabel =
+                `${ms}-${MONTHS_EN[month]}`;
+
+            const report =
+                buildMonthReport(
+                    year,
+                    month,
+                    monthsData[mk]
+                );
+
+            organizedFolder
+                .folder(ys)
+                .folder(monthLabel)
+                .file(
+                    'month_report.txt',
+                    report
+                );
+
+        });
+
+
+    /* =====================================================
+       CSV
+       ===================================================== */
+
+    showLoading(
+        'Creating spreadsheet...',
+        'Phase 4'
+    );
+
+    zip.file(
+        'calendar.csv',
+        buildCSV(allDaysData)
+    );
+
+
+    /* =====================================================
+       COMPRESS
+       ===================================================== */
+
+    showLoading(
+        `Compressing ${imgCount} images...`,
+        'Final phase'
+    );
+
+    const content =
+        await zip.generateAsync({
+            type:'blob'
+        });
+
+    const link =
+        document.createElement('a');
+
+    link.href =
+        URL.createObjectURL(content);
+
+    link.download =
+        `full_project_${startStr}.zip`;
+
+    link.click();
+
+    URL.revokeObjectURL(link.href);
+
+    hideLoading();
+
+
+    alert(
+        `✅ Done!\n\n` +
+        `📦 ${launches.length} launches\n` +
+        `🖼️ ${imgCount} images\n` +
+        `📁 Organized: Year→Month→Week\n` +
+        `📊 Monthly reports\n` +
+        `📄 calendar.csv\n\n` +
+        `From ${fmtDateDMY(minTaskDate)}\n` +
+        `To ${fmtDateDMY(maxTaskDate)}`
+    );
+
+}
+
+
+/* =========================================================
+   INITIALIZE
+   ========================================================= */
+
+initCategoryTabs();
+
+renderCharacters(null);
+
+</script>
+
+</body>
+</html>
